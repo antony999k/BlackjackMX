@@ -8,13 +8,12 @@ C++ Blackjack game
 
 # Contribute
 
-##Packages and Libraries
+## Packages and Libraries
 - SFML `v2.5.1`
 
 ## Style Guide
 ### Messages in git commits
 
-- Use sentences in present
 - Write the commits and tags in English
 - Comenzar el commit con mayúsculas
 - Start the commit with upper case
