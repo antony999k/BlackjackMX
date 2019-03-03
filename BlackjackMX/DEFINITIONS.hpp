@@ -9,9 +9,6 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
-using namespace sf;
-using namespace std;
-
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
@@ -20,5 +17,6 @@ using namespace std;
 
 //GAME DEFINITIONS
 #define GAME_SUM_LIMIT 21
+#define DECK_SIZE 52
 
 #endif /* DEFINITIONS_h */

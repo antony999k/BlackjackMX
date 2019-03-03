@@ -11,28 +11,42 @@
 
 #include <stdio.h>
 #include <iostream>
-#include <ctime>
+#include "DEFINITIONS.hpp"
 
 class Card{
 private:
-    unsigned char suit; //Hearts, Diamonds, Spades, Clubs
+    int suit; //0)Hearts, 1)Diamonds, 2)Spades, 3)Clubs
     int value; //Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
     int cardStatus; //1)In Deck 2) In play 3) Out of the game
 public:
-    Card(unsigned char = ' ', int = 0, int = 0);
-    void setCard(unsigned char, int);
-};
-
-class Deck{
-private:
-    Card cards[52];
-    int numCards;
+    Card(int = -1, int = 0, int = -1);
+    void setCard(int, int);
+    unsigned char getSuit();
+    int getValue();
+    bool isFaceUp(); //Indicates if the card is face up
+    void flipCard(); //If the card is face down becomes face up and viceversa
+    void consoleDisplay(); //Diplay a card in console for Debug and testing
 };
 
 class Hand{
 private:
     Card cards[11]; //Max cards that you can have before overcome 21
     int numCards;
+public:
+    bool addCard(Card *);
+    void clear();
+    int totalValue();
+};
+
+class Deck{
+private:
+    Card deckCards[DECK_SIZE];
+    int numCards;
+public:
+    void populate(); //Creata a 52 cards deck
+    void shuffle(); //Shiffle the created deck
+    void dealToHand(Hand&);
+    void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };
 
 class Player{
@@ -50,6 +64,9 @@ class Game{
     Player *players;
     int numPlayers;
     Dealer gameDealer;
+public:
+    void play(); //A blackjack round
+    void flipFirstCard();
 };
 
 #endif /* blackjack_hpp */

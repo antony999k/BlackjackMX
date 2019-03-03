@@ -8,8 +8,12 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <string.h>
 #include "DEFINITIONS.hpp"
 #include "blackjack.hpp"
+
+using namespace sf;
+using namespace std;
 
 int main(int argc, const char * argv[]) {
     //Render Window
@@ -26,6 +30,11 @@ int main(int argc, const char * argv[]) {
     Sprite bgSprite(bgTexture);
     cardSprite.scale(0.5, 0.5);
     
+    Deck deck;
+    deck.populate();
+    deck.consoleDisplay();
+    
+    
     //Manage windows event
     while (window.isOpen()) {
         Event event;
@@ -39,10 +48,17 @@ int main(int argc, const char * argv[]) {
         
         window.clear();
         //Draw Objects
-        window.draw(bgSprite);
-        cardSprite.setTextureRect(IntRect(0,0,width,height));
-        cardSprite.setPosition(127, 200);
-        window.draw(cardSprite);
+        window.draw(bgSprite); //Render the background
+        
+        int i;
+        for (i = 0; i<13; i++) {
+            cardSprite.setTextureRect(IntRect(width*i,0,width,height));
+            cardSprite.setPosition((width*i)/2, 0);
+            window.draw(cardSprite);
+        }
+    
+        //cardSprite.setTextureRect(IntRect(0,0,width,height));
+        //cardSprite.setPosition(0, 0);
         
         window.display();
     }
