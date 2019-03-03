@@ -8,11 +8,20 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <time.h>
 using namespace sf;
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    RenderWindow window(sf::VideoMode(600,600), "Blackjack MX");
+    //Render Window
+    RenderWindow window(VideoMode(600,600), "Blackjack MX");
+    
+    Texture cardTexture;
+    cardTexture.loadFromFile("Resources/Images/playingCards.png");
+    
+    Sprite cardSprite(cardTexture);
+    
+    //Manage windows event
     while (window.isOpen()) {
         Event event;
         while (window.pollEvent(event)) {
@@ -25,6 +34,7 @@ int main(int argc, const char * argv[]) {
         
         window.clear(Color::White);
         //Draw Objects
+        window.draw(cardSprite);
         window.display();
     }
 }

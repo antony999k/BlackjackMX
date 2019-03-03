@@ -12,17 +12,19 @@
 		2BC14F57222B3290007CC404 /* libsfml-window.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F53222B3290007CC404 /* libsfml-window.2.5.1.dylib */; };
 		2BC14F58222B3290007CC404 /* libsfml-audio.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */; };
 		2BC14F59222B3290007CC404 /* libsfml-graphics.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */; };
+		2BC14F74222C390E007CC404 /* Resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BC14F73222C3902007CC404 /* Resources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		2BC14F45222B31CA007CC404 /* CopyFiles */ = {
+		2BC14F71222C386F007CC404 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
+				2BC14F74222C390E007CC404 /* Resources in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -33,6 +35,7 @@
 		2BC14F53222B3290007CC404 /* libsfml-window.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-window.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-window.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-audio.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-audio.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-graphics.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-graphics.2.5.1.dylib"; sourceTree = "<group>"; };
+		2BC14F73222C3902007CC404 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +73,7 @@
 		2BC14F49222B31CA007CC404 /* BlackjackMX */ = {
 			isa = PBXGroup;
 			children = (
+				2BC14F73222C3902007CC404 /* Resources */,
 				2BC14F4A222B31CA007CC404 /* main.cpp */,
 			);
 			path = BlackjackMX;
@@ -95,7 +99,7 @@
 			buildPhases = (
 				2BC14F43222B31CA007CC404 /* Sources */,
 				2BC14F44222B31CA007CC404 /* Frameworks */,
-				2BC14F45222B31CA007CC404 /* CopyFiles */,
+				2BC14F71222C386F007CC404 /* CopyFiles */,
 			);
 			buildRules = (
 			);

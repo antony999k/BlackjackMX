@@ -11,6 +11,10 @@ C++ Blackjack game
 ## Packages and Libraries
 - SFML `v2.5.1`
 
+## Configure Xcode
+### Link Resources folder
+![Link Resources folder](BlackjackMX/Resources/Demos/linkResources.gif)
+
 ## Style Guide
 ### Messages in git commits
 
