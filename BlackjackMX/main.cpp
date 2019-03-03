@@ -8,18 +8,23 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include <time.h>
-using namespace sf;
-using namespace std;
+#include "DEFINITIONS.hpp"
+#include "blackjack.hpp"
 
 int main(int argc, const char * argv[]) {
     //Render Window
-    RenderWindow window(VideoMode(600,600), "Blackjack MX");
+    RenderWindow window(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
+    window.setFramerateLimit(30);
     
-    Texture cardTexture;
-    cardTexture.loadFromFile("Resources/Images/playingCards.png");
+    int x,y,width=140,height=190;
+    
+    Texture cardTexture,bgTexture;
+    cardTexture.loadFromFile(GAME_BACKGROUND_PATH);
+    bgTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
     
     Sprite cardSprite(cardTexture);
+    Sprite bgSprite(bgTexture);
+    cardSprite.scale(0.5, 0.5);
     
     //Manage windows event
     while (window.isOpen()) {
@@ -32,9 +37,14 @@ int main(int argc, const char * argv[]) {
             }
         }
         
-        window.clear(Color::White);
+        window.clear();
         //Draw Objects
+        window.draw(bgSprite);
+        cardSprite.setTextureRect(IntRect(0,0,width,height));
+        cardSprite.setPosition(127, 200);
         window.draw(cardSprite);
+        
         window.display();
     }
+    return 0;
 }

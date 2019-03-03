@@ -13,6 +13,7 @@
 		2BC14F58222B3290007CC404 /* libsfml-audio.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */; };
 		2BC14F59222B3290007CC404 /* libsfml-graphics.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */; };
 		2BC14F74222C390E007CC404 /* Resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BC14F73222C3902007CC404 /* Resources */; };
+		2BC14F80222C62A9007CC404 /* blackjack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC14F7E222C62A9007CC404 /* blackjack.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,9 @@
 		2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-audio.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-audio.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-graphics.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-graphics.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F73222C3902007CC404 /* Resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Resources; sourceTree = "<group>"; };
+		2BC14F7E222C62A9007CC404 /* blackjack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = blackjack.cpp; sourceTree = "<group>"; };
+		2BC14F7F222C62A9007CC404 /* blackjack.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = blackjack.hpp; sourceTree = "<group>"; };
+		2BC14F82222C7234007CC404 /* DEFINITIONS.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = DEFINITIONS.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +79,9 @@
 			children = (
 				2BC14F73222C3902007CC404 /* Resources */,
 				2BC14F4A222B31CA007CC404 /* main.cpp */,
+				2BC14F7E222C62A9007CC404 /* blackjack.cpp */,
+				2BC14F7F222C62A9007CC404 /* blackjack.hpp */,
+				2BC14F82222C7234007CC404 /* DEFINITIONS.hpp */,
 			);
 			path = BlackjackMX;
 			sourceTree = "<group>";
@@ -146,6 +153,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BC14F80222C62A9007CC404 /* blackjack.cpp in Sources */,
 				2BC14F4B222B31CA007CC404 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

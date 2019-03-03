@@ -11,8 +11,9 @@ C++ Blackjack game
 ## Packages and Libraries
 - SFML `v2.5.1`
 
-### Instal SFML on Mac
+### Install SFML on Mac
 `ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)" < /dev/null 2> /dev/null`
+
 `brew install sfml`
 
 ## Configure Xcode
