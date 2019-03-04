@@ -11,6 +11,7 @@
 #include <string.h>
 #include "DEFINITIONS.hpp"
 #include "blackjack.hpp"
+#include <ctime>
 
 using namespace sf;
 using namespace std;
@@ -20,8 +21,6 @@ int main(int argc, const char * argv[]) {
     RenderWindow window(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
     window.setFramerateLimit(30);
     
-    int x,y,width=140,height=190;
-    
     Texture cardTexture,bgTexture;
     cardTexture.loadFromFile(GAME_BACKGROUND_PATH);
     bgTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
@@ -30,23 +29,8 @@ int main(int argc, const char * argv[]) {
     Sprite bgSprite(bgTexture);
     cardSprite.scale(0.5, 0.5);
     
-    Deck deck;
-    deck.populate();
-    deck.shuffle();
-    deck.consoleDisplay();
-    
-    Hand player_hand;
-    deck.dealToHand(player_hand);
-    deck.dealToHand(player_hand);
-    cout << endl << "Player:";
-    player_hand.consoleDisplay();
-    cout << endl;
-    
-    deck.consoleDisplay();
-    
-    cout << endl << "Player:";
-    player_hand.consoleDisplay();
-    cout << endl;
+    Game game;
+    game.play();
     
     //Manage windows event
     while (window.isOpen()) {
@@ -62,17 +46,17 @@ int main(int argc, const char * argv[]) {
         window.clear();
         //Draw Objects
         window.draw(bgSprite); //Render the background
-        
-        int i;
-        for (i = 0; i<player_hand.getNumberCards(); i++) {
-            cardSprite.setTextureRect(IntRect(width*0,height*0,width,height));
-            cardSprite.setPosition((width*i)/2, (height*0)/2);
+        /*
+        for (int i = 0; i<player_hand.getNumberCards(); i++) {
+            tempCard = player_hand.getCard(i);
+            cardSprite.setTextureRect(IntRect(CARD_WIDTH*(tempCard->getValue()-1),CARD_HEIGHT*(tempCard->getSuit()),CARD_WIDTH,CARD_HEIGHT));
+            cardSprite.setPosition((CARD_WIDTH*i)/2, (CARD_HEIGHT*0)/2);
             window.draw(cardSprite);
-        }
+        }*/
     
-        //cardSprite.setTextureRect(IntRect(0,0,width,height));
-        //cardSprite.setPosition(0, 0);
-        
+        cardSprite.setTextureRect(IntRect(0,0,CARD_WIDTH,CARD_HEIGHT));
+        cardSprite.setPosition(0, 0);
+        window.draw(cardSprite);
         window.display();
     }
     return 0;

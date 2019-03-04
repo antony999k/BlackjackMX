@@ -12,6 +12,9 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
+#define CARD_WIDTH 140
+#define CARD_HEIGHT 190
+
 #define GAME_BACKGROUND_PATH "Resources/Images/PlayingCards.png"
 #define GAME_CARD_ATLAS_PATH "Resources/Images/bg.jpg"
 

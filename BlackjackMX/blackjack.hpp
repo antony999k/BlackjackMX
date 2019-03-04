@@ -40,9 +40,9 @@ protected:
 public:
     Card*getCard(int);
     void deletLastCard();
-    void addCard(class Card *);
     void clear();
     int getTotalValue();
+    void addCard(class Card *);
     int getNumberCards();
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };
@@ -54,28 +54,36 @@ public:
     void dealToHand(Hand&);
 };
 
-class GenericPlayer{
-    
+class GenericPlayer: public Hand{
+protected:
+    string name;
+    string port;
+    bool busted;
+    bool playing; //Indicates if is the player turn
+public:
+    GenericPlayer(string = "", string = "", bool = false, bool = false);
+    void setPlayer(string, string);
+    bool isPlaying();
+    bool isBusted(); //Indicate if the player is out of cards
+    void push(); //It sends when a player push one card
 };
 
 class Player: public GenericPlayer{
-private:
-    Hand playerHand;
+public:
+    void win(); //It sends when a player win
+    void tie(); ////It sends when a player tie
+    void bust(); //It sends when a player is busted
 };
 
 class Dealer: public GenericPlayer{
-private:
-    Hand dealerHand;
+public:
+    void flipFirstCard(); //Dealer flip the first card
 };
 
 class Game{
-    Deck deck;
-    Player *players;
     int numPlayers;
-    Dealer gameDealer;
 public:
     void play(); //A blackjack round
-    void flipFirstCard();
 };
 
 #endif /* blackjack_hpp */

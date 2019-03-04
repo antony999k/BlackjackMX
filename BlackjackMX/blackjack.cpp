@@ -8,17 +8,41 @@
 
 #include "blackjack.hpp"
 
+//Play game function ************************************
+void Game::play(){
+    Deck gameDeck;
+    Dealer dealer;
+    vector<Player> players;
+    
+    Player tempPlayer;
+    players.push_back(tempPlayer);
+    
+    gameDeck.populate();
+    gameDeck.populate();
+    gameDeck.shuffle();
+    //gameDeck.consoleDisplay();
+    
+    gameDeck.dealToHand(dealer);
+    gameDeck.dealToHand(players[0]);
+    gameDeck.dealToHand(dealer);
+    gameDeck.dealToHand(players[0]);
+    dealer.flipFirstCard();
+    
+    dealer.consoleDisplay();
+    players[0].consoleDisplay();
+}
+
 //Card functions ************************************
-Card::Card(int s, int v, int cs, bool _faceUp){
-    suit = s;
-    value = v;
-    cardStatus = cs;
+Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
+    suit = _suit;
+    value = _value;
+    cardStatus = _cardStatus;
     faceUp = _faceUp;
 }
 
-void Card::setCard(int s, int v){
-    suit = s;
-    value = v;
+void Card::setCard(int _suit, int _value){
+    suit = _suit;
+    value = _value;
 }
 
 void Card::swap(Card &c){
@@ -53,39 +77,43 @@ void Card::flipCard(){
 }
 
 void Card::consoleDisplay(){
-    switch (value) {
-        case 1:
-            cout << "A";
-            break;
-        case 11:
-            cout << "J";
-            break;
-        case 12:
-            cout << "Q";
-            break;
-        case 13:
-            cout << "K";
-            break;
-        default:
-            cout << value;
-            break;
-    }
-    switch (suit) {
-        case 0:
-            cout << 'H';
-            break;
-        case 1:
-            cout << 'D';
-            break;
-        case 2:
-            cout << 'S';
-            break;
-        case 3:
-            cout << 'C';
-            break;
-        default:
-            cout << "ERROR_IN_SUIT_TYPE";
-            break;
+    if(!faceUp){
+        cout << "X";
+    }else{
+        switch (value) {
+            case 1:
+                cout << "A";
+                break;
+            case 11:
+                cout << "J";
+                break;
+            case 12:
+                cout << "Q";
+                break;
+            case 13:
+                cout << "K";
+                break;
+            default:
+                cout << value;
+                break;
+        }
+        switch (suit) {
+            case 0:
+                cout << 'H';
+                break;
+            case 1:
+                cout << 'D';
+                break;
+            case 2:
+                cout << 'S';
+                break;
+            case 3:
+                cout << 'C';
+                break;
+            default:
+                cout << "ERROR_IN_SUIT_TYPE";
+                break;
+        }
     }
     cout << " ";
 }
@@ -112,7 +140,7 @@ int Hand::getTotalValue(){
 }
 
 int Hand::getNumberCards(){
-    return deckCards.size();
+    return (int)deckCards.size();
 }
 
 void Hand::addCard(Card *c){
@@ -141,14 +169,38 @@ void Deck::populate(){
 }
 
 void Deck::shuffle(){
-    auto rng = default_random_engine {};
-    std::shuffle(begin(deckCards), end(deckCards), rng);
+    std::random_shuffle(begin(deckCards), end(deckCards));
 }
 
-void Deck::dealToHand(Hand& h){
+void Deck::dealToHand(Hand& _hand){
     int i = getNumberCards() - 1;
-    h.addCard(getCard(i));
+    _hand.addCard(getCard(i));
     deletLastCard();
 }
 
+//GenericPlayer functions ************************************
+GenericPlayer::GenericPlayer(string _name, string _port, bool _busted, bool _playing){
+    name = _name;
+    port = _port;
+    busted = _busted;
+    playing = _playing;
+}
 
+bool GenericPlayer::isBusted(){
+    return busted;
+}
+
+void GenericPlayer::setPlayer(string _name, string _port){
+    name = _name;
+    port = _port;
+}
+
+//Player functions ************************************
+void Player::bust(){
+    busted = true;
+}
+
+//Dealer functions ************************************
+void Dealer::flipFirstCard(){
+    deckCards[0].flipCard();
+}
