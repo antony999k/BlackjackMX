@@ -35,6 +35,20 @@ int main(int argc, const char * argv[]) {
     deck.shuffle();
     deck.consoleDisplay();
     
+    Hand player_hand;
+    deck.dealToHand(player_hand);
+    deck.dealToHand(player_hand);
+    cout << endl << "Player:";
+    player_hand.consoleDisplay();
+    cout << endl;
+    
+    deck.consoleDisplay();
+    cout << endl << "Player:";
+    cout << endl;
+    
+    cout << endl << "Player:";
+    player_hand.consoleDisplay();
+    cout << endl;
     
     //Manage windows event
     while (window.isOpen()) {
@@ -52,7 +66,7 @@ int main(int argc, const char * argv[]) {
         window.draw(bgSprite); //Render the background
         
         int i;
-        for (i = 0; i<13; i++) {
+        for (i = 0; i<2; i++) {
             cardSprite.setTextureRect(IntRect(width*i,0,width,height));
             cardSprite.setPosition((width*i)/2, 0);
             window.draw(cardSprite);

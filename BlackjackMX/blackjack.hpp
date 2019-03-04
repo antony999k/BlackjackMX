@@ -22,11 +22,12 @@ private:
     int suit; //0)Hearts, 1)Diamonds, 2)Spades, 3)Clubs
     int value; //Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
     int cardStatus; //1)In Deck 2) In play 3) Out of the game
+    bool faceUp;
 public:
-    Card(int = -1, int = 0, int = -1);
+    Card(int = -1, int = 0, int = -1, bool = true);
     void setCard(int, int);
     void swap(Card&);
-    unsigned char getSuit();
+    int getSuit();
     int getValue();
     bool isFaceUp(); //Indicates if the card is face up
     void flipCard(); //If the card is face down becomes face up and viceversa
@@ -34,32 +35,34 @@ public:
 };
 
 class Hand{
-private:
-    Card cards[11]; //Max cards that you can have before overcome 21
-    int numCards;
+protected:
+    vector<Card> deckCards;
 public:
-    bool addCard(Card *);
+    Card* getLastCard();
+    void deletLastCard();
+    void addCard(class Card *);
     void clear();
-    int totalValue();
+    int getTotalValue();
+    void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };
 
-class Deck{
-private:
-    vector<Card> deckCards;
-    int numCards;
+class Deck: public Hand{
 public:
     void populate(); //Creata a 52 cards deck
     void shuffle(); //Shuffle the created deck
     void dealToHand(Hand&);
-    void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };
 
-class Player{
+class GenericPlayer{
+    
+};
+
+class Player: public GenericPlayer{
 private:
     Hand playerHand;
 };
 
-class Dealer{
+class Dealer: public GenericPlayer{
 private:
     Hand dealerHand;
 };
