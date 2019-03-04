@@ -9,7 +9,23 @@
 #include "blackjack.hpp"
 
 //Play game function ************************************
-void Game::play(){
+Game::Game(){
+    gameWindow = new RenderWindow(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
+    gameWindow->setFramerateLimit(FRAME_RATE);
+    
+    cardTexture = new Texture;
+    bgTexture = new Texture;
+    cardSprite = new Sprite;
+    bgSprite = new Sprite;
+    
+    cardTexture->loadFromFile(GAME_BACKGROUND_PATH);
+    bgTexture->loadFromFile(GAME_CARD_ATLAS_PATH);
+    
+    cardSprite->setTexture(*cardTexture);
+    bgSprite->setTexture(*bgTexture);
+    cardSprite->scale(0.5, 0.5);
+    
+    /*
     Deck gameDeck;
     Dealer dealer;
     vector<Player> players;
@@ -30,6 +46,39 @@ void Game::play(){
     
     dealer.consoleDisplay();
     players[0].consoleDisplay();
+     */
+    
+    render();
+}
+
+void Game::render(){
+    //Manage windows event
+    while (gameWindow->isOpen()) {
+        Event event;
+        while (gameWindow->pollEvent(event)) {
+            switch (event.type) {
+                case Event::Closed:
+                    gameWindow->close();
+                    break;
+            }
+        }
+        
+        gameWindow->clear();
+        //Draw Objects
+        gameWindow->draw(*bgSprite);//Render the background
+        /*
+         for (int i = 0; i<player_hand.getNumberCards(); i++) {
+         tempCard = player_hand.getCard(i);
+         cardSprite.setTextureRect(IntRect(CARD_WIDTH*(tempCard->getValue()-1),CARD_HEIGHT*(tempCard->getSuit()),CARD_WIDTH,CARD_HEIGHT));
+         cardSprite.setPosition((CARD_WIDTH*i)/2, (CARD_HEIGHT*0)/2);
+         window.draw(cardSprite);
+         }*/
+        
+        cardSprite->setTextureRect(IntRect(0,0,CARD_WIDTH,CARD_HEIGHT));
+        cardSprite->setPosition(0, 0);
+        gameWindow->draw(*cardSprite);
+        gameWindow->display();
+    }
 }
 
 //Card functions ************************************
@@ -196,6 +245,10 @@ void GenericPlayer::setPlayer(string _name, string _port){
 }
 
 //Player functions ************************************
+Player::Player(int _bank){
+    bank = _bank;
+}
+
 void Player::bust(){
     busted = true;
 }

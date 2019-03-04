@@ -13,9 +13,11 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <SFML/Graphics.hpp>
 #include "DEFINITIONS.hpp"
 
 using namespace std;
+using namespace sf;
 
 class Card{
 private:
@@ -69,7 +71,10 @@ public:
 };
 
 class Player: public GenericPlayer{
+private:
+    int bank;
 public:
+    Player(int = 1000);
     void win(); //It sends when a player win
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
@@ -82,8 +87,12 @@ public:
 
 class Game{
     int numPlayers;
+    RenderWindow * gameWindow;
 public:
-    void play(); //A blackjack round
+    Game(); //A blackjack round
+    void render();
+    Texture *cardTexture, *bgTexture;
+    Sprite *cardSprite, *bgSprite;
 };
 
 #endif /* blackjack_hpp */

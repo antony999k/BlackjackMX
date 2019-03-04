@@ -12,6 +12,8 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
+#define FRAME_RATE 40
+
 #define CARD_WIDTH 140
 #define CARD_HEIGHT 190
 
