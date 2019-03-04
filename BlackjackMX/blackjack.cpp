@@ -95,8 +95,8 @@ void Hand::clear(){
     deckCards.clear();
 }
 
-Card* Hand::getLastCard(){
-    return &deckCards.back();
+Card* Hand::getCard(int index){
+    return &deckCards[index];
 }
 
 void Hand::deletLastCard(){
@@ -109,6 +109,10 @@ int Hand::getTotalValue(){
         value += deckCards[i].getValue();
     }
     return value;
+}
+
+int Hand::getNumberCards(){
+    return deckCards.size();
 }
 
 void Hand::addCard(Card *c){
@@ -142,7 +146,8 @@ void Deck::shuffle(){
 }
 
 void Deck::dealToHand(Hand& h){
-    h.addCard(getLastCard());
+    int i = getNumberCards() - 1;
+    h.addCard(getCard(i));
     deletLastCard();
 }
 

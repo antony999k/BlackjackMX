@@ -38,11 +38,12 @@ class Hand{
 protected:
     vector<Card> deckCards;
 public:
-    Card* getLastCard();
+    Card*getCard(int);
     void deletLastCard();
     void addCard(class Card *);
     void clear();
     int getTotalValue();
+    int getNumberCards();
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };
 

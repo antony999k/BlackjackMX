@@ -43,8 +43,6 @@ int main(int argc, const char * argv[]) {
     cout << endl;
     
     deck.consoleDisplay();
-    cout << endl << "Player:";
-    cout << endl;
     
     cout << endl << "Player:";
     player_hand.consoleDisplay();
@@ -66,9 +64,9 @@ int main(int argc, const char * argv[]) {
         window.draw(bgSprite); //Render the background
         
         int i;
-        for (i = 0; i<2; i++) {
-            cardSprite.setTextureRect(IntRect(width*i,0,width,height));
-            cardSprite.setPosition((width*i)/2, 0);
+        for (i = 0; i<player_hand.getNumberCards(); i++) {
+            cardSprite.setTextureRect(IntRect(width*0,height*0,width,height));
+            cardSprite.setPosition((width*i)/2, (height*0)/2);
             window.draw(cardSprite);
         }
     
