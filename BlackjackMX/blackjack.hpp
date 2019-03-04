@@ -9,9 +9,13 @@
 #ifndef blackjack_hpp
 #define blackjack_hpp
 
-#include <stdio.h>
 #include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
 #include "DEFINITIONS.hpp"
+
+using namespace std;
 
 class Card{
 private:
@@ -21,6 +25,7 @@ private:
 public:
     Card(int = -1, int = 0, int = -1);
     void setCard(int, int);
+    void swap(Card&);
     unsigned char getSuit();
     int getValue();
     bool isFaceUp(); //Indicates if the card is face up
@@ -40,11 +45,11 @@ public:
 
 class Deck{
 private:
-    Card deckCards[DECK_SIZE];
+    vector<Card> deckCards;
     int numCards;
 public:
     void populate(); //Creata a 52 cards deck
-    void shuffle(); //Shiffle the created deck
+    void shuffle(); //Shuffle the created deck
     void dealToHand(Hand&);
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };

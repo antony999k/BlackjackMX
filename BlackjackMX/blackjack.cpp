@@ -7,7 +7,6 @@
 //
 
 #include "blackjack.hpp"
-using namespace std;
 
 //Card functions ***************
 Card::Card(int s, int v, int cs){
@@ -19,6 +18,21 @@ Card::Card(int s, int v, int cs){
 void Card::setCard(int s, int v){
     suit = s;
     value = v;
+}
+
+void Card::swap(Card &c){
+    Card temp;
+    temp.suit = c.suit;
+    temp.value = c.value;
+    temp.cardStatus = c.cardStatus;
+    
+    c.suit = this->suit;
+    c.value = this->value;
+    c.cardStatus = this->cardStatus;
+    
+    this->suit = temp.suit;
+    this->value = temp.suit;
+    this->cardStatus = temp.cardStatus;
 }
 
 unsigned char Card::getSuit(){
@@ -72,9 +86,25 @@ void Deck::populate(){
     int count = 0, i;
     for (i = 0; i<=3; i++) {
         for (int j=1; j<=13; j++) {
-            deckCards[count] = Card(i,j,1);
+            deckCards.push_back(Card(i,j,1));
             count++;
         }
+    }
+}
+
+void Deck::shuffle(){
+    auto rng = default_random_engine {};
+    std::shuffle(begin(deckCards), end(deckCards), rng);
+}
+
+
+void Deck::consoleDisplay(){
+    int i;
+    for (i = 0; i<deckCards.size(); i++){
+        if(i % 13 == 0){
+            cout << endl;
+        }
+        deckCards[i].consoleDisplay();
     }
 }
 
@@ -82,12 +112,4 @@ void Deck::dealToHand(Hand &h){
     
 }
 
-void Deck::consoleDisplay(){
-    int i;
-    for(i = 0; i<52; i++){
-        if(i % 13 == 0){
-            cout << endl;
-        }
-        deckCards[i].consoleDisplay();
-    }
-}
+

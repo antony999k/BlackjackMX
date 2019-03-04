@@ -32,6 +32,7 @@ int main(int argc, const char * argv[]) {
     
     Deck deck;
     deck.populate();
+    deck.shuffle();
     deck.consoleDisplay();
     
     

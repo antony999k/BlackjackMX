@@ -26,7 +26,7 @@ If you can´t find images or sounds when compiling in xcode
 ### Messages in git commits
 
 - Write the commits and tags in English
-- Comenzar el commit con mayúsculas
+- Start the commit with uppercase
 - Start the commit with upper case
 - Consider starting the commit with an emoji
     - :rocket: `:rocket:` when a new version is released
