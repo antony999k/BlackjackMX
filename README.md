@@ -8,7 +8,7 @@ C++ Blackjack game
 
 # Contribute
 
-[Contribution guidelines for this project](./CONTRIBUTING.md)
+[Contribution guidelines for this project](../../CONTRIBUTING.md)
 
 ## Style Guide
 ### Messages in git commits
