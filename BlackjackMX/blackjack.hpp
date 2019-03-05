@@ -13,6 +13,7 @@
 #include <vector>
 #include <algorithm>
 #include <random>
+#include <ctime>
 #include <SFML/Graphics.hpp>
 #include "DEFINITIONS.hpp"
 
@@ -25,29 +26,35 @@ private:
     int value; //Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
     int cardStatus; //1)In Deck 2) In play 3) Out of the game
     bool faceUp;
+    Texture cardTexture; //Texture includes all the cards in the deck
+    Sprite cardSprite; //Sprite of the card
+protected:
+    void setSprite(); //Set the texture and the sprite for the card, setCard() call this function
 public:
     Card(int = -1, int = 0, int = -1, bool = true);
     void setCard(int, int);
-    void swap(Card&);
     int getSuit();
     int getValue();
     bool isFaceUp(); //Indicates if the card is face up
     void flipCard(); //If the card is face down becomes face up and viceversa
     void consoleDisplay(); //Diplay a card in console for Debug and testing
+    Sprite getSprite(); //Return the specific card sprite
 };
+
 
 class Hand{
 protected:
     vector<Card> deckCards;
 public:
     Card*getCard(int);
-    void deletLastCard();
-    void clear();
-    int getTotalValue();
-    void addCard(class Card *);
-    int getNumberCards();
+    void deletLastCard(); //Delete the last card of the hand
+    void clear(); //It takes away all the cards
+    int getTotalValue(); //Get the total value of the cards
+    void addCard(class Card *); //Add a card in the hand
+    int getNumberCards(); //Return the total number of cards in the hand
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };
+
 
 class Deck: public Hand{
 public:
@@ -74,7 +81,7 @@ class Player: public GenericPlayer{
 private:
     int bank;
 public:
-    Player(int = 1000);
+    Player(int = 1000); //Init the credit amount and the player slot in the game
     void win(); //It sends when a player win
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
@@ -83,16 +90,6 @@ public:
 class Dealer: public GenericPlayer{
 public:
     void flipFirstCard(); //Dealer flip the first card
-};
-
-class Game{
-    int numPlayers;
-    RenderWindow * gameWindow;
-public:
-    Game(); //A blackjack round
-    void render();
-    Texture *cardTexture, *bgTexture;
-    Sprite *cardSprite, *bgSprite;
 };
 
 #endif /* blackjack_hpp */

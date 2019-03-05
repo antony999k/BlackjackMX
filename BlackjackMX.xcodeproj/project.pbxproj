@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B675E59222E1A51001EAF18 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B675E57222E1A51001EAF18 /* game.cpp */; };
 		2BC14F4B222B31CA007CC404 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC14F4A222B31CA007CC404 /* main.cpp */; };
 		2BC14F56222B3290007CC404 /* libsfml-system.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F52222B3290007CC404 /* libsfml-system.2.5.1.dylib */; };
 		2BC14F57222B3290007CC404 /* libsfml-window.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F53222B3290007CC404 /* libsfml-window.2.5.1.dylib */; };
@@ -30,6 +31,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2B675E57222E1A51001EAF18 /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
+		2B675E58222E1A51001EAF18 /* game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
 		2BC14F47222B31CA007CC404 /* BlackjackMX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BlackjackMX; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC14F4A222B31CA007CC404 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		2BC14F52222B3290007CC404 /* libsfml-system.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-system.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-system.2.5.1.dylib"; sourceTree = "<group>"; };
@@ -80,6 +83,8 @@
 				2BC14F73222C3902007CC404 /* Resources */,
 				2BC14F4A222B31CA007CC404 /* main.cpp */,
 				2BC14F7E222C62A9007CC404 /* blackjack.cpp */,
+				2B675E57222E1A51001EAF18 /* game.cpp */,
+				2B675E58222E1A51001EAF18 /* game.hpp */,
 				2BC14F7F222C62A9007CC404 /* blackjack.hpp */,
 				2BC14F82222C7234007CC404 /* DEFINITIONS.hpp */,
 			);
@@ -155,6 +160,7 @@
 			files = (
 				2BC14F80222C62A9007CC404 /* blackjack.cpp in Sources */,
 				2BC14F4B222B31CA007CC404 /* main.cpp in Sources */,
+				2B675E59222E1A51001EAF18 /* game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

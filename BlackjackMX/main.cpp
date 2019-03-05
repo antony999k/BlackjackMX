@@ -6,12 +6,9 @@
 //  Copyright © 2019 Antony999k. All rights reserved.
 //
 
-#include <SFML/Graphics.hpp>
 #include <iostream>
-#include <string.h>
-#include "DEFINITIONS.hpp"
-#include "blackjack.hpp"
-#include <ctime>
+#include <SFML/Graphics.hpp>
+#include "game.hpp"
 
 using namespace sf;
 using namespace std;

@@ -8,79 +8,6 @@
 
 #include "blackjack.hpp"
 
-//Play game function ************************************
-Game::Game(){
-    gameWindow = new RenderWindow(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
-    gameWindow->setFramerateLimit(FRAME_RATE);
-    
-    cardTexture = new Texture;
-    bgTexture = new Texture;
-    cardSprite = new Sprite;
-    bgSprite = new Sprite;
-    
-    cardTexture->loadFromFile(GAME_BACKGROUND_PATH);
-    bgTexture->loadFromFile(GAME_CARD_ATLAS_PATH);
-    
-    cardSprite->setTexture(*cardTexture);
-    bgSprite->setTexture(*bgTexture);
-    cardSprite->scale(0.5, 0.5);
-    
-    /*
-    Deck gameDeck;
-    Dealer dealer;
-    vector<Player> players;
-    
-    Player tempPlayer;
-    players.push_back(tempPlayer);
-    
-    gameDeck.populate();
-    gameDeck.populate();
-    gameDeck.shuffle();
-    //gameDeck.consoleDisplay();
-    
-    gameDeck.dealToHand(dealer);
-    gameDeck.dealToHand(players[0]);
-    gameDeck.dealToHand(dealer);
-    gameDeck.dealToHand(players[0]);
-    dealer.flipFirstCard();
-    
-    dealer.consoleDisplay();
-    players[0].consoleDisplay();
-     */
-    
-    render();
-}
-
-void Game::render(){
-    //Manage windows event
-    while (gameWindow->isOpen()) {
-        Event event;
-        while (gameWindow->pollEvent(event)) {
-            switch (event.type) {
-                case Event::Closed:
-                    gameWindow->close();
-                    break;
-            }
-        }
-        
-        gameWindow->clear();
-        //Draw Objects
-        gameWindow->draw(*bgSprite);//Render the background
-        /*
-         for (int i = 0; i<player_hand.getNumberCards(); i++) {
-         tempCard = player_hand.getCard(i);
-         cardSprite.setTextureRect(IntRect(CARD_WIDTH*(tempCard->getValue()-1),CARD_HEIGHT*(tempCard->getSuit()),CARD_WIDTH,CARD_HEIGHT));
-         cardSprite.setPosition((CARD_WIDTH*i)/2, (CARD_HEIGHT*0)/2);
-         window.draw(cardSprite);
-         }*/
-        
-        cardSprite->setTextureRect(IntRect(0,0,CARD_WIDTH,CARD_HEIGHT));
-        cardSprite->setPosition(0, 0);
-        gameWindow->draw(*cardSprite);
-        gameWindow->display();
-    }
-}
-
 //Card functions ************************************
 Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
     suit = _suit;
@@ -92,21 +19,8 @@ Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
 void Card::setCard(int _suit, int _value){
     suit = _suit;
     value = _value;
-}
-
-void Card::swap(Card &c){
-    Card temp;
-    temp.suit = c.suit;
-    temp.value = c.value;
-    temp.cardStatus = c.cardStatus;
     
-    c.suit = this->suit;
-    c.value = this->value;
-    c.cardStatus = this->cardStatus;
-    
-    this->suit = temp.suit;
-    this->value = temp.suit;
-    this->cardStatus = temp.cardStatus;
+    setSprite();
 }
 
 int Card::getSuit(){
@@ -165,6 +79,17 @@ void Card::consoleDisplay(){
         }
     }
     cout << " ";
+}
+
+void Card::setSprite(){
+    cardTexture.loadFromFile(GAME_BACKGROUND_PATH);
+    cardSprite.setTexture(cardTexture);
+    cardSprite.scale(0.5, 0.5);
+    cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
+}
+
+Sprite Card::getSprite(){
+    return cardSprite;
 }
 
 //Hand functions ************************************
