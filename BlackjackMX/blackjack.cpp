@@ -92,12 +92,16 @@ void Card::consoleDisplay(){
 void Card::setSprite(){
     cardTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
     cardSprite.setTexture(cardTexture);
-    cardSprite.scale(0.5, 0.5);
+    cardSprite.scale(CARD_SCALE ,CARD_SCALE);
     cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
 }
 
 Sprite Card::getSprite(){
     return cardSprite;
+}
+
+void Card::setSpritePos(Vector2f position){
+    cardSprite.setPosition(position.x, position.y);
 }
 
 //Hand functions ************************************
@@ -168,24 +172,25 @@ void Deck::dealToHand(Hand &_hand){
 }
 
 //GenericPlayer functions ************************************
-GenericPlayer::GenericPlayer(string _name, string _port, bool _busted, bool _playing){
-    name = _name;
-    port = _port;
-    busted = _busted;
-    playing = _playing;
-}
-
 bool GenericPlayer::isBusted(){
     return busted;
 }
 
-void GenericPlayer::setPlayer(string _name, string _port){
-    name = _name;
-    port = _port;
+void GenericPlayer::setTableHand(Vector2f positionInit){
+    int xDisp = 0;
+    for (int i = 0; i<deckCards.size(); i++){
+        deckCards[i].setSpritePos({positionInit.x + xDisp, positionInit.y});
+        xDisp += (CARD_WIDTH*CARD_SCALE)/3.3;
+    }
 }
 
+
 //Player functions ************************************
-Player::Player(int _bank){
+Player::Player(string _name, string _port, bool _busted, bool _playing, int _bank){
+    name = _name;
+    port = _port;
+    busted = _busted;
+    playing = _playing;
     bank = _bank;
 }
 
@@ -194,6 +199,13 @@ void Player::bust(){
 }
 
 //Dealer functions ************************************
+Dealer::Dealer(string _name, string _port, bool _busted, bool _playing){
+    name = _name;
+    port = _port;
+    busted = _busted;
+    playing = _playing;
+}
+
 void Dealer::flipFirstCard(){
     deckCards[0].flipCard();
 }

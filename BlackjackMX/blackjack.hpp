@@ -40,6 +40,7 @@ public:
     void flipCard(); //If the card is face down becomes face up and viceversa
     void consoleDisplay(); //Diplay a card in console for Debug and testing
     Sprite getSprite(); //Return the specific card sprite
+    void setSpritePos(Vector2f); //Set the position of a card in the window
 };
 
 
@@ -47,14 +48,14 @@ class Hand{
 protected:
     vector<Card> deckCards;
 public:
-    Card*getCard(int);
+    Card*getCard(int); //Return a pointer of a card in the hand
     void deletLastCard(); //Delete the last card of the hand
     void clear(); //It takes away all the cards
     int getTotalValue(); //Get the total value of the cards
     void addCard(class Card *); //Add a card in the hand
     int getNumberCards(); //Return the total number of cards in the hand
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
-    Sprite getSprite(int); //Give the umber of card in the vector and return his sprite
+    Sprite getSprite(int); //You give the number of card in the vector and return his sprite
 };
 
 
@@ -72,25 +73,27 @@ protected:
     bool busted;
     bool playing; //Indicates if is the player turn
 public:
-    GenericPlayer(string = "", string = "", bool = false, bool = false);
-    void setPlayer(string, string);
-    bool isPlaying();
+    bool isPlaying(); //Creates a pure vitual function, GenericPlayer class is only a skeleton for Player an dealer and can´t create an instance
     bool isBusted(); //Indicate if the player is out of cards
     void push(); //It sends when a player push one card
+    void setTableHand(Vector2f); //Set the position of the hand in the window
 };
 
 class Player: public GenericPlayer{
 private:
     int bank;
 public:
-    Player(int = 1000); //Init the credit amount and the player slot in the game
+    Player(string = "", string = "", bool = false, bool = false,  int = 1000); //Init the credit amount and the player slot in the game
+    //bool isPlaying();
     void win(); //It sends when a player win
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
 };
 
-class Dealer: public GenericPlayer{
+class Dealer : public GenericPlayer{
 public:
+    Dealer(string = "", string = "", bool = false, bool = false);
+    //bool isPlaying();
     void flipFirstCard(); //Dealer flip the first card
 };
 

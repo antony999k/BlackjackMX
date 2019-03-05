@@ -24,23 +24,19 @@ Game::Game(){
 
 void Game::render(){
     Deck deck;
-    Dealer dealer_hand;
-    Player player_hand;
+    Dealer dealer_hand("Dealer", "192.192.21.12", false, true);
+    Player player_hand("Juan", "192.192.31.12", false, true);
+    //dealer_hand.setTablaPlace(*dealer_hand.getSprite(0));
     
     deck.populate();
     deck.shuffle();
     
     deck.dealToHand(dealer_hand);
     deck.dealToHand(dealer_hand);
+    deck.dealToHand(player_hand);
+    deck.dealToHand(player_hand);
     
-    Card *testCart;
-    Card *testCart2;
-    
-    testCart = new Card(2,10,1,true);
-    testCart2 = new Card(3,1,1,true);
-    
-    //pruebaCard = *dealer_hand.getCard(0);
-    //testSprite = pruebaCard.getSprite();
+    dealer_hand.setTableHand({0,0});
     
     //Manage windows event
     while (gameWindow->isOpen()) {
@@ -67,7 +63,8 @@ void Game::render(){
          gameWindow->draw(*cardSprite);
          }
          */
-        gameWindow->draw(deck.getSprite(0));
+        gameWindow->draw(dealer_hand.getSprite(0));
+        gameWindow->draw(dealer_hand.getSprite(1));
         
         gameWindow->display();
     }
