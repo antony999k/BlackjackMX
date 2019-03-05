@@ -9,17 +9,25 @@
 #include "blackjack.hpp"
 
 //Card functions ************************************
+Card::Card(){
+    suit = -1;
+    value = 0;
+    cardStatus = -1;
+    faceUp = true;
+    setSprite();
+}
+
 Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
     suit = _suit;
     value = _value;
     cardStatus = _cardStatus;
     faceUp = _faceUp;
+    setSprite();
 }
 
 void Card::setCard(int _suit, int _value){
     suit = _suit;
     value = _value;
-    
     setSprite();
 }
 
@@ -82,7 +90,7 @@ void Card::consoleDisplay(){
 }
 
 void Card::setSprite(){
-    cardTexture.loadFromFile(GAME_BACKGROUND_PATH);
+    cardTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
     cardSprite.setTexture(cardTexture);
     cardSprite.scale(0.5, 0.5);
     cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
@@ -131,22 +139,29 @@ void Hand::consoleDisplay(){
     }
 }
 
+Sprite Hand::getSprite(int index){
+    return deckCards[index].getSprite();
+}
+
 //Deck functions ************************************
 void Deck::populate(){
     int count = 0, i;
+    Card *tempCard = NULL;
     for (i = 0; i<=3; i++) {
         for (int j=1; j<=13; j++) {
-            deckCards.push_back(Card(i,j,1));
+            tempCard = new Card(i,j,1, true);
+            addCard(tempCard);
             count++;
         }
     }
+    free(tempCard);
 }
 
 void Deck::shuffle(){
     std::random_shuffle(begin(deckCards), end(deckCards));
 }
 
-void Deck::dealToHand(Hand& _hand){
+void Deck::dealToHand(Hand &_hand){
     int i = getNumberCards() - 1;
     _hand.addCard(getCard(i));
     deletLastCard();

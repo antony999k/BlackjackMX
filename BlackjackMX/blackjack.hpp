@@ -31,7 +31,8 @@ private:
 protected:
     void setSprite(); //Set the texture and the sprite for the card, setCard() call this function
 public:
-    Card(int = -1, int = 0, int = -1, bool = true);
+    Card();
+    Card(int, int, int, bool);
     void setCard(int, int);
     int getSuit();
     int getValue();
@@ -53,6 +54,7 @@ public:
     void addCard(class Card *); //Add a card in the hand
     int getNumberCards(); //Return the total number of cards in the hand
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
+    Sprite getSprite(int); //Give the umber of card in the vector and return his sprite
 };
 
 

@@ -17,14 +17,31 @@ Game::Game(){
     bgTexture = new Texture;
     bgSprite = new Sprite;
     
-    bgTexture->loadFromFile(GAME_CARD_ATLAS_PATH);
+    bgTexture->loadFromFile(GAME_BACKGROUND_PATH);
     bgSprite->setTexture(*bgTexture);
     render();
 }
 
 void Game::render(){
-    Card pruebaCard;
-    pruebaCard.setCard(1, 6);
+    Deck deck;
+    Dealer dealer_hand;
+    Player player_hand;
+    
+    deck.populate();
+    deck.shuffle();
+    
+    deck.dealToHand(dealer_hand);
+    deck.dealToHand(dealer_hand);
+    
+    Card *testCart;
+    Card *testCart2;
+    
+    testCart = new Card(2,10,1,true);
+    testCart2 = new Card(3,1,1,true);
+    
+    //pruebaCard = *dealer_hand.getCard(0);
+    //testSprite = pruebaCard.getSprite();
+    
     //Manage windows event
     while (gameWindow->isOpen()) {
         Event event;
@@ -40,10 +57,8 @@ void Game::render(){
                     break;
             }
         }
-        
         gameWindow->clear();
         gameWindow->draw(*bgSprite);//Render the background
-        
         /*
          for (int i = 0; i<players[0].getNumberCards(); i++) {
          tempCard = *players[0].getCard(i);
@@ -52,7 +67,8 @@ void Game::render(){
          gameWindow->draw(*cardSprite);
          }
          */
-        gameWindow->draw(pruebaCard.getSprite());
+        gameWindow->draw(deck.getSprite(0));
+        
         gameWindow->display();
     }
 }

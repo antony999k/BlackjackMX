@@ -15,7 +15,6 @@ using namespace sf;
 
 class Game{
     int numPlayers;
-    bool slot[5];
     RenderWindow * gameWindow;
 public:
     Game(); //A blackjack round, manage the round game
