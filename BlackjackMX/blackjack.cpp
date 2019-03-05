@@ -25,12 +25,6 @@ Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
     setSprite();
 }
 
-void Card::setCard(int _suit, int _value){
-    suit = _suit;
-    value = _value;
-    setSprite();
-}
-
 int Card::getSuit(){
     return suit;
 }
@@ -45,6 +39,13 @@ bool Card::isFaceUp(){
 
 void Card::flipCard(){
     faceUp = !faceUp;
+    if(faceUp){
+        cardSprite.setTexture(cardTexture);
+        cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
+    }else{
+        cardSprite.setTexture(cardBackTexture);
+        cardSprite.setTextureRect(IntRect(0, 0, CARD_WIDTH, CARD_HEIGHT));
+    }
 }
 
 void Card::consoleDisplay(){
@@ -91,9 +92,10 @@ void Card::consoleDisplay(){
 
 void Card::setSprite(){
     cardTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
+    cardBackTexture.loadFromFile(GAME_CARD_BACK);
     cardSprite.setTexture(cardTexture);
-    cardSprite.scale(CARD_SCALE ,CARD_SCALE);
     cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
+    cardSprite.scale(CARD_SCALE ,CARD_SCALE);
 }
 
 Sprite Card::getSprite(){
@@ -148,7 +150,12 @@ Sprite Hand::getSprite(int index){
 }
 
 //Deck functions ************************************
+Deck::Deck(){
+    shuffling = false;
+}
+
 void Deck::populate(){
+    shuffling = true;
     int count = 0, i;
     Card *tempCard = NULL;
     for (i = 0; i<=3; i++) {
@@ -163,12 +170,18 @@ void Deck::populate(){
 
 void Deck::shuffle(){
     std::random_shuffle(begin(deckCards), end(deckCards));
+    shuffling = false;
 }
 
 void Deck::dealToHand(Hand &_hand){
     int i = getNumberCards() - 1;
     _hand.addCard(getCard(i));
     deletLastCard();
+    
+    if(deckCards.empty()){
+        populate();
+        shuffle();
+    }
 }
 
 //GenericPlayer functions ************************************
@@ -176,7 +189,7 @@ bool GenericPlayer::isBusted(){
     return busted;
 }
 
-void GenericPlayer::setTableHand(Vector2f positionInit){
+void GenericPlayer::setHandSpawn(Vector2f positionInit){
     int xDisp = 0;
     for (int i = 0; i<deckCards.size(); i++){
         deckCards[i].setSpritePos({positionInit.x + xDisp, positionInit.y});
@@ -198,6 +211,22 @@ void Player::bust(){
     busted = true;
 }
 
+void Player::setSpawn(int playerNum){
+    switch (playerNum) {
+        case 1:
+            setHandSpawn({100,400});
+            break;
+        case 2:
+            setHandSpawn({300,400});
+            break;
+        case 3:
+            setHandSpawn({500,400});
+            break;
+        default:
+            break;
+    }
+}
+
 //Dealer functions ************************************
 Dealer::Dealer(string _name, string _port, bool _busted, bool _playing){
     name = _name;
@@ -208,4 +237,8 @@ Dealer::Dealer(string _name, string _port, bool _busted, bool _playing){
 
 void Dealer::flipFirstCard(){
     deckCards[0].flipCard();
+}
+
+void Dealer::setSpawn(){
+    setHandSpawn({200,50});
 }

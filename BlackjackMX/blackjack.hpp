@@ -27,20 +27,20 @@ private:
     int cardStatus; //1)In Deck 2) In play 3) Out of the game
     bool faceUp;
     Texture cardTexture; //Texture includes all the cards in the deck
+    Texture cardBackTexture;
     Sprite cardSprite; //Sprite of the card
 protected:
     void setSprite(); //Set the texture and the sprite for the card, setCard() call this function
 public:
     Card();
     Card(int, int, int, bool);
-    void setCard(int, int);
     int getSuit();
     int getValue();
     bool isFaceUp(); //Indicates if the card is face up
     void flipCard(); //If the card is face down becomes face up and viceversa
     void consoleDisplay(); //Diplay a card in console for Debug and testing
-    Sprite getSprite(); //Return the specific card sprite
     void setSpritePos(Vector2f); //Set the position of a card in the window
+    Sprite getSprite(); //Return the specific card sprite
 };
 
 
@@ -60,7 +60,10 @@ public:
 
 
 class Deck: public Hand{
+private:
+    bool shuffling;
 public:
+    Deck();
     void populate(); //Creata a 52 cards deck
     void shuffle(); //Shuffle the created deck
     void dealToHand(Hand&);
@@ -72,11 +75,11 @@ protected:
     string port;
     bool busted;
     bool playing; //Indicates if is the player turn
+    void setHandSpawn(Vector2f); //Set the position of the hand in the window and creates an x-offset fot the cards (called by setSpawn() function)
 public:
     bool isPlaying(); //Creates a pure vitual function, GenericPlayer class is only a skeleton for Player an dealer and can´t create an instance
     bool isBusted(); //Indicate if the player is out of cards
     void push(); //It sends when a player push one card
-    void setTableHand(Vector2f); //Set the position of the hand in the window
 };
 
 class Player: public GenericPlayer{
@@ -88,6 +91,7 @@ public:
     void win(); //It sends when a player win
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
+    void setSpawn(int);
 };
 
 class Dealer : public GenericPlayer{
@@ -95,6 +99,7 @@ public:
     Dealer(string = "", string = "", bool = false, bool = false);
     //bool isPlaying();
     void flipFirstCard(); //Dealer flip the first card
+    void setSpawn();
 };
 
 #endif /* blackjack_hpp */

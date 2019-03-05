@@ -31,12 +31,13 @@ void Game::render(){
     deck.populate();
     deck.shuffle();
     
-    deck.dealToHand(dealer_hand);
-    deck.dealToHand(dealer_hand);
     deck.dealToHand(player_hand);
     deck.dealToHand(player_hand);
+    deck.dealToHand(dealer_hand);
+    dealer_hand.flipFirstCard();
+    deck.dealToHand(dealer_hand);
     
-    dealer_hand.setTableHand({0,0});
+    deck.consoleDisplay();
     
     //Manage windows event
     while (gameWindow->isOpen()) {
@@ -48,23 +49,30 @@ void Game::render(){
                     break;
                 case Event::KeyPressed:
                     if(Keyboard::isKeyPressed(Keyboard::A)){
-                        exit(0);
+                        deck.dealToHand(player_hand);
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::S)){
+                        player_hand.clear();
                     }
                     break;
             }
         }
         gameWindow->clear();
         gameWindow->draw(*bgSprite);//Render the background
-        /*
-         for (int i = 0; i<players[0].getNumberCards(); i++) {
-         tempCard = *players[0].getCard(i);
-         cardSprite->setTextureRect(IntRect(CARD_WIDTH*(tempCard.getValue()-1),CARD_HEIGHT*(tempCard.getSuit()),CARD_WIDTH,CARD_HEIGHT));
-         cardSprite->setPosition((CARD_WIDTH*i)/2, (CARD_HEIGHT*0)/2);
-         gameWindow->draw(*cardSprite);
-         }
-         */
-        gameWindow->draw(dealer_hand.getSprite(0));
-        gameWindow->draw(dealer_hand.getSprite(1));
+        for (int i = 0; i<deck.getNumberCards(); i++) {
+            gameWindow->draw(deck.getSprite(i));
+
+        }
+        
+        for (int i = 0; i<dealer_hand.getNumberCards(); i++) {
+            gameWindow->draw(dealer_hand.getSprite(i));
+            dealer_hand.setSpawn();
+        }
+        
+        for (int i = 0; i<player_hand.getNumberCards(); i++) {
+            gameWindow->draw(player_hand.getSprite(i));
+            player_hand.setSpawn(1);
+        }
         
         gameWindow->display();
     }

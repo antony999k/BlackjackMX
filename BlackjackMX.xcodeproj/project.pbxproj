@@ -13,8 +13,8 @@
 		2BC14F57222B3290007CC404 /* libsfml-window.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F53222B3290007CC404 /* libsfml-window.2.5.1.dylib */; };
 		2BC14F58222B3290007CC404 /* libsfml-audio.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */; };
 		2BC14F59222B3290007CC404 /* libsfml-graphics.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */; };
-		2BC14F74222C390E007CC404 /* Resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BC14F73222C3902007CC404 /* Resources */; };
 		2BC14F80222C62A9007CC404 /* blackjack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC14F7E222C62A9007CC404 /* blackjack.cpp */; };
+		2BDEAB64222EAF12001B8D83 /* Resources in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2BC14F73222C3902007CC404 /* Resources */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -24,7 +24,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 7;
 			files = (
-				2BC14F74222C390E007CC404 /* Resources in CopyFiles */,
+				2BDEAB64222EAF12001B8D83 /* Resources in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

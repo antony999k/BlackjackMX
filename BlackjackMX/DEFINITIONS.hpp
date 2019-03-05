@@ -18,7 +18,8 @@
 #define CARD_HEIGHT 190
 #define CARD_SCALE 0.5
 
-#define GAME_CARD_ATLAS_PATH "Resources/Images/PlayingCards.png"
+#define GAME_CARD_ATLAS_PATH "Resources/Images/playingCards.png"
+#define GAME_CARD_BACK "Resources/Images/backCard.png"
 #define GAME_BACKGROUND_PATH "Resources/Images/bg.jpg"
 
 //GAME DEFINITIONS
