@@ -37,8 +37,6 @@ void Game::render(){
     dealer_hand.flipFirstCard();
     deck.dealToHand(dealer_hand);
     
-    deck.consoleDisplay();
-    
     //Manage windows event
     while (gameWindow->isOpen()) {
         Event event;
