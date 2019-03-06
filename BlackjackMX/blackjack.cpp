@@ -197,6 +197,30 @@ void GenericPlayer::setHandSpawn(Vector2f positionInit){
     }
 }
 
+Text GenericPlayer::getText(){
+    return stikerTotalValue.getText();
+}
+
+//StikerTotalValue functions ************************************
+StikerTotalValue::StikerTotalValue(){
+    fontGlobal.loadFromFile(GAME_GLOBAL_FONT);
+    totalValueText.setFont(fontGlobal);
+    totalValueText.setFillColor(Color::White);
+}
+
+void StikerTotalValue::setTotalVal(int total){
+    totalValueText.setString(to_string(total));
+}
+
+void StikerTotalValue::setSpawn(Vector2f position){
+    totalValueText.setPosition(position.x, position.y);
+}
+
+Text StikerTotalValue::getText(){
+    return totalValueText;
+}
+
+
 
 //Player functions ************************************
 Player::Player(string _name, string _port, bool _busted, bool _playing, int _bank){
@@ -206,21 +230,24 @@ Player::Player(string _name, string _port, bool _busted, bool _playing, int _ban
     playing = _playing;
     bank = _bank;
 }
-
 void Player::bust(){
     busted = true;
 }
 
 void Player::setSpawn(int playerNum){
+    stikerTotalValue.setTotalVal(getTotalValue());
     switch (playerNum) {
+        case 0:
+            setHandSpawn({PLAYER_0_X_POSITION,PLAYER_0_Y_POSITION});
+            stikerTotalValue.setSpawn({PLAYER_0_X_POSITION-20,PLAYER_0_Y_POSITION-20});
+            break;
         case 1:
-            setHandSpawn({100,400});
+            setHandSpawn({PLAYER_1_X_POSITION,PLAYER_1_Y_POSITION});
+            stikerTotalValue.setSpawn({PLAYER_1_X_POSITION-20,PLAYER_1_Y_POSITION-12});
             break;
         case 2:
-            setHandSpawn({300,400});
-            break;
-        case 3:
-            setHandSpawn({500,400});
+            setHandSpawn({PLAYER_2_X_POSITION,PLAYER_2_Y_POSITION});
+            stikerTotalValue.setSpawn({PLAYER_2_X_POSITION-20,PLAYER_2_Y_POSITION-20});
             break;
         default:
             break;
@@ -240,5 +267,8 @@ void Dealer::flipFirstCard(){
 }
 
 void Dealer::setSpawn(){
-    setHandSpawn({200,50});
+    setHandSpawn({DEALER_X_POSITION,DEALER_Y_POSITION});
+    
+    stikerTotalValue.setTotalVal(getTotalValue());
+    stikerTotalValue.setSpawn({DEALER_X_POSITION-30,DEALER_Y_POSITION});
 }

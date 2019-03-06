@@ -34,8 +34,8 @@ protected:
 public:
     Card();
     Card(int, int, int, bool);
-    int getSuit();
-    int getValue();
+    int getSuit();//Return the in value of the suit, 0)Hearts, 1)Diamonds, 2)Spades, 3)Clubs
+    int getValue();//Return the int value of the cars
     bool isFaceUp(); //Indicates if the card is face up
     void flipCard(); //If the card is face down becomes face up and viceversa
     void consoleDisplay(); //Diplay a card in console for Debug and testing
@@ -69,18 +69,32 @@ public:
     void dealToHand(Hand&);
 };
 
+class StikerTotalValue{
+private:
+    Font fontGlobal;
+    Text totalValueText;
+public:
+    StikerTotalValue();
+    void setTotalVal(int=0);
+    void setSpawn(Vector2f);
+    Text getText();
+};
+
 class GenericPlayer: public Hand{
 protected:
     string name;
     string port;
     bool busted;
     bool playing; //Indicates if is the player turn
+    StikerTotalValue stikerTotalValue;
     void setHandSpawn(Vector2f); //Set the position of the hand in the window and creates an x-offset fot the cards (called by setSpawn() function)
 public:
     bool isPlaying(); //Creates a pure vitual function, GenericPlayer class is only a skeleton for Player an dealer and can´t create an instance
     bool isBusted(); //Indicate if the player is out of cards
     void push(); //It sends when a player push one card
+    Text getText();
 };
+
 
 class Player: public GenericPlayer{
 private:
@@ -91,7 +105,7 @@ public:
     void win(); //It sends when a player win
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
-    void setSpawn(int);
+    void setSpawn(int); //Spawns in diferent paces depens player number
 };
 
 class Dealer : public GenericPlayer{
@@ -101,5 +115,6 @@ public:
     void flipFirstCard(); //Dealer flip the first card
     void setSpawn();
 };
+
 
 #endif /* blackjack_hpp */

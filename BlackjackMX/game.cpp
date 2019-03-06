@@ -37,6 +37,7 @@ void Game::render(){
     dealer_hand.flipFirstCard();
     deck.dealToHand(dealer_hand);
     
+    
     //Manage windows event
     while (gameWindow->isOpen()) {
         Event event;
@@ -63,13 +64,15 @@ void Game::render(){
         }
         
         for (int i = 0; i<dealer_hand.getNumberCards(); i++) {
-            gameWindow->draw(dealer_hand.getSprite(i));
             dealer_hand.setSpawn();
+            gameWindow->draw(dealer_hand.getSprite(i));
+            gameWindow->draw(dealer_hand.getText());
         }
         
         for (int i = 0; i<player_hand.getNumberCards(); i++) {
-            gameWindow->draw(player_hand.getSprite(i));
             player_hand.setSpawn(1);
+            gameWindow->draw(player_hand.getSprite(i));
+            gameWindow->draw(player_hand.getText());
         }
         
         gameWindow->display();
