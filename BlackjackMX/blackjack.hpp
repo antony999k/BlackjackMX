@@ -23,7 +23,8 @@ using namespace sf;
 class Card{
 private:
     int suit; //0)Hearts, 1)Diamonds, 2)Spades, 3)Clubs
-    int value; //Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
+    int value; //0, 1 ,2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12
+    int gameValue; //Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
     int cardStatus; //1)In Deck 2) In play 3) Out of the game
     bool faceUp;
     Texture cardTexture; //Texture includes all the cards in the deck
@@ -35,7 +36,8 @@ public:
     Card();
     Card(int, int, int, bool);
     int getSuit();//Return the in value of the suit, 0)Hearts, 1)Diamonds, 2)Spades, 3)Clubs
-    int getValue();//Return the int value of the cars
+    int getValue();//Return the int value of the cards to print in screen
+    int getGameValue(); //Return the int value of the cards to manage the game
     bool isFaceUp(); //Indicates if the card is face up
     void flipCard(); //If the card is face down becomes face up and viceversa
     void consoleDisplay(); //Diplay a card in console for Debug and testing

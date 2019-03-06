@@ -12,6 +12,7 @@
 Card::Card(){
     suit = -1;
     value = 0;
+    gameValue = 0;
     cardStatus = -1;
     faceUp = true;
     setSprite();
@@ -22,6 +23,13 @@ Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
     value = _value;
     cardStatus = _cardStatus;
     faceUp = _faceUp;
+    
+    if (_value == 11 || _value == 12 || _value == 13) {
+        gameValue = 10;
+    }else{
+        gameValue = _value;
+    }
+    
     setSprite();
 }
 
@@ -33,6 +41,10 @@ int Card::getValue(){
     return value;
 }
 
+int Card::getGameValue(){
+    return gameValue;
+}
+
 bool Card::isFaceUp(){
     return faceUp;
 }
@@ -42,6 +54,7 @@ void Card::flipCard(){
     if(faceUp){
         cardSprite.setTexture(cardTexture);
         cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
+        
     }else{
         cardSprite.setTexture(cardBackTexture);
         cardSprite.setTextureRect(IntRect(0, 0, CARD_WIDTH, CARD_HEIGHT));
@@ -122,7 +135,9 @@ void Hand::deletLastCard(){
 int Hand::getTotalValue(){
     int value = 0, i;
     for (i = 0; i<deckCards.size(); i++){
-        value += deckCards[i].getValue();
+        if(deckCards[i].isFaceUp()){
+            value += deckCards[i].getGameValue();
+        }
     }
     return value;
 }
