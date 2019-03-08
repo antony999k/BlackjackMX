@@ -47,21 +47,24 @@ void Game::render(){
                     gameWindow->close();
                     break;
                 case Event::KeyPressed:
+                    if(Keyboard::isKeyPressed(Keyboard::Q)){
+                        deck.dealToHand(dealer_hand);
+                    }
+                    if(Keyboard::isKeyPressed(Keyboard::E)){
+                        dealer_hand.flipFirstCard();
+                    }
                     if(Keyboard::isKeyPressed(Keyboard::A)){
                         deck.dealToHand(player_hand);
                     }
                     if(Keyboard::isKeyPressed(Keyboard::S)){
                         player_hand.clear();
+                        cout << player_hand.getBank() << endl;
                     }
                     break;
             }
         }
         gameWindow->clear();
         gameWindow->draw(*bgSprite);//Render the background
-        for (int i = 0; i<deck.getNumberCards(); i++) {
-            gameWindow->draw(deck.getSprite(i));
-
-        }
         
         for (int i = 0; i<dealer_hand.getNumberCards(); i++) {
             dealer_hand.setSpawn();

@@ -15,7 +15,6 @@ Card::Card(){
     gameValue = 0;
     cardStatus = -1;
     faceUp = true;
-    setSprite();
 }
 
 Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
@@ -29,7 +28,6 @@ Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
     }else{
         gameValue = _value;
     }
-    
     setSprite();
 }
 
@@ -51,14 +49,6 @@ bool Card::isFaceUp(){
 
 void Card::flipCard(){
     faceUp = !faceUp;
-    if(faceUp){
-        cardSprite.setTexture(cardTexture);
-        cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
-        
-    }else{
-        cardSprite.setTexture(cardBackTexture);
-        cardSprite.setTextureRect(IntRect(0, 0, CARD_WIDTH, CARD_HEIGHT));
-    }
 }
 
 void Card::consoleDisplay(){
@@ -102,20 +92,30 @@ void Card::consoleDisplay(){
     }
     cout << " ";
 }
-
+//Set the 2 textures
 void Card::setSprite(){
     cardTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
     cardBackTexture.loadFromFile(GAME_CARD_BACK);
+    
     cardSprite.setTexture(cardTexture);
     cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
     cardSprite.scale(CARD_SCALE ,CARD_SCALE);
+    
+    cardBackSprite.setTexture(cardBackTexture);
+    cardBackSprite.setTextureRect(IntRect(0, 0, CARD_WIDTH, CARD_HEIGHT));
+    cardBackSprite.scale(CARD_SCALE ,CARD_SCALE);
 }
 
 Sprite Card::getSprite(){
-    return cardSprite;
+    if(faceUp){
+      return cardSprite;
+    }else{
+        return cardBackSprite;
+    }
 }
 
 void Card::setSpritePos(Vector2f position){
+    cardBackSprite.setPosition(position.x, position.y);
     cardSprite.setPosition(position.x, position.y);
 }
 
@@ -184,7 +184,8 @@ void Deck::populate(){
 }
 
 void Deck::shuffle(){
-    std::random_shuffle(begin(deckCards), end(deckCards));
+    srand(time(0));
+    random_shuffle(begin(deckCards), end(deckCards));
     shuffling = false;
 }
 
@@ -245,6 +246,11 @@ Player::Player(string _name, string _port, bool _busted, bool _playing, int _ban
     playing = _playing;
     bank = _bank;
 }
+
+int Player::getBank(){
+    return bank;
+}
+
 void Player::bust(){
     busted = true;
 }
@@ -283,7 +289,6 @@ void Dealer::flipFirstCard(){
 
 void Dealer::setSpawn(){
     setHandSpawn({DEALER_X_POSITION,DEALER_Y_POSITION});
-    
     stikerTotalValue.setTotalVal(getTotalValue());
     stikerTotalValue.setSpawn({DEALER_X_POSITION-30,DEALER_Y_POSITION});
 }

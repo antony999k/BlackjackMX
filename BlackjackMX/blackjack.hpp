@@ -28,8 +28,9 @@ private:
     int cardStatus; //1)In Deck 2) In play 3) Out of the game
     bool faceUp;
     Texture cardTexture; //Texture includes all the cards in the deck
-    Texture cardBackTexture;
+    Texture cardBackTexture; //Texture includes tha back texture of the card
     Sprite cardSprite; //Sprite of the card
+    Sprite cardBackSprite; //Back sprite
 protected:
     void setSprite(); //Set the texture and the sprite for the card, setCard() call this function
 public:
@@ -108,6 +109,7 @@ public:
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
     void setSpawn(int); //Spawns in diferent paces depens player number
+    int getBank(); //Get the player total amoun of credits
 };
 
 class Dealer : public GenericPlayer{
