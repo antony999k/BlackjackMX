@@ -13,3 +13,6 @@ Correctly configuring xcode ensures that you can execute and make changes to the
 ### Link Resources folder
 If you can´t find images or sounds when compiling in xcode
 ![Link Resources folder](BlackjackMX/Resources/Demos/linkResources.gif)
+
+### Add libraries
+![Link Resources folder](BlackjackMX/Resources/Demos/addLibrary.gif)

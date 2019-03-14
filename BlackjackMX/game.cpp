@@ -7,10 +7,10 @@
 //
 
 #include "game.hpp"
-#include "blackjack.hpp"
 
 //Play game function ************************************
 Game::Game(){
+    //Game
     gameWindow = new RenderWindow(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
     gameWindow->setFramerateLimit(FRAME_RATE);
     //Init the texture and sprite

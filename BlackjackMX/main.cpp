@@ -8,12 +8,15 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include "game.hpp"
 
 using namespace sf;
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+    TcpListener listener;
+    
     Game game;
     return 0;
 }

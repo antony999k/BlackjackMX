@@ -10,6 +10,7 @@
 #define game_hpp
 
 #include <SFML/Graphics.hpp>
+#include "blackjack.hpp"
 
 using namespace sf;
 
