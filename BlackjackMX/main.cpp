@@ -22,8 +22,17 @@ int main(int argc, const char * argv[]) {
     sf::TcpSocket socket;
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
     
-    socket.connect(ip, 53000);
-    socket.receive(buffer, sizeof(buffer), recieved);
+    sf::Socket::Status status = socket.connect(ip, 53000);
+    if (status != sf::Socket::Done)
+    {
+        cout << "ERROR: Imposible conect to the server" << endl;
+    }
+    
+    if (socket.receive(buffer, sizeof(buffer), recieved) != sf::Socket::Done)
+    {
+        cout << "ERROR: Reciving data from the server" << endl;
+    }
+    //socket.receive(buffer, sizeof(buffer), recieved);
     cout << "data: " << buffer << endl;
     
     //Game game;
