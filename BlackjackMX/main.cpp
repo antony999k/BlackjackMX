@@ -15,8 +15,17 @@ using namespace sf;
 using namespace std;
 
 int main(int argc, const char * argv[]) {
-    TcpListener listener;
+    char buffer[1000];
+    std::size_t recieved;
     
-    Game game;
+    cout << "Client init\n";
+    sf::TcpSocket socket;
+    sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+    
+    socket.connect(ip, 53000);
+    socket.receive(buffer, sizeof(buffer), recieved);
+    cout << "data: " << buffer << endl;
+    
+    //Game game;
     return 0;
 }

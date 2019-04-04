@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		2B675E59222E1A51001EAF18 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B675E57222E1A51001EAF18 /* game.cpp */; };
+		2B6C986522567EFF004D3749 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C986422567EFF004D3749 /* main.cpp */; };
+		2B6C986E22567FFA004D3749 /* libsfml-audio.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */; };
+		2B6C986F22567FFA004D3749 /* libsfml-graphics.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */; };
+		2B6C987022567FFA004D3749 /* libsfml-network.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */; };
+		2B6C987122567FFA004D3749 /* libsfml-system.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F52222B3290007CC404 /* libsfml-system.2.5.1.dylib */; };
+		2B6C987222567FFA004D3749 /* libsfml-window.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F53222B3290007CC404 /* libsfml-window.2.5.1.dylib */; };
 		2BBAFF1D223AD0D100B317EE /* libsfml-audio.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */; };
 		2BBAFF1E223AD0D100B317EE /* libsfml-graphics.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */; };
 		2BBAFF1F223AD0D100B317EE /* libsfml-network.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */; };
@@ -19,6 +25,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		2B6C986022567EFF004D3749 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		2BC14F71222C386F007CC404 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -34,6 +49,9 @@
 /* Begin PBXFileReference section */
 		2B675E57222E1A51001EAF18 /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
 		2B675E58222E1A51001EAF18 /* game.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
+		2B6C986222567EFF004D3749 /* BlackjackMX_Server */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BlackjackMX_Server; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B6C986422567EFF004D3749 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		2B6C9873225680AE004D3749 /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "Libraries/SFML/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
 		2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-network.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-network.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F47222B31CA007CC404 /* BlackjackMX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BlackjackMX; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC14F4A222B31CA007CC404 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
@@ -48,6 +66,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		2B6C985F22567EFF004D3749 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B6C986E22567FFA004D3749 /* libsfml-audio.2.5.1.dylib in Frameworks */,
+				2B6C986F22567FFA004D3749 /* libsfml-graphics.2.5.1.dylib in Frameworks */,
+				2B6C987022567FFA004D3749 /* libsfml-network.2.5.1.dylib in Frameworks */,
+				2B6C987122567FFA004D3749 /* libsfml-system.2.5.1.dylib in Frameworks */,
+				2B6C987222567FFA004D3749 /* libsfml-window.2.5.1.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2BC14F44222B31CA007CC404 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -63,10 +93,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B6C986322567EFF004D3749 /* BlackjackMX_Server */ = {
+			isa = PBXGroup;
+			children = (
+				2B6C986422567EFF004D3749 /* main.cpp */,
+			);
+			path = BlackjackMX_Server;
+			sourceTree = "<group>";
+		};
 		2BC14F3E222B31CA007CC404 = {
 			isa = PBXGroup;
 			children = (
 				2BC14F49222B31CA007CC404 /* BlackjackMX */,
+				2B6C986322567EFF004D3749 /* BlackjackMX_Server */,
 				2BC14F48222B31CA007CC404 /* Products */,
 				2BC14F51222B3290007CC404 /* Frameworks */,
 			);
@@ -76,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				2BC14F47222B31CA007CC404 /* BlackjackMX */,
+				2B6C986222567EFF004D3749 /* BlackjackMX_Server */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -97,6 +137,7 @@
 		2BC14F51222B3290007CC404 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2B6C9873225680AE004D3749 /* sfml-network.framework */,
 				2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */,
 				2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */,
 				2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */,
@@ -109,6 +150,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		2B6C986122567EFF004D3749 /* BlackjackMX_Server */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2B6C986822567EFF004D3749 /* Build configuration list for PBXNativeTarget "BlackjackMX_Server" */;
+			buildPhases = (
+				2B6C985E22567EFF004D3749 /* Sources */,
+				2B6C985F22567EFF004D3749 /* Frameworks */,
+				2B6C986022567EFF004D3749 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BlackjackMX_Server;
+			productName = BlackjackMX_Server;
+			productReference = 2B6C986222567EFF004D3749 /* BlackjackMX_Server */;
+			productType = "com.apple.product-type.tool";
+		};
 		2BC14F46222B31CA007CC404 /* BlackjackMX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2BC14F4E222B31CA007CC404 /* Build configuration list for PBXNativeTarget "BlackjackMX" */;
@@ -135,6 +193,9 @@
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = Antony999k;
 				TargetAttributes = {
+					2B6C986122567EFF004D3749 = {
+						CreatedOnToolsVersion = 10.1;
+					};
 					2BC14F46222B31CA007CC404 = {
 						CreatedOnToolsVersion = 10.1;
 					};
@@ -153,11 +214,20 @@
 			projectRoot = "";
 			targets = (
 				2BC14F46222B31CA007CC404 /* BlackjackMX */,
+				2B6C986122567EFF004D3749 /* BlackjackMX_Server */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		2B6C985E22567EFF004D3749 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2B6C986522567EFF004D3749 /* main.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		2BC14F43222B31CA007CC404 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -171,6 +241,40 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		2B6C986622567EFF004D3749 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V38KNGW9K5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries/SFML/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries/SFML/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		2B6C986722567EFF004D3749 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V38KNGW9K5;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries/SFML/Frameworks",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Libraries/SFML/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		2BC14F4C222B31CA007CC404 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -313,6 +417,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		2B6C986822567EFF004D3749 /* Build configuration list for PBXNativeTarget "BlackjackMX_Server" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B6C986622567EFF004D3749 /* Debug */,
+				2B6C986722567EFF004D3749 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		2BC14F42222B31CA007CC404 /* Build configuration list for PBXProject "BlackjackMX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
