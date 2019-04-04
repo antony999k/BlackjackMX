@@ -35,6 +35,6 @@ int main(int argc, const char * argv[]) {
     //socket.receive(buffer, sizeof(buffer), recieved);
     cout << "data: " << buffer << endl;
     
-    //Game game;
+    Game game;
     return 0;
 }

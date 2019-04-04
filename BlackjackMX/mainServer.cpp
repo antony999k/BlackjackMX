@@ -10,6 +10,7 @@
 #include <string.h>
 #include <vector>
 #include <SFML/Network.hpp>
+#include "sockets.hpp"
 using namespace std;
 using namespace sf;
 
@@ -23,6 +24,7 @@ int main(int argc, const char * argv[]) {
         instructions(argv[0]);
     }
     cout << "************ BlackjackMX Server ************\n";
+    //printTest();
     server(stoi(argv[1]));
     return 0;
 }
@@ -40,7 +42,7 @@ void server(unsigned int port){
         cout << tag << " Listening on port: " << port << endl;
     }
     
-    //listener.accept(client);
+    // accept a new connection
     if (listener.accept(client) != sf::Socket::Done)
     {
         cout << "\tError: Client conection was rejected";
