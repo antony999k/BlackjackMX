@@ -10,10 +10,18 @@
 #define sockets_hpp
 
 #include <iostream>
+#include <SFML/Network.hpp>
 using namespace std;
 
-//Functions
+//Structure that will be exchanged between the user and the server
+typedef struct userData_struct{
+    sf::Uint8 type;
+    std::string name;
+    float d2;
+}userData;
 
-void printTest();
+//userData struct Packet operation
+sf::Packet& operator >>(sf::Packet& packet, userData& packetData);
+sf::Packet& operator <<(sf::Packet& packet, userData& packetData);
 
 #endif /* sockets_hpp */

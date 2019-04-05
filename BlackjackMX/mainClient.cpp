@@ -10,11 +10,13 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include "game.hpp"
+#include "sockets.hpp"
 
 using namespace sf;
 using namespace std;
 
 int main(int argc, const char * argv[]) {
+    /*
     char buffer[1000];
     std::size_t recieved;
     
@@ -28,12 +30,16 @@ int main(int argc, const char * argv[]) {
         cout << "ERROR: Imposible conect to the server" << endl;
     }
     
-    if (socket.receive(buffer, sizeof(buffer), recieved) != sf::Socket::Done)
+    //User recieve packet data and print
+    sf::Packet packet;
+    userData packetData;
+    if (socket.receive(packet) != sf::Socket::Done)
     {
         cout << "ERROR: Reciving data from the server" << endl;
-    }
-    //socket.receive(buffer, sizeof(buffer), recieved);
-    cout << "data: " << buffer << endl;
+    }else{
+        packet >> packetData;
+        cout << "data: " << packetData.name << ", " << endl;
+    }*/
     
     Game game;
     return 0;

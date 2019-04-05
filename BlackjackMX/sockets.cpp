@@ -8,6 +8,11 @@
 
 #include "sockets.hpp"
 
-void printTest(){
-    cout << "Printing......" << endl;
+//userData struct Packet operation
+sf::Packet& operator >>(sf::Packet& packet, userData& packetData){
+    return packet >> packetData.type >> packetData.name >> packetData.d2;
+}
+
+sf::Packet& operator <<(sf::Packet& packet, userData& packetData){
+    return packet << packetData.type << packetData.name << packetData.d2;
 }

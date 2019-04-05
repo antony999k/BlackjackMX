@@ -8,13 +8,13 @@
 
 #include <iostream>
 #include <string.h>
-#include <vector>
 #include <SFML/Network.hpp>
 #include "sockets.hpp"
 using namespace std;
 using namespace sf;
 
-///// FUNCTION DECLARATIONS
+
+// FUNCTION DECLARATIONS
 void instructions(string program);
 void server(unsigned int port);
 
@@ -49,10 +49,16 @@ void server(unsigned int port){
     }else{
         cout << tag << " Conection established with: " << client.getRemoteAddress() << " on port " << client.getRemotePort() << endl;
     }
-
     
-    string data = "This is a string sended from the server";
-    client.send(data.c_str(), data.length() + 1);
+    //Prepare packet to send
+    userData packetData;
+    packetData.name = "Antony999kk";
+    //Init packet and asign struct
+    sf::Packet packet;
+    packet << packetData;
+    
+    //Send packet
+    client.send(packet);
 }
 
 
