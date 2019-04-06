@@ -15,11 +15,14 @@
 using namespace sf;
 
 class Game{
+    //Variables ********
     int numPlayers;
     RenderWindow * gameWindow;
 public:
+    //Functions ********
     Game(); //A blackjack round, manage the round game
     void render(); //Loop the game and render the components
+    //Variables ********
     Texture *bgTexture; //Background texture
     Sprite *bgSprite; //Background sprite
 };
