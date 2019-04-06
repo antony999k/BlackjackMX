@@ -15,21 +15,13 @@ using namespace std;
 void instructions(string program);
 
 int main(int argc, const char * argv[]) {
+    
     // Check the correct arguments
     if(argv[1]==NULL){
         instructions(argv[0]);
     }
     SocketServer socketServer(stoi(argv[1]));
-
-    //Prepare packet to send
-    userInteraction packetData;
-    packetData.playerId = 12;
-    //Init packet and asign struct
-    sf::Packet packet;
-    packet << packetData;
-    
-    sendPacket(packet, socketServer.getClient());
-    
+    socketServer.waitForConnections();
     return 0;
 }
 

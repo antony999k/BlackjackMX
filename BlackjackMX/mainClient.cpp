@@ -9,6 +9,7 @@
 #include <iostream>
 #include <SFML/Network.hpp>
 #include "sockets.hpp"
+#include "CODES.hpp"
 
 using namespace sf;
 using namespace std;
@@ -16,11 +17,12 @@ using namespace std;
 int main(int argc, const char * argv[]) {
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
     
+    userInteraction gameData;
+    sf::Uint32 _header = CREATE;
+    
     SocketClient socketClient(ip,53000);
-    
-    //User recieve packet data and print
-    sf::Packet packet;
-    recvPacket(packet, socketClient.getServer());
-    
+    socketClient.setPackage(gameData, _header);
+    socketClient.sendPacket();
+
     return 0;
 }

@@ -57,7 +57,7 @@
 		2B6C987A22569B3A004D3749 /* sockets.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = sockets.hpp; sourceTree = "<group>"; };
 		2B6C989522582C9F004D3749 /* gameInterface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gameInterface.cpp; sourceTree = "<group>"; };
 		2B6C989622582C9F004D3749 /* gameInterface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gameInterface.hpp; sourceTree = "<group>"; };
-		2B6C98982258303B004D3749 /* operationCodes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = operationCodes.hpp; sourceTree = "<group>"; };
+		2B6C989922586F5B004D3749 /* CODES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CODES.hpp; sourceTree = "<group>"; };
 		2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-network.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-network.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F47222B31CA007CC404 /* BlackjackMX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BlackjackMX; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC14F4A222B31CA007CC404 /* mainClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mainClient.cpp; sourceTree = "<group>"; };
@@ -122,12 +122,12 @@
 			children = (
 				2BC14F73222C3902007CC404 /* Resources */,
 				2BC14F4A222B31CA007CC404 /* mainClient.cpp */,
-				2B6C98982258303B004D3749 /* operationCodes.hpp */,
 				2BC14F7E222C62A9007CC404 /* blackjack.cpp */,
 				2B675E57222E1A51001EAF18 /* game.cpp */,
 				2B675E58222E1A51001EAF18 /* game.hpp */,
 				2BC14F7F222C62A9007CC404 /* blackjack.hpp */,
 				2BC14F82222C7234007CC404 /* DEFINITIONS.hpp */,
+				2B6C989922586F5B004D3749 /* CODES.hpp */,
 				2B6C987922569B3A004D3749 /* sockets.cpp */,
 				2B6C987A22569B3A004D3749 /* sockets.hpp */,
 				2B6C986422567EFF004D3749 /* mainServer.cpp */,

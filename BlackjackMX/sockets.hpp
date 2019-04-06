@@ -11,14 +11,15 @@
 
 #include <iostream>
 #include <string.h>
+#include <vector>
 #include <SFML/Network.hpp>
+#include "CODES.hpp"
 using namespace std;
 using namespace sf;
 
 //Structure that will be exchanged between the user and the server
 typedef struct userInteraction_struct{
     sf::Uint16 playerId;
-    unsigned char operationType;
     string cards;
     sf::Uint16 cardsValue;
     unsigned char playerStatus;
@@ -30,29 +31,38 @@ sf::Packet& operator >>(sf::Packet& packet, userInteraction& packetData);
 sf::Packet& operator <<(sf::Packet& packet, userInteraction& packetData);
 
 //Recieve a Packet
-void recvPacket(Packet packet, TcpSocket *socket);
+void recvPacket(TcpSocket *socket);
 
-//Send a Packet
-void sendPacket(Packet packet, TcpSocket *socket);
+class GenericSocket{
+protected:
+    //Variables ************************
+    TcpSocket socket;
+    sf::Packet packet;
+    userInteraction gameData;
+    sf::Uint32 header;
+    string tag;
+public:
+    //Send a Packet
+    void sendPacket();
+    void setPackage(userInteraction _gameData, sf::Uint32 _header); //set package data in local class variables
+    void getPacket(sf::Packet _packet);
+};
 
 //Socker Server Classs
-class SocketServer{
+class SocketServer : public GenericSocket{
     //Variables ************************
     TcpListener listener;
-    TcpSocket client;
+    vector<sf::TcpSocket*> clients;
 public:
     //Functions ************************
-    //Init the server with contructor
-    SocketServer(unsigned int port);
-    TcpSocket*getClient(); //Return the direction memory of the client socket
+    SocketServer(unsigned int port); //Init the server with contructor
+    void waitForConnections();
 };
 
 //Socker Client(Player) Classs
-class SocketClient{
-    //Variables ************************
-    TcpSocket socket;
+class SocketClient : public GenericSocket{
 public:
-    SocketClient(sf::IpAddress ip, unsigned int port);
+    SocketClient(sf::IpAddress ip, unsigned int port); //Init the client with constructor
     TcpSocket*getServer(); //Return the direction memory of the server socket
 };
 
