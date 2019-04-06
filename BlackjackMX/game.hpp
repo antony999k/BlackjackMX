@@ -9,22 +9,16 @@
 #ifndef game_hpp
 #define game_hpp
 
-#include <SFML/Graphics.hpp>
 #include "blackjack.hpp"
+//using namespace sf;
+using namespace std;
 
-using namespace sf;
-
+//Class responsable for gameLogic in the server
 class Game{
-    //Variables ********
-    int numPlayers;
-    RenderWindow * gameWindow;
+
 public:
-    //Functions ********
-    Game(); //A blackjack round, manage the round game
-    void render(); //Loop the game and render the components
-    //Variables ********
-    Texture *bgTexture; //Background texture
-    Sprite *bgSprite; //Background sprite
+    
 };
+
 
 #endif /* game_hpp */

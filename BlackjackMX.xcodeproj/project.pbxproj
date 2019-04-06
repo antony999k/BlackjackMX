@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B675E59222E1A51001EAF18 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B675E57222E1A51001EAF18 /* game.cpp */; };
 		2B6C986E22567FFA004D3749 /* libsfml-audio.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */; };
 		2B6C986F22567FFA004D3749 /* libsfml-graphics.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */; };
 		2B6C987022567FFA004D3749 /* libsfml-network.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */; };
@@ -22,7 +21,6 @@
 		2BBAFF20223AD0D100B317EE /* libsfml-system.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F52222B3290007CC404 /* libsfml-system.2.5.1.dylib */; };
 		2BBAFF21223AD0D100B317EE /* libsfml-window.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F53222B3290007CC404 /* libsfml-window.2.5.1.dylib */; };
 		2BC14F4B222B31CA007CC404 /* mainClient.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC14F4A222B31CA007CC404 /* mainClient.cpp */; };
-		2BC14F80222C62A9007CC404 /* blackjack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2BC14F7E222C62A9007CC404 /* blackjack.cpp */; };
 		2BDEAB64222EAF12001B8D83 /* Resources in Copy Files */ = {isa = PBXBuildFile; fileRef = 2BC14F73222C3902007CC404 /* Resources */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +55,9 @@
 		2B6C9873225680AE004D3749 /* sfml-network.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "sfml-network.framework"; path = "Libraries/SFML/Frameworks/sfml-network.framework"; sourceTree = "<group>"; };
 		2B6C987922569B3A004D3749 /* sockets.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sockets.cpp; sourceTree = "<group>"; };
 		2B6C987A22569B3A004D3749 /* sockets.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = sockets.hpp; sourceTree = "<group>"; };
+		2B6C989522582C9F004D3749 /* gameInterface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gameInterface.cpp; sourceTree = "<group>"; };
+		2B6C989622582C9F004D3749 /* gameInterface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gameInterface.hpp; sourceTree = "<group>"; };
+		2B6C98982258303B004D3749 /* operationCodes.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = operationCodes.hpp; sourceTree = "<group>"; };
 		2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-network.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-network.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F47222B31CA007CC404 /* BlackjackMX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BlackjackMX; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC14F4A222B31CA007CC404 /* mainClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mainClient.cpp; sourceTree = "<group>"; };
@@ -121,6 +122,7 @@
 			children = (
 				2BC14F73222C3902007CC404 /* Resources */,
 				2BC14F4A222B31CA007CC404 /* mainClient.cpp */,
+				2B6C98982258303B004D3749 /* operationCodes.hpp */,
 				2BC14F7E222C62A9007CC404 /* blackjack.cpp */,
 				2B675E57222E1A51001EAF18 /* game.cpp */,
 				2B675E58222E1A51001EAF18 /* game.hpp */,
@@ -129,6 +131,8 @@
 				2B6C987922569B3A004D3749 /* sockets.cpp */,
 				2B6C987A22569B3A004D3749 /* sockets.hpp */,
 				2B6C986422567EFF004D3749 /* mainServer.cpp */,
+				2B6C989522582C9F004D3749 /* gameInterface.cpp */,
+				2B6C989622582C9F004D3749 /* gameInterface.hpp */,
 			);
 			path = BlackjackMX;
 			sourceTree = "<group>";
@@ -233,9 +237,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B6C987D22569C05004D3749 /* sockets.cpp in Sources */,
-				2BC14F80222C62A9007CC404 /* blackjack.cpp in Sources */,
 				2BC14F4B222B31CA007CC404 /* mainClient.cpp in Sources */,
-				2B675E59222E1A51001EAF18 /* game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

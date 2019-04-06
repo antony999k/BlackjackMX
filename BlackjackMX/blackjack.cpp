@@ -92,6 +92,7 @@ void Card::consoleDisplay(){
     }
     cout << " ";
 }
+/*
 //Set the 2 textures
 void Card::setSprite(){
     cardTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
@@ -113,12 +114,12 @@ Sprite Card::getSprite(){
         return cardBackSprite;
     }
 }
-
+ 
 void Card::setSpritePos(Vector2f position){
     cardBackSprite.setPosition(position.x, position.y);
     cardSprite.setPosition(position.x, position.y);
 }
-
+*/
 //Hand functions ************************************
 void Hand::clear(){
     deckCards.clear();
@@ -159,11 +160,11 @@ void Hand::consoleDisplay(){
         deckCards[i].consoleDisplay();
     }
 }
-
+/*
 Sprite Hand::getSprite(int index){
     return deckCards[index].getSprite();
 }
-
+*/
 //Deck functions ************************************
 Deck::Deck(){
     shuffling = false;
@@ -204,7 +205,7 @@ void Deck::dealToHand(Hand &_hand){
 bool GenericPlayer::isBusted(){
     return busted;
 }
-
+/*
 void GenericPlayer::setHandSpawn(Vector2f positionInit){
     int xDisp = 0;
     for (int i = 0; i<deckCards.size(); i++){
@@ -235,7 +236,7 @@ void StikerTotalValue::setSpawn(Vector2f position){
 Text StikerTotalValue::getText(){
     return totalValueText;
 }
-
+*/
 
 
 //Player functions ************************************
@@ -254,7 +255,7 @@ int Player::getBank(){
 void Player::bust(){
     busted = true;
 }
-
+/*
 void Player::setSpawn(int playerNum){
     stikerTotalValue.setTotalVal(getTotalValue());
     switch (playerNum) {
@@ -274,7 +275,7 @@ void Player::setSpawn(int playerNum){
             break;
     }
 }
-
+*/
 //Dealer functions ************************************
 Dealer::Dealer(string _name, string _port, bool _busted, bool _playing){
     name = _name;
@@ -286,9 +287,10 @@ Dealer::Dealer(string _name, string _port, bool _busted, bool _playing){
 void Dealer::flipFirstCard(){
     deckCards[0].flipCard();
 }
-
+/*
 void Dealer::setSpawn(){
     setHandSpawn({DEALER_X_POSITION,DEALER_Y_POSITION});
     stikerTotalValue.setTotalVal(getTotalValue());
     stikerTotalValue.setSpawn({DEALER_X_POSITION-30,DEALER_Y_POSITION});
 }
+*/
