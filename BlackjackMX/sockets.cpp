@@ -23,6 +23,7 @@ sf::Packet& operator <<(sf::Packet& packet, userInteraction& packetData){
  *****************************************************************/
 void GenericSocket::sendPacket(){
     socket.send(packet);
+    packet.clear();
 }
 
 void GenericSocket::setPackage(userInteraction _gameData, sf::Uint32 _header){
@@ -35,7 +36,11 @@ void GenericSocket::setPackage(userInteraction _gameData, sf::Uint32 _header){
 void GenericSocket::getPacket(sf::Packet _packet){
     _packet >> header;
     _packet >> gameData;
-    cout << tag << " header: " << header << endl;
+    printHeader();
+}
+
+void GenericSocket::printHeader(){
+    cout << tag << "PRINTING header: " << header << endl;
 }
 
 
@@ -82,7 +87,6 @@ void SocketServer::waitForConnections(){
                 for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
                     sf::TcpSocket& client = **it;
                     if (selector.isReady(client)){
-                        //tag = "[" + client.getRemoteAddress().toString() + "]";
                         // The client has sent some data, we can receive it
                         sf::Packet _packet;
                         if (client.receive(_packet) == sf::Socket::Done)

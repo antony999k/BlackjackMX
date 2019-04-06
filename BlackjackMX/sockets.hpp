@@ -46,6 +46,7 @@ public:
     void sendPacket();
     void setPackage(userInteraction _gameData, sf::Uint32 _header); //set package data in local class variables
     void getPacket(sf::Packet _packet);
+    void printHeader();
 };
 
 //Socker Server Classs
