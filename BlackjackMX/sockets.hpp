@@ -14,39 +14,26 @@
 #include <vector>
 #include <SFML/Network.hpp>
 #include "CODES.hpp"
+#include "game.hpp"
 using namespace std;
 using namespace sf;
-
-//Structure that will be exchanged between the user and the server
-typedef struct userInteraction_struct{
-    sf::Uint16 playerId;
-    string cards;
-    sf::Uint16 cardsValue;
-    unsigned char playerStatus;
-    unsigned char playerMovement;
-}userInteraction;
 
 //userData struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, userInteraction& packetData);
 sf::Packet& operator <<(sf::Packet& packet, userInteraction& packetData);
 
-//Recieve a Packet
-void recvPacket(TcpSocket *socket);
-
 class GenericSocket{
 protected:
     //Variables ************************
-    TcpSocket socket;
     sf::Packet packet;
-    userInteraction gameData;
     sf::Uint32 header;
     string tag;
 public:
-    //Send a Packet
-    void sendPacket();
-    void setPackage(userInteraction _gameData, sf::Uint32 _header); //set package data in local class variables
-    void getPacket(sf::Packet _packet);
-    void printHeader();
+    userInteraction gameData;
+    void setPacket(userInteraction _gameData, sf::Uint32 _header); //set package data in local class variables
+    void setHeader(sf::Uint32 _header); //The the variable header
+    void savePacket();
+    sf::Packet*getPacket();
 };
 
 //Socker Server Classs
@@ -56,15 +43,20 @@ class SocketServer : public GenericSocket{
     vector<sf::TcpSocket*> clients;
 public:
     //Functions ************************
-    SocketServer(unsigned int port); //Init the server with contructor
+    SocketServer(unsigned int port); //Init the server with constructor
+    void sendPacketToAllClient();
+    void sendPacketToClient(unsigned short int numClient);
     void waitForConnections();
 };
 
 //Socker Client(Player) Classs
 class SocketClient : public GenericSocket{
+    TcpSocket socket;
 public:
     SocketClient(sf::IpAddress ip, unsigned int port); //Init the client with constructor
-    TcpSocket*getServer(); //Return the direction memory of the server socket
+    void sendPacketToServer(); //Send a Packet to a server
+    TcpSocket*getServerSocket(); //Return the direction memory of the server socket
+    void waitForConnections();
 };
 
 #endif /* sockets_hpp */

@@ -21,28 +21,26 @@ sf::Packet& operator <<(sf::Packet& packet, userInteraction& packetData){
 
 /* Generic Server functions
  *****************************************************************/
-void GenericSocket::sendPacket(){
-    socket.send(packet);
-    packet.clear();
-}
-
-void GenericSocket::setPackage(userInteraction _gameData, sf::Uint32 _header){
+void GenericSocket::setPacket(userInteraction _gameData, sf::Uint32 _header){
     gameData = _gameData;
     header = _header;
     packet << header;
     packet << gameData;
 }
 
-void GenericSocket::getPacket(sf::Packet _packet){
-    _packet >> header;
-    _packet >> gameData;
-    printHeader();
+void GenericSocket::savePacket(){
+    packet >> header;
+    packet >> gameData;
+    packet.clear();
 }
 
-void GenericSocket::printHeader(){
-    cout << tag << "PRINTING header: " << header << endl;
+void GenericSocket::setHeader(sf::Uint32 _header){
+    header = _header;
 }
 
+sf::Packet* GenericSocket::getPacket(){
+    return &packet;
+}
 
 /* Socket Server functions
  *****************************************************************/
@@ -73,6 +71,7 @@ void SocketServer::waitForConnections(){
                 sf::TcpSocket* client = new sf::TcpSocket;
                 if (listener.accept(*client) == sf::Socket::Done){
                     // Add the new client to the clients list
+                    client->setBlocking(false);
                     clients.push_back(client);
                     // Add the new client to the selector so that we will be notified when he sends something
                     selector.add(*client);
@@ -84,20 +83,36 @@ void SocketServer::waitForConnections(){
                 }
             }else{
                 // The listener socket is not ready, test all other sockets (the clients)
+                sf::Uint32 i =0;
                 for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
                     sf::TcpSocket& client = **it;
                     if (selector.isReady(client)){
                         // The client has sent some data, we can receive it
-                        sf::Packet _packet;
-                        if (client.receive(_packet) == sf::Socket::Done)
+                        if (client.receive(packet) == sf::Socket::Done)
                         {
-                            getPacket(_packet);
+                            savePacket();
+                            setPacket(gameData, CREATE_USER);
+                            sendPacketToClient(i);
                         }
                     }
+                    i++;
                 }
             }
         }
     }
+}
+
+void SocketServer::sendPacketToClient(unsigned short int numClient){
+    clients[numClient]->send(packet);
+    packet.clear();
+}
+
+void SocketServer::sendPacketToAllClient(){
+    for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
+        sf::TcpSocket& client = **it;
+        client.send(packet);
+    }
+    packet.clear();
 }
 
 /* Socket client functions
@@ -108,8 +123,28 @@ SocketClient::SocketClient(sf::IpAddress ip, unsigned int port){
     {
         cout << "ERROR: Imposible conect to the server" << endl;
     }
+    socket.setBlocking(false);
+    
+    //Init game data empty
+    gameData.playerId = NULL;
+    gameData.cardsValue = 0;
+    gameData.playerMovement = NULL;
+    gameData.playerStatus = NULL;
+    gameData.cards = "";
 }
 
-TcpSocket* SocketClient::getServer(){
+TcpSocket* SocketClient::getServerSocket(){
     return &socket;
+}
+
+void SocketClient::sendPacketToServer(){
+    socket.send(packet);
+    packet.clear();
+}
+
+void SocketClient::waitForConnections(){
+    if (socket.receive(packet) == sf::Socket::Done)
+    {
+        savePacket();
+    }
 }

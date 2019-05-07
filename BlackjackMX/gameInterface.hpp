@@ -9,6 +9,22 @@
 #ifndef gameInterface_hpp
 #define gameInterface_hpp
 
-#include <stdio.h>
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
+#include "sockets.hpp"
+#include "DEFINITIONS.hpp"
+using namespace sf;
+using namespace std;
+
+class GameInterface{
+    sf::RenderWindow *gameWindow;
+    sf::Texture bgTexture; //Background texture
+    sf::Sprite bgSprite; //Background sprite
+protected:
+    void renderLoop();
+public:
+    GameInterface();
+};
 
 #endif /* gameInterface_hpp */
