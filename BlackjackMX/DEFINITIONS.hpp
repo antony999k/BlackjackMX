@@ -9,6 +9,8 @@
 #ifndef DEFINITIONS_h
 #define DEFINITIONS_h
 
+#define MAX_NUM_PLAYERS 4
+
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 

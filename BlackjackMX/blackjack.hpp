@@ -1,8 +1,8 @@
 //
 //  blackjack.hpp
-//  BlackjackMX
+//  BlackjackMX_Server
 //
-//  Created by Antony Morales on 03/03/19.
+//  Created by Antony Morales on 10/05/19.
 //  Copyright © 2019 Antony999k. All rights reserved.
 //
 
@@ -13,11 +13,12 @@
 #include <vector>
 #include <algorithm>
 #include <random>
-#include <ctime>
 #include "DEFINITIONS.hpp"
 
 using namespace std;
 
+/* Card
+ *****************************************************************************************/
 class Card{
 private:
     int suit; //0)Hearts, 1)Diamonds, 2)Spades, 3)Clubs
@@ -38,7 +39,8 @@ public:
     void consoleDisplay(); //Diplay a card in console for Debug and testing
 };
 
-
+/* Hand
+*****************************************************************************************/
 class Hand{
 protected:
     vector<Card> deckCards;
@@ -52,7 +54,8 @@ public:
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
 };
 
-
+/* Deck
+ *****************************************************************************************/
 class Deck: public Hand{
 private:
     bool shuffling;
@@ -63,7 +66,8 @@ public:
     void dealToHand(Hand&);
 };
 
-
+/* GenericPlayer
+ *****************************************************************************************/
 class GenericPlayer: public Hand{
 protected:
     string name;
@@ -76,12 +80,14 @@ public:
     void push(); //It sends when a player push one card
 };
 
-
+/* Player
+ *****************************************************************************************/
 class Player: public GenericPlayer{
 private:
     int bank;
 public:
-    Player(string = "", string = "", bool = false, bool = false,  int = 1000); //Init the credit amount and the player slot in the game
+    Player(); //Init the credit amount and the player slot in the game
+    Player(string _name, string _port);
     void win(); //It sends when a player win
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
@@ -89,9 +95,12 @@ public:
     int getBank(); //Get the player total amoun of credits
 };
 
+/* Dealer
+ *****************************************************************************************/
 class Dealer : public GenericPlayer{
 public:
-    Dealer(string = "", string = "", bool = false, bool = false);
+    Dealer();
+    Dealer(string _name, string _port);
     void flipFirstCard(); //Dealer flip the first card
     void setSpawn();
 };

@@ -9,7 +9,6 @@
 #include <iostream>
 #include <unistd.h>
 #include "gameInterface.hpp"
-#include "CODES.hpp"
 
 using namespace sf;
 using namespace std;

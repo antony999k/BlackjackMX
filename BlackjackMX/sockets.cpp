@@ -10,19 +10,37 @@
 /* General functions
  *****************************************************************/
 
-//userData struct Packet operation
+//userChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData){
-    return packet >> packetData.playerId >> packetData.username >> packetData.cards >> packetData.cardsValue >> packetData.playerStatus >> packetData.playerMovement;
+    return packet >> packetData.playerId >> packetData.username >> packetData.cards >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
-    return packet << packetData.playerId << packetData.username << packetData.cards << packetData.cardsValue << packetData.playerStatus << packetData.playerMovement;
+    return packet << packetData.playerId << packetData.username << packetData.cards << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus;
+}
+
+//dealerChunk struct Packet operation
+sf::Packet& operator >>(sf::Packet& packet, dealerChunk& packetData){
+    return packet >> packetData.cardsValue >> packetData.cards;
+}
+
+sf::Packet& operator <<(sf::Packet& packet, dealerChunk& packetData){
+    return packet << packetData.cardsValue << packetData.cards;
+}
+
+//gameChunk struct Packet operation
+sf::Packet& operator >>(sf::Packet& packet, gameChunk& packetData){
+    return packet >> packetData.turnPlayerId >> packetData.gameStatus >> *packetData.userData >> packetData.dealerData;
+}
+
+sf::Packet& operator <<(sf::Packet& packet, gameChunk& packetData){
+    return packet << packetData.turnPlayerId << packetData.gameStatus << *packetData.userData << packetData.dealerData;
 }
 
 
 /* Generic Server functions
  *****************************************************************/
-void GenericSocket::setPacket(userChunk _gameData, sf::Uint32 _header){
+void GenericSocket::setPacket(gameChunk _gameData, sf::Uint32 _header){
     gameData = _gameData;
     header = _header;
     packet << header;
@@ -43,98 +61,6 @@ sf::Packet* GenericSocket::getPacket(){
     return &packet;
 }
 
-/* Socket Server functions
- *****************************************************************/
-SocketServer::SocketServer(unsigned int port){
-    cout << "************ BlackjackMX Server ************\n";
-    tag = "[Server]";
-    
-    //Put the server start listen on a port
-    if (listener.listen(port) != sf::Socket::Done)
-    {
-        cout << "\tError: Listening on port";
-    }else{
-        cout << tag << " Listening on port: " << port << endl;
-    }
-}
-
-/* Wait for conection in a loop
- *****************************************************************/
-void SocketServer::waitForConnections(){
-    sf::SocketSelector selector;
-    // Add the listener to the selector
-    selector.add(listener);
-    
-    while (1) {
-        // Make the selector wait for data on any socket
-        if (selector.wait()){
-            // Test the listener
-            if (selector.isReady(listener)){
-                sf::TcpSocket* client = new sf::TcpSocket;
-                if (listener.accept(*client) == sf::Socket::Done){
-                    // Add the new client to the clients list
-                    client->setBlocking(false);
-                    clients.push_back(client);
-                    // Add the new client to the selector so that we will be notified when he sends something
-                    selector.add(*client);
-                    cout << tag << " Conection established with: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
-                }else{
-                    // Error, we won't get a new connection, delete the socket
-                    delete client;
-                    cout << tag << " Error: Client conection was rejected";
-                }
-            }else{
-                // The listener socket is not ready, test all other sockets (the clients)
-                sf::Uint32 itUserId = 0;
-                for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
-                    sf::TcpSocket& client = **it;
-                    if (selector.isReady(client)){
-                        // The client has sent some data, we can receive it
-                        if (client.receive(packet) == sf::Socket::Done)
-                        {
-                            savePacket();
-                            switch (header) {
-                                case 0:
-                                    cout << "Player init: " << header << endl;
-                                    gameData.playerId = itUserId;
-                                    gameData.cards[0] = (char)9;
-                                    gameData.cardsValue = 18;
-                                    gameData.playerStatus = PLAYING;
-                                    gameData.playerMovement = NO_APPLY;
-                                    setPacket(gameData, CREATE_USER);
-                                    sendPacketToClient(itUserId);
-                                    break;
-                                case 1:
-                                    cout << "Player movement: " << header << endl;
-                                    break;
-                                default:
-                                    cout << "Player movement unknown: " << header << endl;
-                                    break;
-                            }
-                            
-                            //setPacket(gameData, CREATE_USER);
-                            //sendPacketToClient(i);
-                        }
-                    }
-                    itUserId++;
-                }
-            }
-        }
-    }
-}
-
-void SocketServer::sendPacketToClient(unsigned short int numClient){
-    clients[numClient]->send(packet);
-    packet.clear();
-}
-
-void SocketServer::sendPacketToAllClient(){
-    for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
-        sf::TcpSocket& client = **it;
-        client.send(packet);
-    }
-    packet.clear();
-}
 
 /* Socket client functions
  *****************************************************************/
@@ -147,10 +73,14 @@ SocketClient::SocketClient(sf::IpAddress ip, unsigned int port){
     socket.setBlocking(false);
     
     //Init game data empty
+    gameData.turnPlayerId = NULL;
+    gameData.gameStatus =NULL;
+    /*
     gameData.playerId = NULL;
     gameData.cardsValue = 0;
     gameData.playerMovement = NULL;
     gameData.playerStatus = NULL;
+     */
 }
 
 TcpSocket* SocketClient::getServerSocket(){

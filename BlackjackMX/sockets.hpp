@@ -14,14 +14,27 @@
 #include <vector>
 #include <SFML/Network.hpp>
 #include "CODES.hpp"
-#include "game.hpp"
 using namespace std;
 using namespace sf;
 
-//userData struct Packet operation
+
+/* UserChunk struct Packet operation
+ ***********************************************************************************************/
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData);
 sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData);
 
+/* DealerChunk struct Packet operation
+ ***********************************************************************************************/
+sf::Packet& operator >>(sf::Packet& packet, dealerChunk& packetData);
+sf::Packet& operator <<(sf::Packet& packet, dealerChunk& packetData);
+
+/* GameChunk struct Packet operation
+ ***********************************************************************************************/
+sf::Packet& operator >>(sf::Packet& packet, gameChunk& packetData);
+sf::Packet& operator <<(sf::Packet& packet, gameChunk& packetData);
+
+/* GenericSocket
+ ***********************************************************************************************/
 class GenericSocket{
 protected:
     //Variables ************************
@@ -29,27 +42,15 @@ protected:
     sf::Uint32 header;
     string tag;
 public:
-    userChunk gameData;
-    void setPacket(userChunk _gameData, sf::Uint32 _header); //set package data in local class variables
+    gameChunk gameData;
+    void setPacket(gameChunk _gameData, sf::Uint32 _header); //set package data in local class variables
     void setHeader(sf::Uint32 _header); //The the variable header
     void savePacket();
     sf::Packet*getPacket();
 };
 
-//Socker Server Classs
-class SocketServer : public GenericSocket{
-    //Variables ************************
-    TcpListener listener;
-    vector<sf::TcpSocket*> clients;
-public:
-    //Functions ************************
-    SocketServer(unsigned int port); //Init the server with constructor
-    void sendPacketToAllClient();
-    void sendPacketToClient(unsigned short int numClient);
-    void waitForConnections();
-};
-
-//Socker Client(Player) Classs
+/* Socker Client(Player) Classs
+ ***********************************************************************************************/
 class SocketClient : public GenericSocket{
     TcpSocket socket;
 public:

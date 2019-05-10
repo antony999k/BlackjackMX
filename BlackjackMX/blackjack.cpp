@@ -1,14 +1,15 @@
 //
 //  blackjack.cpp
-//  BlackjackMX
+//  BlackjackMX_Server
 //
-//  Created by Antony Morales on 03/03/19.
+//  Created by Antony Morales on 10/05/19.
 //  Copyright © 2019 Antony999k. All rights reserved.
 //
 
 #include "blackjack.hpp"
 
-//Card functions ************************************
+/* Card functions
+ ***********************************************************************************************/
 Card::Card(){
     suit = -1;
     value = 0;
@@ -28,7 +29,6 @@ Card::Card(int _suit, int _value, int _cardStatus, bool _faceUp){
     }else{
         gameValue = _value;
     }
-    setSprite();
 }
 
 int Card::getSuit(){
@@ -92,35 +92,9 @@ void Card::consoleDisplay(){
     }
     cout << " ";
 }
-/*
-//Set the 2 textures
-void Card::setSprite(){
-    cardTexture.loadFromFile(GAME_CARD_ATLAS_PATH);
-    cardBackTexture.loadFromFile(GAME_CARD_BACK);
-    
-    cardSprite.setTexture(cardTexture);
-    cardSprite.setTextureRect(IntRect(CARD_WIDTH*(value-1), CARD_HEIGHT*suit, CARD_WIDTH, CARD_HEIGHT));
-    cardSprite.scale(CARD_SCALE ,CARD_SCALE);
-    
-    cardBackSprite.setTexture(cardBackTexture);
-    cardBackSprite.setTextureRect(IntRect(0, 0, CARD_WIDTH, CARD_HEIGHT));
-    cardBackSprite.scale(CARD_SCALE ,CARD_SCALE);
-}
 
-Sprite Card::getSprite(){
-    if(faceUp){
-      return cardSprite;
-    }else{
-        return cardBackSprite;
-    }
-}
- 
-void Card::setSpritePos(Vector2f position){
-    cardBackSprite.setPosition(position.x, position.y);
-    cardSprite.setPosition(position.x, position.y);
-}
-*/
-//Hand functions ************************************
+/* Hand functions
+***********************************************************************************************/
 void Hand::clear(){
     deckCards.clear();
 }
@@ -160,12 +134,9 @@ void Hand::consoleDisplay(){
         deckCards[i].consoleDisplay();
     }
 }
-/*
-Sprite Hand::getSprite(int index){
-    return deckCards[index].getSprite();
-}
-*/
-//Deck functions ************************************
+
+/* Deck functions
+ ***********************************************************************************************/
 Deck::Deck(){
     shuffling = false;
 }
@@ -201,51 +172,28 @@ void Deck::dealToHand(Hand &_hand){
     }
 }
 
-//GenericPlayer functions ************************************
+/* GenericPlayer functions
+ ***********************************************************************************************/
 bool GenericPlayer::isBusted(){
     return busted;
 }
-/*
-void GenericPlayer::setHandSpawn(Vector2f positionInit){
-    int xDisp = 0;
-    for (int i = 0; i<deckCards.size(); i++){
-        deckCards[i].setSpritePos({positionInit.x + xDisp, positionInit.y});
-        xDisp += (CARD_WIDTH*CARD_SCALE)/3.3;
-    }
+
+/* Player functions
+ ***********************************************************************************************/
+Player::Player(){
+    name = "Usuario" + to_string(rand() % 100);
+    port = "0";
+    busted = false;
+    playing = false;
+    bank = 1000;
 }
 
-Text GenericPlayer::getText(){
-    return stikerTotalValue.getText();
-}
-
-//StikerTotalValue functions ************************************
-StikerTotalValue::StikerTotalValue(){
-    fontGlobal.loadFromFile(GAME_GLOBAL_FONT);
-    totalValueText.setFont(fontGlobal);
-    totalValueText.setFillColor(Color::White);
-}
-
-void StikerTotalValue::setTotalVal(int total){
-    totalValueText.setString(to_string(total));
-}
-
-void StikerTotalValue::setSpawn(Vector2f position){
-    totalValueText.setPosition(position.x, position.y);
-}
-
-Text StikerTotalValue::getText(){
-    return totalValueText;
-}
-*/
-
-
-//Player functions ************************************
-Player::Player(string _name, string _port, bool _busted, bool _playing, int _bank){
+Player::Player(string _name, string _port){
     name = _name;
     port = _port;
-    busted = _busted;
-    playing = _playing;
-    bank = _bank;
+    busted = false;
+    playing = false;
+    bank = 1000;
 }
 
 int Player::getBank(){
@@ -255,42 +203,24 @@ int Player::getBank(){
 void Player::bust(){
     busted = true;
 }
-/*
-void Player::setSpawn(int playerNum){
-    stikerTotalValue.setTotalVal(getTotalValue());
-    switch (playerNum) {
-        case 0:
-            setHandSpawn({PLAYER_0_X_POSITION,PLAYER_0_Y_POSITION});
-            stikerTotalValue.setSpawn({PLAYER_0_X_POSITION-20,PLAYER_0_Y_POSITION-20});
-            break;
-        case 1:
-            setHandSpawn({PLAYER_1_X_POSITION,PLAYER_1_Y_POSITION});
-            stikerTotalValue.setSpawn({PLAYER_1_X_POSITION-20,PLAYER_1_Y_POSITION-12});
-            break;
-        case 2:
-            setHandSpawn({PLAYER_2_X_POSITION,PLAYER_2_Y_POSITION});
-            stikerTotalValue.setSpawn({PLAYER_2_X_POSITION-20,PLAYER_2_Y_POSITION-20});
-            break;
-        default:
-            break;
-    }
+
+/* Player functions
+ ***********************************************************************************************/
+Dealer::Dealer(){
+    name = "Dealer";
+    port = "0";
+    busted = false;
+    playing = false;
 }
-*/
-//Dealer functions ************************************
-Dealer::Dealer(string _name, string _port, bool _busted, bool _playing){
+
+Dealer::Dealer(string _name, string _port){
     name = _name;
     port = _port;
-    busted = _busted;
-    playing = _playing;
+    busted = false;
+    playing = false;
 }
 
 void Dealer::flipFirstCard(){
     deckCards[0].flipCard();
 }
-/*
-void Dealer::setSpawn(){
-    setHandSpawn({DEALER_X_POSITION,DEALER_Y_POSITION});
-    stikerTotalValue.setTotalVal(getTotalValue());
-    stikerTotalValue.setSpawn({DEALER_X_POSITION-30,DEALER_Y_POSITION});
-}
-*/
+

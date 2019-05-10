@@ -1,3 +1,4 @@
+
 //
 //  gameInterface.cpp
 //  BlackjackMX
@@ -20,7 +21,7 @@ GameInterface::GameInterface(){
 void GameInterface::renderLoop(){
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
     //Struct data for user interaction init
-    userChunk gameData;
+    gameChunk gameData;
     SocketClient socketClient(ip,53000);
     
     //Send inital data to the server
@@ -54,12 +55,13 @@ void GameInterface::renderLoop(){
         gameWindow->draw(bgSprite);//Render the background
         
         socketClient.waitForConnections();
-        text.setString("ID: " + to_string(socketClient.gameData.playerId));
+        text.setString("ID: " + to_string(socketClient.gameData.userData[0].playerId));
         text.setCharacterSize(24);
         gameWindow->draw(text);
         
         // end the current frame
         gameWindow->display();
     }
-
+    
 }
+

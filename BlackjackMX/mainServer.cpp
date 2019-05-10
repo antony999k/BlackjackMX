@@ -8,7 +8,8 @@
 
 #include <iostream>
 #include <string.h>
-#include "sockets.hpp"
+#include "socketsServer.hpp"
+#include "blackjack.hpp"
 using namespace std;
 
 // FUNCTION DECLARATIONS
@@ -22,6 +23,7 @@ int main(int argc, const char * argv[]) {
     }
     SocketServer socketServer(stoi(argv[1]));
     socketServer.waitForConnections();
+    
     return 0;
 }
 
