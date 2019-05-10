@@ -28,8 +28,8 @@ private:
     Dealer dealer_hand;
     vector<Player> player_hand; //Vector of players of the game
     
-    createUserChunck createUserChunckServer;
-    gameChunk gameChunkServer;
+    createUserChunck userData;
+    gameChunk gameData;
 public:
     Game();
     //Set the userId based on player position (0 to 3) that are max player position + player port
@@ -41,6 +41,9 @@ public:
     
     //Udate the game data ready to be send to clients
     gameChunk getGameData();
+    
+    //Udate the user data ready to be send to a client in init
+    createUserChunck getUserData();
 };
 
 #endif /* game_hpp */

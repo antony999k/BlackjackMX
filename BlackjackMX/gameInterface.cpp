@@ -21,11 +21,17 @@ GameInterface::GameInterface(){
 void GameInterface::renderLoop(){
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
     //Struct data for user interaction init
-    gameChunk gameData;
+    
+    //Tempolal data
+    gameChunk newGameData;
+    createUserChunck newUserData;
+    Uint32 myPlayerID = 0;
+    
     SocketClient socketClient(ip,53000);
     
     //Send inital data to the server
-    socketClient.setGamePacket(gameData, CREATE_USER);
+    //socketClient.setGamePacket(newGameData, MOVEMENT); //CREATE_USER, MOVEMENT, ERROR, EXIT
+    socketClient.setUserPacket(newUserData, CREATE_USER); //CREATE_USER, MOVEMENT, ERROR, EXIT
     socketClient.sendPacketToServer();
     
     sf::Font font;
@@ -44,7 +50,7 @@ void GameInterface::renderLoop(){
                     break;
                 case Event::KeyPressed:
                     if(Keyboard::isKeyPressed(Keyboard::Q)){
-                        socketClient.setGamePacket(gameData, CREATE_USER);
+                        socketClient.setGamePacket(newGameData, MOVEMENT);
                         socketClient.sendPacketToServer();
                     }
                     break;
@@ -55,8 +61,9 @@ void GameInterface::renderLoop(){
         gameWindow->draw(bgSprite);//Render the background
         
         socketClient.waitForConnections();
-        text.setString("Turn Playerid: " + to_string(socketClient.gameData.turnPlayerId));
-        text.setCharacterSize(24);
+        
+        text.setString("Turn Playerid: " + to_string(socketClient.userData.playerId));
+        text.setCharacterSize(20);
         gameWindow->draw(text);
         
         // end the current frame

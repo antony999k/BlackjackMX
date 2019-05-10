@@ -30,20 +30,20 @@ sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
 
 //dealerChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, dealerChunk& packetData){
-    return packet >> packetData.cardsValue >> packetData.cards;
+    return packet >> packetData.cards >> packetData.cardsValue;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, dealerChunk& packetData){
-    return packet << packetData.cardsValue << packetData.cards;
+    return packet << packetData.cards << packetData.cardsValue;
 }
 
 //gameChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, gameChunk& packetData){
-    return packet >> packetData.turnPlayerId >> packetData.gameStatus >> *packetData.userData >> packetData.dealerData;
+    return packet >> packetData.gameStatus >> packetData.turnPlayerId >> *packetData.userData >> packetData.dealerData;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, gameChunk& packetData){
-    return packet << packetData.turnPlayerId << packetData.gameStatus << *packetData.userData << packetData.dealerData;
+    return packet << packetData.gameStatus << packetData.turnPlayerId  << *packetData.userData << packetData.dealerData;
 }
 
 
@@ -58,7 +58,7 @@ void GenericSocket::setGamePacket(gameChunk _gameData, sf::Uint32 _header){
 }
 
 //set user package data in local class variables
-void GenericSocket::setUserPacket(userChunk _userData, sf::Uint32 _header){
+void GenericSocket::setUserPacket(createUserChunck _userData, sf::Uint32 _header){
     userData = _userData;
     header = _header;
     packet << header;
@@ -67,14 +67,12 @@ void GenericSocket::setUserPacket(userChunk _userData, sf::Uint32 _header){
 
 //set game package data in local class variables
 void GenericSocket::saveGamePacket(){
-    packet >> header;
     packet >> gameData;
     packet.clear();
 }
 
 
 void GenericSocket::saveUserPacket(){
-    packet >> header;
     packet >> userData;
     packet.clear();
 }
@@ -126,6 +124,14 @@ void SocketClient::sendPacketToServer(){
 void SocketClient::waitForConnections(){
     if (socket.receive(packet) == sf::Socket::Done)
     {
-        saveGamePacket();
+        saveHeader();
+        //CREATE_USER, MOVEMENT, ERROR, EXIT
+        if(header == CREATE_USER){
+            saveUserPacket();
+        }else{
+            saveGamePacket();
+        }
+        
+        cout << "(waitForConnections) Name: " << userData.name << endl;
     }
 }

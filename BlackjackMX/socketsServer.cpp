@@ -56,29 +56,28 @@ void SocketServer::waitForConnections(){
                     sf::TcpSocket& client = **it;
                     if (selector.isReady(client)){
                         // The client has sent some data, we can receive it
-                        if (client.receive(packet) == sf::Socket::Done)
-                        {
-                            saveGamePacket();
+                        if (client.receive(packet) == sf::Socket::Done){
+                            saveHeader();
+                            cout << "Player init: " << header << endl;
                             switch (header) {
                                 case 0:
-                                    cout << "Player init: " << header << endl;
-                                    
+                                    saveUserPacket();
+                                    cout << "From user username: " << userData.name << endl;
                                     //Set a random username and a port to the player in the game
                                     game.setPlayer("Usuario" + to_string(1 + rand() % 1000), to_string(client.getRemotePort()), game.setGetPlayerId(itUserId, client.getRemotePort()));
                                     
-                                    setGamePacket(game.getGameData(), CREATE_USER);
+                                    //setGamePacket(game.getGameData(), CREATE_USER);
+                                    setUserPacket(game.getUserData(), CREATE_USER); //CREATE_USER, MOVEMENT, ERROR, EXIT
                                     sendPacketToClient(itUserId);
-                                    itUserId++;
                                     break;
                                 case 1:
-                                    cout << "Player movement: " << header << endl;
                                     break;
                                 default:
-                                    cout << "Player movement unknown: " << header << endl;
                                     break;
                             }
                         }
                     }
+                    itUserId++;
                 }
             }
         }
@@ -86,6 +85,7 @@ void SocketServer::waitForConnections(){
 }
 
 void SocketServer::sendPacketToClient(unsigned short int numClient){
+    cout << "sendPacketToClient " << numClient - 1 << endl;
     clients[numClient - 1]->send(packet);
     packet.clear();
 }

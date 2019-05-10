@@ -29,6 +29,8 @@ unsigned int Game::setGetPlayerId(unsigned int _playerPosition, unsigned int _pl
 //Set a new player in the game
 void Game::setPlayer(string _name, string _port,  unsigned int _playerId){
     player_hand.push_back(Player(_name, _port, _playerId));
+    userData.name = _name;
+    userData.playerId = _playerId;
     cout << "New player " << _name << ", port:" << _port << ", PlayerId:" << _playerId <<  endl;
 }
 
@@ -50,10 +52,14 @@ void Game::initGame(){
 }
 
 gameChunk Game::getGameData(){
-    gameChunkServer.gameStatus = gameStatus;
-    gameChunkServer.turnPlayerId = turnPlayerId;
+    gameData.gameStatus = gameStatus;
+    gameData.turnPlayerId = turnPlayerId;
     //gameChunkServer.turnPlayerId= 87;
-    cout << "turnPlayerId: " << gameChunkServer.turnPlayerId << endl;
+    cout << "turnPlayerId: " << gameData.turnPlayerId << endl;
     
-    return gameChunkServer;
+    return gameData;
+}
+
+createUserChunck Game::getUserData(){
+    return userData;
 }
