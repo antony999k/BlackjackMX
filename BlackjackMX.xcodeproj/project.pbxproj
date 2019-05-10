@@ -17,6 +17,7 @@
 		2B6C98922256A261004D3749 /* mainServer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C986422567EFF004D3749 /* mainServer.cpp */; };
 		2B6C98932256A29C004D3749 /* sockets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C987922569B3A004D3749 /* sockets.cpp */; };
 		2B6C989C22595F37004D3749 /* gameInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B6C989A22595F37004D3749 /* gameInterface.cpp */; };
+		2B8125BE22850E4E00741B6E /* blackjackRender.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2B8125BC22850E4E00741B6E /* blackjackRender.cpp */; };
 		2BBAFF1D223AD0D100B317EE /* libsfml-audio.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F54222B3290007CC404 /* libsfml-audio.2.5.1.dylib */; };
 		2BBAFF1E223AD0D100B317EE /* libsfml-graphics.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BC14F55222B3290007CC404 /* libsfml-graphics.2.5.1.dylib */; };
 		2BBAFF1F223AD0D100B317EE /* libsfml-network.2.5.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */; };
@@ -60,6 +61,8 @@
 		2B6C989922586F5B004D3749 /* CODES.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CODES.hpp; sourceTree = "<group>"; };
 		2B6C989A22595F37004D3749 /* gameInterface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gameInterface.cpp; sourceTree = "<group>"; };
 		2B6C989B22595F37004D3749 /* gameInterface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gameInterface.hpp; sourceTree = "<group>"; };
+		2B8125BC22850E4E00741B6E /* blackjackRender.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = blackjackRender.cpp; sourceTree = "<group>"; };
+		2B8125BD22850E4E00741B6E /* blackjackRender.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = blackjackRender.hpp; sourceTree = "<group>"; };
 		2BBAFF1B223ACF1600B317EE /* libsfml-network.2.5.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libsfml-network.2.5.1.dylib"; path = "Libraries/SFML/lib/libsfml-network.2.5.1.dylib"; sourceTree = "<group>"; };
 		2BC14F47222B31CA007CC404 /* BlackjackMX */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = BlackjackMX; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BC14F4A222B31CA007CC404 /* mainClient.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mainClient.cpp; sourceTree = "<group>"; };
@@ -126,6 +129,8 @@
 				2BC14F4A222B31CA007CC404 /* mainClient.cpp */,
 				2BC14F7E222C62A9007CC404 /* blackjack.cpp */,
 				2BC14F7F222C62A9007CC404 /* blackjack.hpp */,
+				2B8125BC22850E4E00741B6E /* blackjackRender.cpp */,
+				2B8125BD22850E4E00741B6E /* blackjackRender.hpp */,
 				2BC14F82222C7234007CC404 /* DEFINITIONS.hpp */,
 				2B6C989922586F5B004D3749 /* CODES.hpp */,
 				2B6C987922569B3A004D3749 /* sockets.cpp */,
@@ -241,6 +246,7 @@
 			files = (
 				2B6C987D22569C05004D3749 /* sockets.cpp in Sources */,
 				2BC14F4B222B31CA007CC404 /* mainClient.cpp in Sources */,
+				2B8125BE22850E4E00741B6E /* blackjackRender.cpp in Sources */,
 				2B6C989C22595F37004D3749 /* gameInterface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

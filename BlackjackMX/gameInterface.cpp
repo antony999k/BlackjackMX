@@ -20,8 +20,12 @@ GameInterface::GameInterface(){
 void GameInterface::renderLoop(){
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
     //Struct data for user interaction init
-    userInteraction gameData;
+    userChunk gameData;
     SocketClient socketClient(ip,53000);
+    
+    //Send inital data to the server
+    socketClient.setPacket(gameData, CREATE_USER);
+    socketClient.sendPacketToServer();
     
     sf::Font font;
     font.loadFromFile(GAME_GLOBAL_FONT);
@@ -45,13 +49,12 @@ void GameInterface::renderLoop(){
                     break;
             }
         }
-        
         // clear the window with black color
         gameWindow->clear(sf::Color::Black);
         gameWindow->draw(bgSprite);//Render the background
         
         socketClient.waitForConnections();
-        text.setString(to_string(socketClient.gameData.playerId));
+        text.setString("ID: " + to_string(socketClient.gameData.playerId));
         text.setCharacterSize(24);
         gameWindow->draw(text);
         

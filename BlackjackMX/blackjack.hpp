@@ -14,11 +14,9 @@
 #include <algorithm>
 #include <random>
 #include <ctime>
-//#include <SFML/Graphics.hpp>
 #include "DEFINITIONS.hpp"
 
 using namespace std;
-//using namespace sf;
 
 class Card{
 private:
@@ -27,10 +25,6 @@ private:
     int gameValue; //Ace, 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King
     int cardStatus; //1)In Deck 2) In play 3) Out of the game
     bool faceUp;
-    //Texture cardTexture; //Texture includes all the cards in the deck
-    //Texture cardBackTexture; //Texture includes tha back texture of the card
-    //Sprite cardSprite; //Sprite of the card
-    //Sprite cardBackSprite; //Back sprite
 protected:
     void setSprite(); //Set the texture and the sprite for the card, setCard() call this function
 public:
@@ -42,8 +36,6 @@ public:
     bool isFaceUp(); //Indicates if the card is face up
     void flipCard(); //If the card is face down becomes face up and viceversa
     void consoleDisplay(); //Diplay a card in console for Debug and testing
-    //void setSpritePos(Vector2f); //Set the position of a card in the window
-    //Sprite getSprite(); //Return the specific card sprite
 };
 
 
@@ -58,7 +50,6 @@ public:
     void addCard(class Card *); //Add a card in the hand
     int getNumberCards(); //Return the total number of cards in the hand
     void consoleDisplay(); //Diplay a deck in console for Debug and testing
-    //Sprite getSprite(int); //You give the number of card in the vector and return his sprite
 };
 
 
@@ -72,18 +63,6 @@ public:
     void dealToHand(Hand&);
 };
 
-/*
-class StikerTotalValue{
-private:
-    Font fontGlobal;
-    Text totalValueText;
-public:
-    StikerTotalValue();
-    void setTotalVal(int=0);
-    void setSpawn(Vector2f);
-    Text getText();
-};
-*/
 
 class GenericPlayer: public Hand{
 protected:
@@ -91,13 +70,10 @@ protected:
     string port;
     bool busted;
     bool playing; //Indicates if is the player turn
-    //StikerTotalValue stikerTotalValue;
-    //void setHandSpawn(Vector2f); //Set the position of the hand in the window and creates an x-offset fot the cards (called by setSpawn() function)
 public:
     bool isPlaying(); //Creates a pure vitual function, GenericPlayer class is only a skeleton for Player an dealer and can´t create an instance
     bool isBusted(); //Indicate if the player is out of cards
     void push(); //It sends when a player push one card
-    //Text getText();
 };
 
 
@@ -106,7 +82,6 @@ private:
     int bank;
 public:
     Player(string = "", string = "", bool = false, bool = false,  int = 1000); //Init the credit amount and the player slot in the game
-    //bool isPlaying();
     void win(); //It sends when a player win
     void tie(); ////It sends when a player tie
     void bust(); //It sends when a player is busted
@@ -117,7 +92,6 @@ public:
 class Dealer : public GenericPlayer{
 public:
     Dealer(string = "", string = "", bool = false, bool = false);
-    //bool isPlaying();
     void flipFirstCard(); //Dealer flip the first card
     void setSpawn();
 };

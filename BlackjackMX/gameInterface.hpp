@@ -13,6 +13,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
 #include "sockets.hpp"
+#include "blackjackRender.hpp"
 #include "DEFINITIONS.hpp"
 using namespace sf;
 using namespace std;

@@ -19,8 +19,8 @@ using namespace std;
 using namespace sf;
 
 //userData struct Packet operation
-sf::Packet& operator >>(sf::Packet& packet, userInteraction& packetData);
-sf::Packet& operator <<(sf::Packet& packet, userInteraction& packetData);
+sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData);
+sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData);
 
 class GenericSocket{
 protected:
@@ -29,8 +29,8 @@ protected:
     sf::Uint32 header;
     string tag;
 public:
-    userInteraction gameData;
-    void setPacket(userInteraction _gameData, sf::Uint32 _header); //set package data in local class variables
+    userChunk gameData;
+    void setPacket(userChunk _gameData, sf::Uint32 _header); //set package data in local class variables
     void setHeader(sf::Uint32 _header); //The the variable header
     void savePacket();
     sf::Packet*getPacket();

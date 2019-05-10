@@ -11,17 +11,18 @@
  *****************************************************************/
 
 //userData struct Packet operation
-sf::Packet& operator >>(sf::Packet& packet, userInteraction& packetData){
-    return packet >> packetData.playerId >> packetData.cards >> packetData.cardsValue >> packetData.playerStatus >> packetData.playerMovement;
+sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData){
+    return packet >> packetData.playerId >> packetData.username >> packetData.cards >> packetData.cardsValue >> packetData.playerStatus >> packetData.playerMovement;
 }
 
-sf::Packet& operator <<(sf::Packet& packet, userInteraction& packetData){
-    return packet << packetData.playerId << packetData.cards << packetData.cardsValue << packetData.playerStatus << packetData.playerMovement;
+sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
+    return packet << packetData.playerId << packetData.username << packetData.cards << packetData.cardsValue << packetData.playerStatus << packetData.playerMovement;
 }
+
 
 /* Generic Server functions
  *****************************************************************/
-void GenericSocket::setPacket(userInteraction _gameData, sf::Uint32 _header){
+void GenericSocket::setPacket(userChunk _gameData, sf::Uint32 _header){
     gameData = _gameData;
     header = _header;
     packet << header;
@@ -57,7 +58,8 @@ SocketServer::SocketServer(unsigned int port){
     }
 }
 
-
+/* Wait for conection in a loop
+ *****************************************************************/
 void SocketServer::waitForConnections(){
     sf::SocketSelector selector;
     // Add the listener to the selector
@@ -75,7 +77,7 @@ void SocketServer::waitForConnections(){
                     clients.push_back(client);
                     // Add the new client to the selector so that we will be notified when he sends something
                     selector.add(*client);
-                    cout << tag << " Conection established with: " << client->getRemoteAddress() << " on port " << client->getRemotePort() << endl;
+                    cout << tag << " Conection established with: " << client->getRemoteAddress() << ":" << client->getRemotePort() << endl;
                 }else{
                     // Error, we won't get a new connection, delete the socket
                     delete client;
@@ -83,7 +85,7 @@ void SocketServer::waitForConnections(){
                 }
             }else{
                 // The listener socket is not ready, test all other sockets (the clients)
-                sf::Uint32 i =0;
+                sf::Uint32 itUserId = 0;
                 for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
                     sf::TcpSocket& client = **it;
                     if (selector.isReady(client)){
@@ -91,11 +93,30 @@ void SocketServer::waitForConnections(){
                         if (client.receive(packet) == sf::Socket::Done)
                         {
                             savePacket();
-                            setPacket(gameData, CREATE_USER);
-                            sendPacketToClient(i);
+                            switch (header) {
+                                case 0:
+                                    cout << "Player init: " << header << endl;
+                                    gameData.playerId = itUserId;
+                                    gameData.cards[0] = (char)9;
+                                    gameData.cardsValue = 18;
+                                    gameData.playerStatus = PLAYING;
+                                    gameData.playerMovement = NO_APPLY;
+                                    setPacket(gameData, CREATE_USER);
+                                    sendPacketToClient(itUserId);
+                                    break;
+                                case 1:
+                                    cout << "Player movement: " << header << endl;
+                                    break;
+                                default:
+                                    cout << "Player movement unknown: " << header << endl;
+                                    break;
+                            }
+                            
+                            //setPacket(gameData, CREATE_USER);
+                            //sendPacketToClient(i);
                         }
                     }
-                    i++;
+                    itUserId++;
                 }
             }
         }
@@ -130,7 +151,6 @@ SocketClient::SocketClient(sf::IpAddress ip, unsigned int port){
     gameData.cardsValue = 0;
     gameData.playerMovement = NULL;
     gameData.playerStatus = NULL;
-    gameData.cards = "";
 }
 
 TcpSocket* SocketClient::getServerSocket(){
