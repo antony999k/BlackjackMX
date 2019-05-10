@@ -25,7 +25,7 @@ void GameInterface::renderLoop(){
     SocketClient socketClient(ip,53000);
     
     //Send inital data to the server
-    socketClient.setPacket(gameData, CREATE_USER);
+    socketClient.setGamePacket(gameData, CREATE_USER);
     socketClient.sendPacketToServer();
     
     sf::Font font;
@@ -44,7 +44,7 @@ void GameInterface::renderLoop(){
                     break;
                 case Event::KeyPressed:
                     if(Keyboard::isKeyPressed(Keyboard::Q)){
-                        socketClient.setPacket(gameData, CREATE_USER);
+                        socketClient.setGamePacket(gameData, CREATE_USER);
                         socketClient.sendPacketToServer();
                     }
                     break;
@@ -55,7 +55,7 @@ void GameInterface::renderLoop(){
         gameWindow->draw(bgSprite);//Render the background
         
         socketClient.waitForConnections();
-        text.setString("Player ID: " + to_string(socketClient.gameData.userData[0].playerId));
+        text.setString("Turn Playerid: " + to_string(socketClient.gameData.turnPlayerId));
         text.setCharacterSize(24);
         gameWindow->draw(text);
         

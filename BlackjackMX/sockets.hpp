@@ -48,10 +48,13 @@ protected:
     string tag;
 public:
     gameChunk gameData;
-    //template <typename T>
-    void setPacket(gameChunk _gameData, sf::Uint32 _header); //set package data in local class variables
-    void setHeader(sf::Uint32 _header); //The the variable header
-    void savePacket();
+    userChunk userData;
+    void setGamePacket(gameChunk _gameData, sf::Uint32 _header); //set game package data in local class variables
+    void setUserPacket(userChunk _userData, sf::Uint32 _header); //set user package data in local class variables
+    void saveGamePacket(); //Saves the game game data chunk in the packet;
+    void saveUserPacket();
+    //void setHeader(sf::Uint32 _header); //The the variable header
+    void saveHeader();
     sf::Packet*getPacket();
 };
 

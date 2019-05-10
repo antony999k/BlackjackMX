@@ -49,24 +49,45 @@ sf::Packet& operator <<(sf::Packet& packet, gameChunk& packetData){
 
 /* Generic Server functions
  *****************************************************************/
-//template <typename T>
-void GenericSocket::setPacket(gameChunk _gameData, sf::Uint32 _header){
+//set game package data in local class variables
+void GenericSocket::setGamePacket(gameChunk _gameData, sf::Uint32 _header){
     gameData = _gameData;
     header = _header;
     packet << header;
     packet << gameData;
 }
 
-void GenericSocket::savePacket(){
+//set user package data in local class variables
+void GenericSocket::setUserPacket(userChunk _userData, sf::Uint32 _header){
+    userData = _userData;
+    header = _header;
+    packet << header;
+    packet << userData;
+}
+
+//set game package data in local class variables
+void GenericSocket::saveGamePacket(){
     packet >> header;
     packet >> gameData;
     packet.clear();
 }
 
+
+void GenericSocket::saveUserPacket(){
+    packet >> header;
+    packet >> userData;
+    packet.clear();
+}
+
+void GenericSocket::saveHeader(){
+    packet >> header;
+}
+/*
 void GenericSocket::setHeader(sf::Uint32 _header){
     header = _header;
 }
-
+ */
+    
 sf::Packet* GenericSocket::getPacket(){
     return &packet;
 }
@@ -105,6 +126,6 @@ void SocketClient::sendPacketToServer(){
 void SocketClient::waitForConnections(){
     if (socket.receive(packet) == sf::Socket::Done)
     {
-        savePacket();
+        saveGamePacket();
     }
 }
