@@ -11,18 +11,25 @@
 
 /* Game functions
  ***********************************************************************************************/
-Game::Game(){
+Game::Game(void){
+    cout << "Game constructor" << endl;
     gameStatus = WAITING;
-    turnPlayerId = -1;
+    turnPlayerId = 0;
     for(int i=0; i<MAX_NUM_PLAYERS; i++){
         activePlayers[i] = false;
     }
 }
 
+//Set the userId based on player position (0 to 3) that are max player position + player port
+unsigned int Game::setGetPlayerId(unsigned int _playerPosition, unsigned int _playerPort){
+    string sPlayerId = to_string(_playerPosition) + to_string(_playerPort);
+    return stoi(sPlayerId);
+}
+
 //Set a new player in the game
-void Game::setPlayer(string _name, string _port){
-    player_hand.push_back(Player(_name, _port));
-    cout << "New pleyer " << _name << " port " << _port << endl;
+void Game::setPlayer(string _name, string _port,  unsigned int _playerId){
+    player_hand.push_back(Player(_name, _port, _playerId));
+    cout << "New player " << _name << ", port:" << _port << ", PlayerId:" << _playerId <<  endl;
     
 }
 
@@ -46,5 +53,7 @@ void Game::initGame(){
 gameChunk Game::getGameData(){
     gameChunkServer.gameStatus = gameStatus;
     gameChunkServer.turnPlayerId = turnPlayerId;
+    cout << "turnPlayerId: " << gameChunkServer.turnPlayerId << endl;
+    
     return gameChunkServer;
 }

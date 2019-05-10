@@ -23,8 +23,18 @@ typedef enum valid_player_operations {SPLIT, DOUBLE, HIT, STAND, SURRENDER, NO_A
 //The diferent types of game server status
 typedef enum valid_game_status {WAITING, MATCHMAKING} game_status_t;
 
+//Structure that will be send between one user and client to create a player
+typedef struct createUserChunck_struct{
+    sf::Uint32 playerId;
+    string name;
+    //createUserChunck constructor
+    createUserChunck_struct(){
+        playerId = 0;
+        name = "";
+    }
+}createUserChunck;
 
-//Structure that will be exchanged between the user and the server when user curren play the game
+//Structure that will be exchanged between all users and the server when user curren play the game
 typedef struct userChunk_struct{
     sf::Uint32 playerId;
     string username;
@@ -35,7 +45,7 @@ typedef struct userChunk_struct{
     sf::Uint32 playerStatus;
     //userChunk contructor to init properties
     userChunk_struct(){
-        playerId = -1;
+        playerId = 0;
         username = "";
         cards[0] = '\0';
         cardsValue = 0;

@@ -55,7 +55,7 @@ void GameInterface::renderLoop(){
         gameWindow->draw(bgSprite);//Render the background
         
         socketClient.waitForConnections();
-        text.setString("ID: " + to_string(socketClient.gameData.userData[0].playerId));
+        text.setString("Player ID: " + to_string(socketClient.gameData.userData[0].playerId));
         text.setCharacterSize(24);
         gameWindow->draw(text);
         

@@ -181,16 +181,18 @@ bool GenericPlayer::isBusted(){
 /* Player functions
  ***********************************************************************************************/
 Player::Player(){
-    name = "Usuario" + to_string(rand() % 100);
+    name = "Usuario" + to_string(1 + rand() % 1000);
     port = "0";
+    playerId = 0;
     busted = false;
     playing = false;
     bank = 1000;
 }
 
-Player::Player(string _name, string _port){
+Player::Player(string _name, string _port, unsigned int _playerId){
     name = _name;
     port = _port;
+    playerId = _playerId;
     busted = false;
     playing = false;
     bank = 1000;

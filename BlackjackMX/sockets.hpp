@@ -18,6 +18,11 @@ using namespace std;
 using namespace sf;
 
 
+/* createUserChunck struct Packet operation
+ ***********************************************************************************************/
+sf::Packet& operator >>(sf::Packet& packet, createUserChunck& packetData);
+sf::Packet& operator <<(sf::Packet& packet, createUserChunck& packetData);
+
 /* UserChunk struct Packet operation
  ***********************************************************************************************/
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData);
@@ -43,6 +48,7 @@ protected:
     string tag;
 public:
     gameChunk gameData;
+    //template <typename T>
     void setPacket(gameChunk _gameData, sf::Uint32 _header); //set package data in local class variables
     void setHeader(sf::Uint32 _header); //The the variable header
     void savePacket();

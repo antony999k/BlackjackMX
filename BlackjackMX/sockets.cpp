@@ -10,6 +10,15 @@
 /* General functions
  *****************************************************************/
 
+//createUserChunck struct Packet operation
+sf::Packet& operator >>(sf::Packet& packet, createUserChunck& packetData){
+    return packet >> packetData.playerId >> packetData.name;
+}
+
+sf::Packet& operator <<(sf::Packet& packet, createUserChunck& packetData){
+    return packet << packetData.playerId << packetData.name;
+}
+
 //userChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData){
     return packet >> packetData.playerId >> packetData.username >> packetData.cards >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus;
@@ -40,6 +49,7 @@ sf::Packet& operator <<(sf::Packet& packet, gameChunk& packetData){
 
 /* Generic Server functions
  *****************************************************************/
+//template <typename T>
 void GenericSocket::setPacket(gameChunk _gameData, sf::Uint32 _header){
     gameData = _gameData;
     header = _header;

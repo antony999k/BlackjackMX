@@ -51,7 +51,7 @@ void SocketServer::waitForConnections(){
                 }
             }else{
                 // The listener socket is not ready, test all other sockets (the clients)
-                sf::Uint32 itUserId = 0;
+                sf::Uint32 itUserId = 1;
                 for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
                     sf::TcpSocket& client = **it;
                     if (selector.isReady(client)){
@@ -62,12 +62,11 @@ void SocketServer::waitForConnections(){
                             switch (header) {
                                 case 0:
                                     cout << "Player init: " << header << endl;
-                                    //gameData.userData[itUserId].playerId = 77;
                                     
                                     //Set a random username and a port to the player in the game
-                                    game.setPlayer("Usuario" + to_string(rand() % 1000), to_string(client.getRemotePort()));
+                                    game.setPlayer("Usuario" + to_string(1 + rand() % 1000), to_string(client.getRemotePort()), game.setGetPlayerId(itUserId, client.getRemotePort()));
                                     
-                                    setPacket(gameData, CREATE_USER);
+                                    setPacket(game.getGameData(), CREATE_USER);
                                     sendPacketToClient(itUserId);
                                     itUserId++;
                                     break;
@@ -87,7 +86,7 @@ void SocketServer::waitForConnections(){
 }
 
 void SocketServer::sendPacketToClient(unsigned short int numClient){
-    clients[numClient]->send(packet);
+    clients[numClient - 1]->send(packet);
     packet.clear();
 }
 
