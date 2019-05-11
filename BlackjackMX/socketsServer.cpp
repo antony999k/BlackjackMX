@@ -64,8 +64,8 @@ void SocketServer::waitForConnections(){
                                     //Set a random username and a port to the player in the game
                                     game.setPlayer("Usuario" + to_string(1 + rand() % 1000), to_string(client.getRemotePort()), game.setGetPlayerId(itUserId, client.getRemotePort()));
                                     
-                                    //setGamePacket(game.getGameData(), CREATE_USER);
                                     setUserPacket(game.getUserData(), CREATE_USER); //CREATE_USER, MOVEMENT, ERROR, EXIT
+                                    cout << "To " << itUserId << ", playerId: " << userData.playerId << ", Name: " << userData.name << endl;
                                     sendPacketToClient(itUserId);
                                     break;
                                 case 1:
@@ -77,7 +77,8 @@ void SocketServer::waitForConnections(){
                     }
                     itUserId++;
                 }
-                if(clients.size() >= 1){
+                if(clients.size() >= 2){
+                    cout << "###### GAME START ########";
                     game.initGame();
                     setGamePacket(game.getGameData(), MOVEMENT);  //CREATE_USER, MOVEMENT, ERROR, EXIT
                     sendPacketToAllClient();
@@ -93,6 +94,7 @@ void SocketServer::sendPacketToClient(unsigned short int numClient){
 }
 
 void SocketServer::sendPacketToAllClient(){
+    displayDataChunk();
     for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
         sf::TcpSocket& client = **it;
         client.send(packet);

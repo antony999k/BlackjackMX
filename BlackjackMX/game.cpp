@@ -15,7 +15,7 @@ Game::Game(void){
     gameStatus = WAITING;
     turnPlayerId = 0;
     for(int i=0; i<MAX_NUM_PLAYERS; i++){
-        activePlayers[i] = false;
+        //activePlayers[i] = false;
     }
 }
 
@@ -55,33 +55,30 @@ gameChunk Game::getGameData(){
     gameData.turnPlayerId = turnPlayerId;
     int deckCounter = 0;
     for (int i =0; i<player_hand.size(); i++) {
-        //vector<Card> tempDeck= player_hand[i].getDeck();
-        for (int j = 0; j < player_hand[i].getDeck().size(); j++) {
-            //cout << "CHECKER: " << player_hand[i].getDeck()[j].getValue() << endl;
-            gameData.userData[i].cards[deckCounter] = player_hand[i].getDeck()[j].getValue();
-            gameData.userData[i].cards[deckCounter+1] = player_hand[i].getDeck()[j].getSuit();
-            //cout << "Saved: " << gameData.userData[i].cards[deckCounter] << " - " << gameData.userData[i].cards[deckCounter+1]  << endl;
-            deckCounter += 2;
-        }
         gameData.userData[i].numCards = player_hand[i].getNumberCards();
         gameData.userData[i].playerId = player_hand[i].getPlayerId();
         gameData.userData[i].cardsValue = player_hand[i].getTotalValue();
         gameData.userData[i].playerMovement = NO_APPLY;
         gameData.userData[i].playerStatus = player_hand[i].isBusted();
         gameData.userData[i].username = player_hand[i].getUsername();
+        for (int j = 0; j < player_hand[i].getDeck().size(); j++) {
+            cout << "CHECKER: " << player_hand[i].getDeck()[j].getValue() << endl;
+            gameData.userData[i].cards[deckCounter] = player_hand[i].getDeck()[j].getValue();
+            gameData.userData[i].cards[deckCounter+1] = player_hand[i].getDeck()[j].getSuit();
+            cout << "Saved: " << gameData.userData[i].cards[deckCounter] << " - " << gameData.userData[i].cards[deckCounter+1]  << endl;
+            deckCounter += 2;
+        }
     }
     gameData.dealerData.cardsValue = dealer_hand.getTotalValue();
     gameData.dealerData.numCards = dealer_hand.getNumberCards();
     deckCounter = 0;
     for(int k = 0; k<dealer_hand.getDeck().size(); k++){
-        cout << "DEALER CARD " << k << ": " << dealer_hand.getDeck()[k].getValue() << "-" << dealer_hand.getDeck()[k].getSuit() << endl;
         gameData.dealerData.cards[deckCounter] = dealer_hand.getDeck()[k].getValue();
         gameData.dealerData.cards[deckCounter+1] = dealer_hand.getDeck()[k].getSuit();
         deckCounter += 2;
     }
     deckCounter = 0;
     for(int l = 0; l<dealer_hand.getDeck().size(); l++){
-        cout << "DEALER CARD DECK " << l << ": " << gameData.dealerData.cards[deckCounter] << "-" << gameData.dealerData.cards[deckCounter+1] << endl;
         deckCounter += 2;
     }
     //gameChunkServer.turnPlayerId= 87;

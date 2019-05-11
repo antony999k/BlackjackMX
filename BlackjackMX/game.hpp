@@ -23,7 +23,7 @@ class Game{
 private:
     unsigned int gameStatus; //WAITING, MATCHMAKING
     unsigned int turnPlayerId; // Id of the player who has the turn
-    bool activePlayers[MAX_NUM_PLAYERS]; //Bool that know if player exists
+    //bool activePlayers[MAX_NUM_PLAYERS]; //Bool that know if player exists
     Deck deck; //Deck of cards in the game
     Dealer dealer_hand;
     vector<Player> player_hand; //Vector of players of the game

@@ -30,7 +30,7 @@ class GameInterface{
     
     //SFML Render props
     DealerRender dealer;
-    PlayerRender player;
+    PlayerRender player[MAX_NUM_PLAYERS];
 protected:
     void renderLoop();
     void waitConectionLoop();

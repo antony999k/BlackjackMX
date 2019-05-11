@@ -23,29 +23,29 @@ sf::Packet& operator <<(sf::Packet& packet, createUserChunck& packetData){
 
 //userChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData){
-    return packet >> packetData.playerId >> packetData.username >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus >> packetData.numCards;
+    return packet >> packetData.playerId >> packetData.username >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus >> packetData.numCards;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
-    return packet << packetData.playerId << packetData.username << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus << packetData.numCards;
+    return packet << packetData.playerId << packetData.username << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus << packetData.numCards;
 }
 
 //dealerChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, dealerChunk& packetData){
-    return packet >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.numCards;
+    return packet >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.numCards;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, dealerChunk& packetData){
-    return packet << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.numCards;
+    return packet << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.numCards;
 }
 
 //gameChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, gameChunk& packetData){
-    return packet >> packetData.gameStatus >> packetData.turnPlayerId >> *packetData.userData >> packetData.dealerData;
+    return packet >> packetData.gameStatus >> packetData.turnPlayerId >> packetData.userData[0] >> packetData.userData[1] >> packetData.userData[2] >> packetData.userData[3] >> packetData.dealerData;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, gameChunk& packetData){
-    return packet << packetData.gameStatus << packetData.turnPlayerId  << *packetData.userData << packetData.dealerData;
+    return packet << packetData.gameStatus << packetData.turnPlayerId << packetData.userData[0] << packetData.userData[1] << packetData.userData[2] << packetData.userData[3] << packetData.dealerData;
 }
 
 

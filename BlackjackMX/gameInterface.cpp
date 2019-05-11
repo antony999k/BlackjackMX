@@ -10,8 +10,6 @@
 #include "gameInterface.hpp"
 void GameInterface::renderLoop(){
     
-    
-    
     sf::Font font;
     font.loadFromFile(GAME_GLOBAL_FONT);
     sf::Text text;
@@ -43,15 +41,19 @@ void GameInterface::renderLoop(){
             displayText = "True";
         }
         //text.setString("Game start: " + to_string(socketClient.gameData.gameStatus));
-        text.setString("Game start: " + to_string(socketClient.gameData.dealerData.cards[1]));
+        text.setString("PlayerID: " + to_string(socketClient.gameData.userData[1].cards[0]));
         text.setCharacterSize(20);
         gameWindow->draw(text);
         if(dataLoaded){
+            
             gameWindow->draw(dealer.getSprite(0));
             gameWindow->draw(dealer.getSprite(1));
             
-            gameWindow->draw(player.getSprite(0));
-            gameWindow->draw(player.getSprite(1));
+            for(int i = 0; i<MAX_NUM_PLAYERS; i++){
+                for(int j = 0; j<socketClient.gameData.userData[i].numCards;j++){
+                    gameWindow->draw(player[i].getSprite(j));
+                }
+            }
         }
         
         // end the current frame
@@ -72,19 +74,20 @@ void GameInterface::waitConectionLoop(){
     createUserChunck newUserData;
     
     //Send inital data to the server
-    //socketClient.setGamePacket(newGameData, MOVEMENT); //CREATE_USER, MOVEMENT, ERROR, EXIT
     socketClient.setUserPacket(newUserData, CREATE_USER); //CREATE_USER, MOVEMENT, ERROR, EXIT
     socketClient.sendPacketToServer();
-    
     
     while (gameOpen) {
         socketClient.waitForConnections();
         if(socketClient.dataChanged){
             socketClient.displayDataChunk();
-            sf::Uint32 Acards[MAX_NUM_HAND] = {1,2,3,1};
-            sf::Uint32 Acards2[MAX_NUM_HAND] = {6,2,8,3};
-            dealer.setSpawn(2, Acards);
-            player.setSpawn(0, 2, socketClient.gameData.userData[0].cards);
+            
+            dealer.setSpawn(socketClient.gameData.dealerData.numCards, socketClient.gameData.dealerData.cards);
+            for(int i = 0; i<MAX_NUM_PLAYERS; i++){
+                if(socketClient.gameData.userData[i].playerId != 0){
+                    player[i].setSpawn(i, socketClient.gameData.userData[i].numCards, socketClient.gameData.userData[i].cards);
+                }
+            }
             socketClient.dataChanged = false;
             dataLoaded = true;
         }
