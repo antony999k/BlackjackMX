@@ -23,11 +23,11 @@ sf::Packet& operator <<(sf::Packet& packet, createUserChunck& packetData){
 
 //userChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData){
-    return packet >> packetData.playerId >> packetData.username >> *packetData.cards >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus;
+    return packet >> packetData.playerId >> packetData.username >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus >> packetData.numCards;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
-    return packet << packetData.playerId << packetData.username << *packetData.cards << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus;
+    return packet << packetData.playerId << packetData.username << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus << packetData.numCards;
 }
 
 //dealerChunk struct Packet operation
@@ -92,15 +92,32 @@ sf::Packet* GenericSocket::getPacket(){
 }
 
 void GenericSocket::displayDataChunk(){
+    int i2 = 0;
     cout << "************** GAME Data Chunk ******************" << endl;
     cout << "gameStatus: " << gameData.gameStatus << endl;
     cout << "turnPlayerId: " << gameData.turnPlayerId << endl;
     cout << "\tdealerData.cardsValue: " << gameData.dealerData.cardsValue << endl;
     cout << "\tdealerData.numCards: " << gameData.dealerData.numCards << endl;
-    int i2 = 0;
     for(int i = 0; i<gameData.dealerData.numCards; i++){
         cout << "\tdealerData.card("<< i << "): " << gameData.dealerData.cards[i2] << "-" << gameData.dealerData.cards[i2+1] << endl;
         i2+=2;
+    }
+    cout << "----------------Players---------------------" << endl;
+    for(int j = 0; j<MAX_NUM_PLAYERS; j++){
+        cout << "\tuserData["<< j<<"].playerId: " << gameData.userData[j].playerId << endl;
+        cout << "\tuserData["<< j<<"].cardsValue: " << gameData.userData[j].cardsValue << endl;
+        cout << "\tuserData["<< j<<"].playerMovement: " << gameData.userData[j].playerMovement << endl;
+        cout << "\tuserData["<< j<<"].playerStatus: " << gameData.userData[j].playerStatus << endl;
+        cout << "\tuserData["<< j<<"].username: " << gameData.userData[j].username << endl;
+        cout << "\tuserData["<< j<<"].numCards: " << gameData.userData[j].numCards << endl;
+        i2=0;
+        for(int k = 0; k<gameData.userData[j].numCards; k++){
+            cout << "\t\tuserData["<< j<<"].card("<< k << "): " << gameData.userData[j].cards[i2] << "-" << gameData.userData[j].cards[i2+1] << endl;
+            i2+=2;
+        }
+        if(j!=MAX_NUM_PLAYERS-1){
+            cout << "--------------------------------------------" << endl;
+        }
     }
     cout << "**************************************************" << endl;
 }

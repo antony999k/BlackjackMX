@@ -63,6 +63,7 @@ gameChunk Game::getGameData(){
             //cout << "Saved: " << gameData.userData[i].cards[deckCounter] << " - " << gameData.userData[i].cards[deckCounter+1]  << endl;
             deckCounter += 2;
         }
+        gameData.userData[i].numCards = player_hand[i].getNumberCards();
         gameData.userData[i].playerId = player_hand[i].getPlayerId();
         gameData.userData[i].cardsValue = player_hand[i].getTotalValue();
         gameData.userData[i].playerMovement = NO_APPLY;

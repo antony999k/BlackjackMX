@@ -43,13 +43,16 @@ typedef struct userChunk_struct{
     sf::Uint32 cardsValue;
     sf::Uint32 playerMovement;
     sf::Uint32 playerStatus;
+    sf::Uint32 numCards; //Number of cards in the hand
     //userChunk contructor to init properties
     userChunk_struct(){
         playerId = 0;
         username = "";
+        playerStatus = 0;
         cards[0] = '\0';
         cardsValue = 0;
         playerMovement = NO_APPLY;
+        numCards = 0;
     };
 }userChunk;
 
