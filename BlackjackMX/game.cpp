@@ -53,7 +53,8 @@ void Game::initGame(){
 gameChunk Game::getGameData(){
     gameData.gameStatus = gameStatus;
     gameData.turnPlayerId = turnPlayerId;
-    int deckCounter = 0;
+    int deckCounter;
+    //Iteration betwen all the players in the game
     for (int i =0; i<player_hand.size(); i++) {
         gameData.userData[i].numCards = player_hand[i].getNumberCards();
         gameData.userData[i].playerId = player_hand[i].getPlayerId();
@@ -61,11 +62,12 @@ gameChunk Game::getGameData(){
         gameData.userData[i].playerMovement = NO_APPLY;
         gameData.userData[i].playerStatus = player_hand[i].isBusted();
         gameData.userData[i].username = player_hand[i].getUsername();
+        
+        //Iteration between every player card
+        deckCounter = 0;
         for (int j = 0; j < player_hand[i].getDeck().size(); j++) {
-            cout << "CHECKER: " << player_hand[i].getDeck()[j].getValue() << endl;
             gameData.userData[i].cards[deckCounter] = player_hand[i].getDeck()[j].getValue();
             gameData.userData[i].cards[deckCounter+1] = player_hand[i].getDeck()[j].getSuit();
-            cout << "Saved: " << gameData.userData[i].cards[deckCounter] << " - " << gameData.userData[i].cards[deckCounter+1]  << endl;
             deckCounter += 2;
         }
     }

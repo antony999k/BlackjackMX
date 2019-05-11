@@ -159,12 +159,9 @@ void SocketClient::waitForConnections(){
     if (socket.receive(packet) == sf::Socket::Done)
     {
         saveHeader();
-        //cout << "(waitForConnections) header: " << header << endl;
-        //CREATE_USER, MOVEMENT, ERROR, EXIT
         if(header == CREATE_USER){
             saveUserPacket();
         }else{
-            //cout << "(waitForConnections) MOVEMENT!!!" << endl;
             saveGamePacket();
             dataChanged = true;
         }

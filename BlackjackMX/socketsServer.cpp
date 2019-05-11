@@ -78,9 +78,13 @@ void SocketServer::waitForConnections(){
                     itUserId++;
                 }
                 if(clients.size() >= 2){
-                    cout << "###### GAME START ########";
+                    cout << "###### GAME START ########" << endl;;
                     game.initGame();
                     setGamePacket(game.getGameData(), MOVEMENT);  //CREATE_USER, MOVEMENT, ERROR, EXIT
+                    
+                    cout << "Saved: " << gameData.userData[1].cards[0] << " - " << gameData.userData[1].cards[1]  << endl;
+                    displayDataChunk();
+                    
                     sendPacketToAllClient();
                 }
             }
@@ -94,7 +98,6 @@ void SocketServer::sendPacketToClient(unsigned short int numClient){
 }
 
 void SocketServer::sendPacketToAllClient(){
-    displayDataChunk();
     for (std::vector<sf::TcpSocket*>::iterator it = clients.begin(); it != clients.end(); ++it){
         sf::TcpSocket& client = **it;
         client.send(packet);
