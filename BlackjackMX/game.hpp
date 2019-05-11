@@ -32,16 +32,17 @@ private:
     gameChunk gameData;
 public:
     Game();
+    //Init the basics of th game
+    void initGame();
     //Set the userId based on player position (0 to 3) that are max player position + player port
     unsigned int setGetPlayerId(unsigned int _playerPosition, unsigned int _playerPort);
     //Set a new player in the game
     void setPlayer(string _name, string _port, unsigned int _playerId);
-    //Init the basics of th game
-    void initGame();
+    //New players play
+    void playerMovement(unsigned int _playerId, unsigned int _playerMovement);
     
     //Udate the game data ready to be send to clients
     gameChunk getGameData();
-    
     //Udate the user data ready to be send to a client in init
     createUserChunck getUserData();
 };

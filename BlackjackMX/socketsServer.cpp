@@ -63,12 +63,12 @@ void SocketServer::waitForConnections(){
                                     saveUserPacket();
                                     //Set a random username and a port to the player in the game
                                     game.setPlayer("Usuario" + to_string(1 + rand() % 1000), to_string(client.getRemotePort()), game.setGetPlayerId(itUserId, client.getRemotePort()));
-                                    
                                     setUserPacket(game.getUserData(), CREATE_USER); //CREATE_USER, MOVEMENT, ERROR, EXIT
-                                    cout << "To " << itUserId << ", playerId: " << userData.playerId << ", Name: " << userData.name << endl;
                                     sendPacketToClient(itUserId);
                                     break;
                                 case 1:
+                                    saveUserPacket();
+                                    game.playerMovement(userData.playerId, userData.playerMovement);
                                     break;
                                 default:
                                     break;
@@ -81,10 +81,6 @@ void SocketServer::waitForConnections(){
                     cout << "###### GAME START ########" << endl;;
                     game.initGame();
                     setGamePacket(game.getGameData(), MOVEMENT);  //CREATE_USER, MOVEMENT, ERROR, EXIT
-                    
-                    cout << "Saved: " << gameData.userData[1].cards[0] << " - " << gameData.userData[1].cards[1]  << endl;
-                    displayDataChunk();
-                    
                     sendPacketToAllClient();
                 }
             }

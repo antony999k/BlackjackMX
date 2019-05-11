@@ -49,7 +49,7 @@ Sprite HandRender::getSprite(sf::Uint32 index){
 
 /* StikerTotalValue functions
  *****************************************************************/
-void StikerTotalValue::setSprite(sf::Uint32 total, Vector2f position){
+void StikerTotalValue::setText(sf::Uint32 total, Vector2f position){
     fontGlobal.loadFromFile(GAME_GLOBAL_FONT);
     totalValueText.setFont(fontGlobal);
     totalValueText.setFillColor(Color::White);
@@ -85,23 +85,26 @@ Text GenericPlayerRender::getText(){
 
 /* PlayerRender functions
  *****************************************************************/
-void PlayerRender::setSpawn(sf::Uint32 playerNum, sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]){
+void PlayerRender::setSpawn(sf::Uint32 playerNum, sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND],  sf::Uint32 cardsValue){
     /*
     stikerTotalValue.setTotalVal(getTotalValue());
      */
     switch (playerNum) {
         case 0:
             setHandSpawn({PLAYER_0_X_POSITION,PLAYER_0_Y_POSITION}, deckSize, deck);
-            //stikerTotalValue.setSpawn({PLAYER_0_X_POSITION-20,PLAYER_0_Y_POSITION-20});
+            stikerTotalValue.setText(cardsValue, {PLAYER_0_X_POSITION-20,PLAYER_0_Y_POSITION-20});
             break;
         case 1:
             setHandSpawn({PLAYER_1_X_POSITION,PLAYER_1_Y_POSITION},deckSize, deck);
-            //stikerTotalValue.setSpawn({PLAYER_1_X_POSITION-20,PLAYER_1_Y_POSITION-12});
+            stikerTotalValue.setText(cardsValue, {PLAYER_1_X_POSITION-20,PLAYER_1_Y_POSITION-20});
             break;
         case 2:
             setHandSpawn({PLAYER_2_X_POSITION,PLAYER_2_Y_POSITION},deckSize, deck);
-            //stikerTotalValue.setSpawn({PLAYER_2_X_POSITION-20,PLAYER_2_Y_POSITION-20});
+            stikerTotalValue.setText(cardsValue, {PLAYER_2_X_POSITION-20,PLAYER_2_Y_POSITION-20});
             break;
+        case 3:
+            setHandSpawn({PLAYER_3_X_POSITION,PLAYER_3_Y_POSITION},deckSize, deck);
+            stikerTotalValue.setText(cardsValue, {PLAYER_3_X_POSITION-20,PLAYER_3_Y_POSITION-20});
         default:
             break;
     }
@@ -110,12 +113,8 @@ void PlayerRender::setSpawn(sf::Uint32 playerNum, sf::Uint32 deckSize, sf::Uint3
 
 /* DealerRender functions
  *****************************************************************/
-void DealerRender::setSpawn(sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]){
+void DealerRender::setSpawn(sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND],  sf::Uint32 cardsValue){
     setHandSpawn({DEALER_X_POSITION,DEALER_Y_POSITION}, deckSize, deck);
-    /*
-    setHandSpawn({DEALER_X_POSITION,DEALER_Y_POSITION});
-    stikerTotalValue.setTotalVal(getTotalValue());
-    stikerTotalValue.setSpawn({DEALER_X_POSITION-30,DEALER_Y_POSITION});
-     */
+    stikerTotalValue.setText(cardsValue, {DEALER_X_POSITION-30,DEALER_Y_POSITION});
 }
 

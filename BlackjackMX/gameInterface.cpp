@@ -26,6 +26,12 @@ void GameInterface::renderLoop(){
                     break;
                 case Event::KeyPressed:
                     if(Keyboard::isKeyPressed(Keyboard::Q)){
+                        //Detect if its your turn
+                        if(socketClient.gameData.turnPlayerId == socketClient.userData.playerId){
+                            cout << "INPUTTT" << endl;
+                            isUserInput = true;
+                            userInput = HIT; //(SPLIT, DOUBLE, HIT, STAND, SURRENDER, NO_APPLY)
+                        }
                     }
                     break;
             }
@@ -36,22 +42,27 @@ void GameInterface::renderLoop(){
         
         string displayText = "";
         if(socketClient.gameData.gameStatus == WAITING){
-            displayText = "False";
+            displayText = "Waiting";
         }else{
-            displayText = "True";
+            displayText = "Matchmaking";
         }
-        //text.setString("Game start: " + to_string(socketClient.gameData.gameStatus));
-        text.setString("PlayerID: " + to_string(socketClient.gameData.userData[1].cards[0]));
+        text.setString("Game Status: " + displayText);
         text.setCharacterSize(20);
         gameWindow->draw(text);
+        
+        //Load this part when the first chunk of data arrives to the client
         if(dataLoaded){
             
-            gameWindow->draw(dealer.getSprite(0));
-            gameWindow->draw(dealer.getSprite(1));
+            for (int i = 0; i<socketClient.gameData.dealerData.numCards; i++) {
+                gameWindow->draw(dealer.getSprite(i));
+                gameWindow->draw(dealer.getText());
+            }
             
+            //Loads the players info and his cards
             for(int i = 0; i<MAX_NUM_PLAYERS; i++){
                 for(int j = 0; j<socketClient.gameData.userData[i].numCards;j++){
                     gameWindow->draw(player[i].getSprite(j));
+                    gameWindow->draw(player[i].getText());
                 }
             }
         }
@@ -68,9 +79,7 @@ void GameInterface::waitConectionLoop(){
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
     socketClient.connect(ip,53000);
     
-    
-    //Tempolal data
-    gameChunk newGameData;
+    //Temporal data
     createUserChunck newUserData;
     
     //Send inital data to the server
@@ -79,17 +88,26 @@ void GameInterface::waitConectionLoop(){
     
     while (gameOpen) {
         socketClient.waitForConnections();
+        
+        //Detects when comes new chunk data from the server
         if(socketClient.dataChanged){
             socketClient.displayDataChunk();
             
-            dealer.setSpawn(socketClient.gameData.dealerData.numCards, socketClient.gameData.dealerData.cards);
+            cout << "My player ID: " << socketClient.userData.playerId << endl;
+            
+            dealer.setSpawn(socketClient.gameData.dealerData.numCards, socketClient.gameData.dealerData.cards, socketClient.gameData.dealerData.cardsValue);
             for(int i = 0; i<MAX_NUM_PLAYERS; i++){
                 if(socketClient.gameData.userData[i].playerId != 0){
-                    player[i].setSpawn(i, socketClient.gameData.userData[i].numCards, socketClient.gameData.userData[i].cards);
+                    player[i].setSpawn(i, socketClient.gameData.userData[i].numCards, socketClient.gameData.userData[i].cards, socketClient.gameData.userData[i].cardsValue);
                 }
             }
             socketClient.dataChanged = false;
             dataLoaded = true;
+        }
+        //Detects the user input and send to server
+        else if(isUserInput){
+            socketClient.pushUserInput(userInput);
+            isUserInput = false;
         }
     }
 }

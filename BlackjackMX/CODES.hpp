@@ -27,10 +27,12 @@ typedef enum valid_game_status {WAITING, MATCHMAKING} game_status_t;
 typedef struct createUserChunck_struct{
     sf::Uint32 playerId;
     string name;
+    sf::Uint32 playerMovement;
     //createUserChunck constructor
     createUserChunck_struct(){
         playerId = 0;
         name = "";
+        playerMovement = NO_APPLY;
     }
 }createUserChunck;
 
@@ -41,7 +43,6 @@ typedef struct userChunk_struct{
     sf::Uint32 cards[MAX_NUM_HAND]; //Max number of cards that user can have before reach 21 (only cards of two with 3 decks). x2 to save the card number and card type
     //std::string cards;
     sf::Uint32 cardsValue;
-    sf::Uint32 playerMovement;
     sf::Uint32 playerStatus;
     sf::Uint32 numCards; //Number of cards in the hand
     //userChunk contructor to init properties
@@ -51,7 +52,6 @@ typedef struct userChunk_struct{
         playerStatus = 0;
         cards[0] = '\0';
         cardsValue = 0;
-        playerMovement = NO_APPLY;
         numCards = 0;
     };
 }userChunk;

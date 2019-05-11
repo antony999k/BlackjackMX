@@ -30,6 +30,7 @@ void Game::setPlayer(string _name, string _port,  unsigned int _playerId){
     player_hand.push_back(Player(_name, _port, _playerId));
     userData.name = _name;
     userData.playerId = _playerId;
+    userData.playerMovement = NO_APPLY;
 }
 
 //Init the basics of th game
@@ -48,6 +49,8 @@ void Game::initGame(){
         deck.dealToHand(player_hand[i]);
         deck.dealToHand(player_hand[i]);
     }
+    
+    turnPlayerId = player_hand[0].getPlayerId();
 }
 
 gameChunk Game::getGameData(){
@@ -59,7 +62,6 @@ gameChunk Game::getGameData(){
         gameData.userData[i].numCards = player_hand[i].getNumberCards();
         gameData.userData[i].playerId = player_hand[i].getPlayerId();
         gameData.userData[i].cardsValue = player_hand[i].getTotalValue();
-        gameData.userData[i].playerMovement = NO_APPLY;
         gameData.userData[i].playerStatus = player_hand[i].isBusted();
         gameData.userData[i].username = player_hand[i].getUsername();
         
@@ -89,4 +91,8 @@ gameChunk Game::getGameData(){
 
 createUserChunck Game::getUserData(){
     return userData;
+}
+
+void Game::playerMovement(unsigned int _playerId, unsigned int _playerMovement){
+    cout << "(playerMovement) PlayerId: " << _playerId << "Player movement: " << _playerMovement << endl;
 }

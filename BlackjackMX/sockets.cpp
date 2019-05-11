@@ -14,20 +14,20 @@
 
 //createUserChunck struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, createUserChunck& packetData){
-    return packet >> packetData.playerId >> packetData.name;
+    return packet >> packetData.playerId >> packetData.name >> packetData.playerMovement;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, createUserChunck& packetData){
-    return packet << packetData.playerId << packetData.name;
+    return packet << packetData.playerId << packetData.name << packetData.playerMovement;
 }
 
 //userChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData){
-    return packet >> packetData.playerId >> packetData.username >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus >> packetData.numCards;
+    return packet >> packetData.playerId >> packetData.username >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.playerStatus >> packetData.numCards;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
-    return packet << packetData.playerId << packetData.username << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus << packetData.numCards;
+    return packet << packetData.playerId << packetData.username << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.playerStatus << packetData.numCards;
 }
 
 //dealerChunk struct Packet operation
@@ -106,7 +106,6 @@ void GenericSocket::displayDataChunk(){
     for(int j = 0; j<MAX_NUM_PLAYERS; j++){
         cout << "\tuserData["<< j<<"].playerId: " << gameData.userData[j].playerId << endl;
         cout << "\tuserData["<< j<<"].cardsValue: " << gameData.userData[j].cardsValue << endl;
-        cout << "\tuserData["<< j<<"].playerMovement: " << gameData.userData[j].playerMovement << endl;
         cout << "\tuserData["<< j<<"].playerStatus: " << gameData.userData[j].playerStatus << endl;
         cout << "\tuserData["<< j<<"].username: " << gameData.userData[j].username << endl;
         cout << "\tuserData["<< j<<"].numCards: " << gameData.userData[j].numCards << endl;
@@ -135,10 +134,10 @@ void SocketClient::connect(sf::IpAddress ip, unsigned int port){
     socket.setBlocking(false);
     
     dataChanged = false; //If initial gama info is loaded
-    //Init game data empty
+   
+    /* //Init game data null
     gameData.turnPlayerId = NULL;
     gameData.gameStatus =NULL;
-    /*
     gameData.playerId = NULL;
     gameData.cardsValue = 0;
     gameData.playerMovement = NULL;
@@ -166,4 +165,10 @@ void SocketClient::waitForConnections(){
             dataChanged = true;
         }
     }
+}
+
+void SocketClient::pushUserInput(sf::Uint32 playerOperation){
+    userData.playerMovement = playerOperation;
+    setUserPacket(userData, MOVEMENT);
+    sendPacketToServer();
 }

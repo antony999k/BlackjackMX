@@ -70,6 +70,7 @@ public:
     void sendPacketToServer(); //Send a Packet to a server
     TcpSocket*getServerSocket(); //Return the direction memory of the server socket
     void waitForConnections();
+    void pushUserInput(sf::Uint32 playerOperation); //Sends data to socket and send the user input to the server
 };
 
 #endif /* sockets_hpp */

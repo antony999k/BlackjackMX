@@ -25,8 +25,11 @@ class GameInterface{
     sf::Texture bgTexture; //Background texture
     sf::Sprite bgSprite; //Background sprite
     SocketClient socketClient; //Socket with server connection variable (sockets.hpp)
-    bool gameOpen;
-    bool dataLoaded;
+    
+    //Flag for interaction between threads
+    bool gameOpen; //true if the whole game is open
+    bool dataLoaded; //true when the first game data chunk arrives to the client
+    bool isUserInput; unsigned int userInput;//true if the user input a operation in his game, (SPLIT, DOUBLE, HIT, STAND, SURRENDER, NO_APPLY)
     
     //SFML Render props
     DealerRender dealer;
@@ -37,7 +40,8 @@ protected:
 public:
     //This constructor need to initialize here because the  thread option. We init the thread with waitConection() as entry point
     GameInterface(): m_thread(&GameInterface::waitConectionLoop, this){
-        gameOpen = true; dataLoaded=false;
+        //Initial values declared
+        gameOpen = true; dataLoaded=false; isUserInput= false; userInput = NO_APPLY;
         gameWindow = new RenderWindow(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
         gameWindow->setFramerateLimit(FRAME_RATE);
         //Set the initial textures and sprites

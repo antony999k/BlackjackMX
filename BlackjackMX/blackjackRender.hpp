@@ -41,7 +41,7 @@ public:
      Font fontGlobal;
      Text totalValueText;
  public:
-     void setSprite(sf::Uint32 total, Vector2f position);
+     void setText(sf::Uint32 total, Vector2f position);
      Text getText();
  };
  
@@ -57,12 +57,12 @@ public:
 
 class PlayerRender: public GenericPlayerRender{
 public:
-    void setSpawn(sf::Uint32 playerNum, sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]);
+    void setSpawn(sf::Uint32 playerNum, sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND], sf::Uint32 cardsValue);
 };
 
 class DealerRender : public GenericPlayerRender{
 public:
-    void setSpawn( sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]);
+    void setSpawn( sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND], sf::Uint32 cardsValue);
 };
 
 #endif /* blackjackRender_hpp */
