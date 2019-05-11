@@ -21,6 +21,8 @@ using namespace sf;
 //Manage all the game in the Server
 class Game{
 private:
+    
+    
     unsigned int gameStatus; //WAITING, MATCHMAKING
     unsigned int turnPlayerId; // Id of the player who has the turn
     //bool activePlayers[MAX_NUM_PLAYERS]; //Bool that know if player exists
