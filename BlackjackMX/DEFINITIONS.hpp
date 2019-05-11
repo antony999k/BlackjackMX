@@ -10,6 +10,7 @@
 #define DEFINITIONS_h
 
 #define MAX_NUM_PLAYERS 4
+#define MAX_NUM_HAND 24
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600

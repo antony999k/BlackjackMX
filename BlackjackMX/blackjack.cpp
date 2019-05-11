@@ -2,7 +2,7 @@
 //  blackjack.cpp
 //  BlackjackMX_Server
 //
-//  Created by Antony Morales on 10/05/19.
+//  Created by Antony Morales and Esmeralda Magadaleno on 10/05/19.
 //  Copyright © 2019 Antony999k. All rights reserved.
 //
 

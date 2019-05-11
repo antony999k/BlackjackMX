@@ -26,13 +26,18 @@ class GameInterface{
     sf::Sprite bgSprite; //Background sprite
     SocketClient socketClient; //Socket with server connection variable (sockets.hpp)
     bool gameOpen;
+    bool dataLoaded;
+    
+    //SFML Render props
+    DealerRender dealer;
+    PlayerRender player;
 protected:
     void renderLoop();
-    void waitConection();
+    void waitConectionLoop();
 public:
     //This constructor need to initialize here because the  thread option. We init the thread with waitConection() as entry point
-    GameInterface(): m_thread(&GameInterface::waitConection, this){
-        gameOpen = true;
+    GameInterface(): m_thread(&GameInterface::waitConectionLoop, this){
+        gameOpen = true; dataLoaded=false;
         gameWindow = new RenderWindow(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
         gameWindow->setFramerateLimit(FRAME_RATE);
         //Set the initial textures and sprites

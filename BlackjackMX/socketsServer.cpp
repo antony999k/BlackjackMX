@@ -58,11 +58,9 @@ void SocketServer::waitForConnections(){
                         // The client has sent some data, we can receive it
                         if (client.receive(packet) == sf::Socket::Done){
                             saveHeader();
-                            cout << "Player init: " << header << endl;
                             switch (header) {
                                 case 0:
                                     saveUserPacket();
-                                    cout << "From user username: " << userData.name << endl;
                                     //Set a random username and a port to the player in the game
                                     game.setPlayer("Usuario" + to_string(1 + rand() % 1000), to_string(client.getRemotePort()), game.setGetPlayerId(itUserId, client.getRemotePort()));
                                     
@@ -80,7 +78,6 @@ void SocketServer::waitForConnections(){
                     itUserId++;
                 }
                 if(clients.size() >= 1){
-                    cout << "GAME STARTS!!!!!!!" << endl;
                     game.initGame();
                     setGamePacket(game.getGameData(), MOVEMENT);  //CREATE_USER, MOVEMENT, ERROR, EXIT
                     sendPacketToAllClient();
@@ -91,7 +88,6 @@ void SocketServer::waitForConnections(){
 }
 
 void SocketServer::sendPacketToClient(unsigned short int numClient){
-    cout << "sendPacketToClient " << numClient - 1 << endl;
     clients[numClient - 1]->send(packet);
     packet.clear();
 }

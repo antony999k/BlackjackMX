@@ -56,6 +56,7 @@ public:
     //void setHeader(sf::Uint32 _header); //The the variable header
     void saveHeader();
     sf::Packet*getPacket();
+    void displayDataChunk();
 };
 
 /* Socker Client(Player) Classs
@@ -63,6 +64,7 @@ public:
 class SocketClient : public GenericSocket{
     TcpSocket socket;
 public:
+    bool dataChanged; //If initial gama info is loaded
     //SocketClient(sf::IpAddress ip, unsigned int port); //Init the client with constructor
     void connect(sf::IpAddress ip, unsigned int port);//Init the socket client
     void sendPacketToServer(); //Send a Packet to a server

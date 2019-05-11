@@ -2,7 +2,7 @@
 //  main.cpp
 //  BlackjackMX
 //
-//  Created by Antony Morales on 02/03/19.
+//  Created by Antony Morales and Esmeralda Magadaleno on 02/03/19.
 //  Copyright © 2019 Antony999k. All rights reserved.
 //
 

@@ -2,13 +2,15 @@
 //  sockets.cpp
 //  BlackjackMX
 //
-//  Created by Antony Morales on 04/04/19.
+//  Created by Antony Morales and Esmeralda Magadaleno on 04/04/19.
 //  Copyright © 2019 Antony999k. All rights reserved.
 //
 
 #include "sockets.hpp"
 /* General functions
  *****************************************************************/
+
+
 
 //createUserChunck struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, createUserChunck& packetData){
@@ -30,11 +32,11 @@ sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
 
 //dealerChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, dealerChunk& packetData){
-    return packet >> *packetData.cards >> packetData.cardsValue;
+    return packet >> packetData.cards[0] >> packetData.cards[1] >> packetData.cards[2] >> packetData.cards[3] >> packetData.cards[3] >> packetData.cards[4] >> packetData.cards[5] >> packetData.cards[6] >> packetData.cards[7] >> packetData.cards[8] >> packetData.cards[9] >> packetData.cards[10] >> packetData.cards[11] >> packetData.cards[12] >> packetData.cards[13] >> packetData.cards[14] >> packetData.cards[15] >> packetData.cards[16] >> packetData.cards[17] >> packetData.cards[18] >> packetData.cards[19] >> packetData.cards[20] >> packetData.cards[21] >> packetData.cards[22] >> packetData.cards[23] >> packetData.cardsValue >> packetData.numCards;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, dealerChunk& packetData){
-    return packet << *packetData.cards << packetData.cardsValue;
+    return packet << packetData.cards[0] << packetData.cards[1] << packetData.cards[2] << packetData.cards[3] << packetData.cards[3] << packetData.cards[4] << packetData.cards[5] << packetData.cards[6] << packetData.cards[7] << packetData.cards[8] << packetData.cards[9] << packetData.cards[10] << packetData.cards[11] << packetData.cards[12] << packetData.cards[13] << packetData.cards[14] << packetData.cards[15] << packetData.cards[16] << packetData.cards[17] << packetData.cards[18] << packetData.cards[19] << packetData.cards[20] << packetData.cards[21] << packetData.cards[22] << packetData.cards[23] << packetData.cardsValue << packetData.numCards;
 }
 
 //gameChunk struct Packet operation
@@ -68,11 +70,8 @@ void GenericSocket::setUserPacket(createUserChunck _userData, sf::Uint32 _header
 //set game package data in local class variables
 void GenericSocket::saveGamePacket(){
     packet >> gameData;
-    cout << "(saveGamePacket) Total value: " << gameData.userData[0].cardsValue << endl;
-    cout << "(saveGamePacket) Player id: " << gameData.userData[0].playerId << endl;
     packet.clear();
 }
-
 
 void GenericSocket::saveUserPacket(){
     packet >> userData;
@@ -92,6 +91,21 @@ sf::Packet* GenericSocket::getPacket(){
     return &packet;
 }
 
+void GenericSocket::displayDataChunk(){
+    cout << "************** GAME Data Chunk ******************" << endl;
+    cout << "gameStatus: " << gameData.gameStatus << endl;
+    cout << "turnPlayerId: " << gameData.turnPlayerId << endl;
+    cout << "\tdealerData.cardsValue: " << gameData.dealerData.cardsValue << endl;
+    cout << "\tdealerData.numCards: " << gameData.dealerData.numCards << endl;
+    int i2 = 0;
+    for(int i = 0; i<gameData.dealerData.numCards; i++){
+        cout << "\tdealerData.card("<< i << "): " << gameData.dealerData.cards[i2] << "-" << gameData.dealerData.cards[i2+1] << endl;
+        i2+=2;
+    }
+    cout << "**************************************************" << endl;
+}
+    
+
 
 /* Socket client functions
  *****************************************************************/
@@ -103,6 +117,7 @@ void SocketClient::connect(sf::IpAddress ip, unsigned int port){
     }
     socket.setBlocking(false);
     
+    dataChanged = false; //If initial gama info is loaded
     //Init game data empty
     gameData.turnPlayerId = NULL;
     gameData.gameStatus =NULL;
@@ -127,13 +142,14 @@ void SocketClient::waitForConnections(){
     if (socket.receive(packet) == sf::Socket::Done)
     {
         saveHeader();
-        cout << "(waitForConnections) header: " << header << endl;
+        //cout << "(waitForConnections) header: " << header << endl;
         //CREATE_USER, MOVEMENT, ERROR, EXIT
         if(header == CREATE_USER){
             saveUserPacket();
         }else{
-            cout << "(waitForConnections) MOVEMENT!!!" << endl;
+            //cout << "(waitForConnections) MOVEMENT!!!" << endl;
             saveGamePacket();
+            dataChanged = true;
         }
     }
 }

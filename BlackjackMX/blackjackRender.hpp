@@ -2,7 +2,7 @@
 //  blackjackRender.hpp
 //  BlackjackMX
 //
-//  Created by Antony Morales on 09/05/19.
+//  Created by Antony Morales and Esmeralda Magadaleno on 09/05/19.
 //  Copyright © 2019 Antony999k. All rights reserved.
 //
 
@@ -11,10 +11,11 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "DEFINITIONS.hpp"
+#include "CODES.hpp"
 
 using namespace std;
 using namespace sf;
-
 
 class CardRender{
 private:
@@ -23,43 +24,45 @@ private:
     Sprite cardSprite; //Sprite of the card
     Sprite cardBackSprite; //Back sprite
 protected:
-    void setSprite(); //Set the texture and the sprite for the card, setCard() call this function
 public:
-    CardRender();
-    CardRender(int, int, int, bool);
-    void setSpritePos(Vector2f); //Set the position of a card in the window
+    void setSprite(sf::Uint32 value, sf::Uint32 suit, Vector2f position); //Set the texture and the sprite for the card, setCard() call this function
     Sprite getSprite(); //Return the specific card sprite
 };
-
 
 class HandRender{
 protected:
 public:
-    Sprite getSprite(int); //You give the number of card in the vector and return his sprite
+    Sprite getSprite(sf::Uint32); //You give the number of card in the vector and return his sprite
+    vector<CardRender> deckCards;
 };
-
-
 
  class StikerTotalValue{
  private:
      Font fontGlobal;
      Text totalValueText;
  public:
-     StikerTotalValue();
-     void setTotalVal(int=0);
-     void setSpawn(Vector2f);
+     void setSprite(sf::Uint32 total, Vector2f position);
      Text getText();
  };
  
 
-class GenericPlayerRender: public HandRender{
+class GenericPlayerRender:public HandRender{
 protected:
     StikerTotalValue stikerTotalValue;
-    void setHandSpawn(Vector2f); //Set the position of the hand in the window and creates an x-offset fot the cards (called by setSpawn() function)
 public:
+    void setHandSpawn(Vector2f positionInit, sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]); //Set the position of the hand in the window and creates an x-offset fot the cards (called by setSpawn() function)
     Text getText();
 };
 
 
+class PlayerRender: public GenericPlayerRender{
+public:
+    void setSpawn(sf::Uint32 playerNum, sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]);
+};
+
+class DealerRender : public GenericPlayerRender{
+public:
+    void setSpawn( sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]);
+};
 
 #endif /* blackjackRender_hpp */
