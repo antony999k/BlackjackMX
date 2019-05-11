@@ -79,6 +79,12 @@ void SocketServer::waitForConnections(){
                     }
                     itUserId++;
                 }
+                if(clients.size() >= 1){
+                    cout << "GAME STARTS!!!!!!!" << endl;
+                    game.initGame();
+                    setGamePacket(game.getGameData(), MOVEMENT);  //CREATE_USER, MOVEMENT, ERROR, EXIT
+                    sendPacketToAllClient();
+                }
             }
         }
     }

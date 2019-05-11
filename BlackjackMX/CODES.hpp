@@ -38,7 +38,7 @@ typedef struct createUserChunck_struct{
 typedef struct userChunk_struct{
     sf::Uint32 playerId;
     string username;
-    char cards[24]; //Max number of cards that user can have before reach 21 (only cards of two with 3 decks). x2 to save the card number and card type
+    int cards[24]; //Max number of cards that user can have before reach 21 (only cards of two with 3 decks). x2 to save the card number and card type
     //std::string cards;
     sf::Uint32 cardsValue;
     sf::Uint32 playerMovement;
@@ -55,7 +55,7 @@ typedef struct userChunk_struct{
 
 //Structure that will be exchanged between the user and the server when user curren play the game
 typedef struct dealerChunk_struct{
-    char cards[24]; //Max number of cards that user can have before reach 21 (only cards of two with 3 decks). x2 to save the card number and card type
+    int cards[24]; //Max number of cards that user can have before reach 21 (only cards of two with 3 decks). x2 to save the card number and card type
     //std::string cards;
     sf::Uint32 cardsValue;
     dealerChunk_struct(){

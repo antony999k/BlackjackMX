@@ -21,20 +21,20 @@ sf::Packet& operator <<(sf::Packet& packet, createUserChunck& packetData){
 
 //userChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, userChunk& packetData){
-    return packet >> packetData.playerId >> packetData.username >> packetData.cards >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus;
+    return packet >> packetData.playerId >> packetData.username >> *packetData.cards >> packetData.cardsValue >> packetData.playerMovement >> packetData.playerStatus;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, userChunk& packetData){
-    return packet << packetData.playerId << packetData.username << packetData.cards << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus;
+    return packet << packetData.playerId << packetData.username << *packetData.cards << packetData.cardsValue << packetData.playerMovement << packetData.playerStatus;
 }
 
 //dealerChunk struct Packet operation
 sf::Packet& operator >>(sf::Packet& packet, dealerChunk& packetData){
-    return packet >> packetData.cards >> packetData.cardsValue;
+    return packet >> *packetData.cards >> packetData.cardsValue;
 }
 
 sf::Packet& operator <<(sf::Packet& packet, dealerChunk& packetData){
-    return packet << packetData.cards << packetData.cardsValue;
+    return packet << *packetData.cards << packetData.cardsValue;
 }
 
 //gameChunk struct Packet operation
@@ -68,6 +68,8 @@ void GenericSocket::setUserPacket(createUserChunck _userData, sf::Uint32 _header
 //set game package data in local class variables
 void GenericSocket::saveGamePacket(){
     packet >> gameData;
+    cout << "(saveGamePacket) Total value: " << gameData.userData[0].cardsValue << endl;
+    cout << "(saveGamePacket) Player id: " << gameData.userData[0].playerId << endl;
     packet.clear();
 }
 
@@ -93,7 +95,7 @@ sf::Packet* GenericSocket::getPacket(){
 
 /* Socket client functions
  *****************************************************************/
-SocketClient::SocketClient(sf::IpAddress ip, unsigned int port){
+void SocketClient::connect(sf::IpAddress ip, unsigned int port){
     sf::Socket::Status status = socket.connect(ip, port);
     if (status != sf::Socket::Done)
     {
@@ -125,13 +127,13 @@ void SocketClient::waitForConnections(){
     if (socket.receive(packet) == sf::Socket::Done)
     {
         saveHeader();
+        cout << "(waitForConnections) header: " << header << endl;
         //CREATE_USER, MOVEMENT, ERROR, EXIT
         if(header == CREATE_USER){
             saveUserPacket();
         }else{
+            cout << "(waitForConnections) MOVEMENT!!!" << endl;
             saveGamePacket();
         }
-        
-        cout << "(waitForConnections) Name: " << userData.name << endl;
     }
 }

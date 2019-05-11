@@ -8,31 +8,10 @@
 //
 
 #include "gameInterface.hpp"
-GameInterface::GameInterface(){
-    gameWindow = new RenderWindow(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
-    gameWindow->setFramerateLimit(FRAME_RATE);
-    //Set the initial textures and sprites
-    bgTexture.loadFromFile(GAME_BACKGROUND_PATH);
-    bgSprite.setTexture(bgTexture);
-    
-    renderLoop();
-}
-
 void GameInterface::renderLoop(){
-    sf::IpAddress ip = sf::IpAddress::getLocalAddress();
-    //Struct data for user interaction init
-    
     //Tempolal data
     gameChunk newGameData;
     createUserChunck newUserData;
-    Uint32 myPlayerID = 0;
-    
-    SocketClient socketClient(ip,53000);
-    
-    //Send inital data to the server
-    //socketClient.setGamePacket(newGameData, MOVEMENT); //CREATE_USER, MOVEMENT, ERROR, EXIT
-    socketClient.setUserPacket(newUserData, CREATE_USER); //CREATE_USER, MOVEMENT, ERROR, EXIT
-    socketClient.sendPacketToServer();
     
     sf::Font font;
     font.loadFromFile(GAME_GLOBAL_FONT);
@@ -60,15 +39,41 @@ void GameInterface::renderLoop(){
         gameWindow->clear(sf::Color::Black);
         gameWindow->draw(bgSprite);//Render the background
         
-        socketClient.waitForConnections();
-        
-        text.setString("Turn Playerid: " + to_string(socketClient.userData.playerId));
+        string displayText = "";
+        if(socketClient.gameData.gameStatus == WAITING){
+            displayText = "False";
+        }else{
+            displayText = "True";
+        }
+        text.setString("Game start: " + displayText);
         text.setCharacterSize(20);
         gameWindow->draw(text);
         
         // end the current frame
         gameWindow->display();
     }
+    //Flag to tell thread that game is finish
+    gameOpen = false;
+}
+
+void GameInterface::waitConection(){
+    //Init the socket connection with the server
+    sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+    socketClient.connect(ip,53000);
     
+    
+    //Tempolal data
+    gameChunk newGameData;
+    createUserChunck newUserData;
+    
+    //Send inital data to the server
+    //socketClient.setGamePacket(newGameData, MOVEMENT); //CREATE_USER, MOVEMENT, ERROR, EXIT
+    socketClient.setUserPacket(newUserData, CREATE_USER); //CREATE_USER, MOVEMENT, ERROR, EXIT
+    socketClient.sendPacketToServer();
+    
+    while (gameOpen) {
+        socketClient.waitForConnections();
+    }
+    cout << "Acaba waitConection" << endl;
 }
 

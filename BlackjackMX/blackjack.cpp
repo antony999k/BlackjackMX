@@ -90,7 +90,7 @@ void Card::consoleDisplay(){
                 break;
         }
     }
-    cout << " ";
+    cout << " \n";
 }
 
 /* Hand functions
@@ -178,6 +178,11 @@ bool GenericPlayer::isBusted(){
     return busted;
 }
 
+
+vector<Card> GenericPlayer::getDeck(){
+    return deckCards;
+}
+
 /* Player functions
  ***********************************************************************************************/
 Player::Player(){
@@ -204,6 +209,14 @@ int Player::getBank(){
 
 void Player::bust(){
     busted = true;
+}
+
+unsigned int Player::getPlayerId(){
+    return playerId;
+}
+
+string Player::getUsername(){
+    return name;
 }
 
 /* Player functions

@@ -36,6 +36,8 @@ void Game::setPlayer(string _name, string _port,  unsigned int _playerId){
 
 //Init the basics of th game
 void Game::initGame(){
+    //The matchmaking flag indicates that the game start
+    gameStatus = MATCHMAKING;
     //Init the deck, populate and shuffle
     deck.populate();
     deck.shuffle();
@@ -47,16 +49,40 @@ void Game::initGame(){
     for(int i=0; i<player_hand.size(); i++){
         deck.dealToHand(player_hand[i]);
         deck.dealToHand(player_hand[i]);
+        player_hand[i].consoleDisplay();
     }
+    
+    
     
 }
 
 gameChunk Game::getGameData(){
     gameData.gameStatus = gameStatus;
     gameData.turnPlayerId = turnPlayerId;
+    int deckCounter = 0;
+    for (int i =0; i<player_hand.size(); i++) {
+        //vector<Card> tempDeck= player_hand[i].getDeck();
+        for (int j = 0; j < player_hand[i].getDeck().size(); j++) {
+            //cout << "CHECKER: " << player_hand[i].getDeck()[j].getValue() << endl;
+            gameData.userData[i].cards[deckCounter] = player_hand[i].getDeck()[j].getValue();
+            gameData.userData[i].cards[deckCounter+1] = player_hand[i].getDeck()[j].getSuit();
+            //cout << "Saved: " << gameData.userData[i].cards[deckCounter] << " - " << gameData.userData[i].cards[deckCounter+1]  << endl;
+            deckCounter += 2;
+        }
+        gameData.userData[i].playerId = player_hand[i].getPlayerId();
+        gameData.userData[i].cardsValue = player_hand[i].getTotalValue();
+        gameData.userData[i].playerMovement = NO_APPLY;
+        gameData.userData[i].playerStatus = player_hand[i].isBusted();
+        gameData.userData[i].username = player_hand[i].getUsername();
+    }
+    deckCounter = 0;
+    for(int k = 0; k<dealer_hand.getDeck().size(); k++){
+        gameData.dealerData.cards[deckCounter] = dealer_hand.getDeck()[k].getValue();
+        gameData.dealerData.cards[deckCounter+1] = dealer_hand.getDeck()[k].getSuit();
+        deckCounter += 2;
+    }
     //gameChunkServer.turnPlayerId= 87;
-    cout << "turnPlayerId: " << gameData.turnPlayerId << endl;
-    
+    cout << "(Game) gameStatus: " << gameData.gameStatus << endl;
     return gameData;
 }
 

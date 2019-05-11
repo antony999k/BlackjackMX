@@ -63,7 +63,8 @@ public:
 class SocketClient : public GenericSocket{
     TcpSocket socket;
 public:
-    SocketClient(sf::IpAddress ip, unsigned int port); //Init the client with constructor
+    //SocketClient(sf::IpAddress ip, unsigned int port); //Init the client with constructor
+    void connect(sf::IpAddress ip, unsigned int port);//Init the socket client
     void sendPacketToServer(); //Send a Packet to a server
     TcpSocket*getServerSocket(); //Return the direction memory of the server socket
     void waitForConnections();

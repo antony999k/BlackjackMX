@@ -78,6 +78,8 @@ public:
     bool isPlaying(); //Creates a pure vitual function, GenericPlayer class is only a skeleton for Player an dealer and can´t create an instance
     bool isBusted(); //Indicate if the player is out of cards
     void push(); //It sends when a player push one card
+    vector<Card> getDeck();
+    
 };
 
 /* Player
@@ -94,6 +96,8 @@ public:
     void bust(); //It sends when a player is busted
     void setSpawn(int); //Spawns in diferent paces depens player number
     int getBank(); //Get the player total amoun of credits
+    unsigned int getPlayerId();
+    string getUsername();
 };
 
 /* Dealer

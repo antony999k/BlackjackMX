@@ -12,6 +12,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Network.hpp>
+#include <SFML/System.hpp>
 #include "sockets.hpp"
 #include "blackjackRender.hpp"
 #include "DEFINITIONS.hpp"
@@ -19,13 +20,30 @@ using namespace sf;
 using namespace std;
 
 class GameInterface{
+    sf::Thread m_thread; //Thread variable
     sf::RenderWindow *gameWindow;
     sf::Texture bgTexture; //Background texture
     sf::Sprite bgSprite; //Background sprite
+    SocketClient socketClient; //Socket with server connection variable (sockets.hpp)
+    bool gameOpen;
 protected:
     void renderLoop();
+    void waitConection();
 public:
-    GameInterface();
+    //This constructor need to initialize here because the  thread option. We init the thread with waitConection() as entry point
+    GameInterface(): m_thread(&GameInterface::waitConection, this){
+        gameOpen = true;
+        gameWindow = new RenderWindow(VideoMode(SCREEN_WIDTH,SCREEN_HEIGHT), "Blackjack MX");
+        gameWindow->setFramerateLimit(FRAME_RATE);
+        //Set the initial textures and sprites
+        bgTexture.loadFromFile(GAME_BACKGROUND_PATH);
+        bgSprite.setTexture(bgTexture);
+        
+        // run the thread and start the
+        m_thread.launch();
+        renderLoop();
+        m_thread.wait();
+    }
 };
 
 #endif /* gameInterface_hpp */
