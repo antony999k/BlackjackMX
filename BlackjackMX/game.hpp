@@ -21,7 +21,7 @@ using namespace sf;
 //Manage all the game in the Server
 class Game{
 private:
-    
+    //SocketServer socketServer;
     
     unsigned int gameStatus; //WAITING, MATCHMAKING
     unsigned int turnPlayerId; // Id of the player who has the turn
