@@ -15,6 +15,11 @@ void GameInterface::renderLoop(){
     sf::Text text;
     text.setFont(font);
     
+    GenericPlayerRender a;
+    a.addCard(3, 3);
+    a.addCard(8, 1);
+    a.setHandPosition({10,10});
+    
     // run the program as long as the window is open
     while (gameWindow->isOpen()){
         // check all the window's events that were triggered since the last iteration of the loop
@@ -50,9 +55,11 @@ void GameInterface::renderLoop(){
         text.setCharacterSize(20);
         gameWindow->draw(text);
         
+        gameWindow->draw(a.getSprite(0));
+        
         //Load this part when the first chunk of data arrives to the client
         if(dataLoaded){
-            
+            /*
             for (int i = 0; i<socketClient.gameData.dealerData.numCards; i++) {
                 gameWindow->draw(dealer.getSprite(i));
                 gameWindow->draw(dealer.getText());
@@ -65,6 +72,7 @@ void GameInterface::renderLoop(){
                     gameWindow->draw(player[i].getText());
                 }
             }
+             */
         }
         
         // end the current frame
@@ -94,13 +102,15 @@ void GameInterface::waitConectionLoop(){
             socketClient.displayDataChunk();
             
             cout << "My player ID: " << socketClient.userData.playerId << endl;
-            
+            dealer.setSpawn(socketClient.gameData.dealerData.numCards, socketClient.gameData.dealerData.cards, socketClient.gameData.dealerData.cardsValue);
+            /*
             dealer.setSpawn(socketClient.gameData.dealerData.numCards, socketClient.gameData.dealerData.cards, socketClient.gameData.dealerData.cardsValue);
             for(int i = 0; i<MAX_NUM_PLAYERS; i++){
                 if(socketClient.gameData.userData[i].playerId != 0){
                     player[i].setSpawn(i, socketClient.gameData.userData[i].numCards, socketClient.gameData.userData[i].cards, socketClient.gameData.userData[i].cardsValue);
                 }
             }
+             */
             socketClient.dataChanged = false;
             dataLoaded = true;
         }

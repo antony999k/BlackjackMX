@@ -22,7 +22,7 @@ using namespace sf;
 class Game{
 private:
     //SocketServer socketServer;
-    
+    bool gameInit;
     unsigned int gameStatus; //WAITING, MATCHMAKING
     unsigned int turnPlayerId; // Id of the player who has the turn
     //bool activePlayers[MAX_NUM_PLAYERS]; //Bool that know if player exists
@@ -36,6 +36,8 @@ public:
     Game();
     //Init the basics of th game
     void initGame();
+    //Return the gameInit Variable
+    bool isGameInit();
     //Set the userId based on player position (0 to 3) that are max player position + player port
     unsigned int setGetPlayerId(unsigned int _playerPosition, unsigned int _playerPort);
     //Set a new player in the game

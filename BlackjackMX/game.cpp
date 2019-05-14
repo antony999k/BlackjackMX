@@ -12,6 +12,7 @@
 /* Game functions
  ***********************************************************************************************/
 Game::Game(void){
+    gameInit = false;
     gameStatus = WAITING;
     turnPlayerId = 0;
     for(int i=0; i<MAX_NUM_PLAYERS; i++){
@@ -37,6 +38,7 @@ void Game::setPlayer(string _name, string _port,  unsigned int _playerId){
 void Game::initGame(){
     //The matchmaking flag indicates that the game start
     gameStatus = MATCHMAKING;
+    gameInit = true;
     //Init the deck, populate and shuffle
     deck.populate();
     deck.shuffle();
@@ -95,4 +97,13 @@ createUserChunck Game::getUserData(){
 
 void Game::playerMovement(unsigned int _playerId, unsigned int _playerMovement){
     cout << "(playerMovement) PlayerId: " << _playerId << "Player movement: " << _playerMovement << endl;
+    for (unsigned int i=0; i< player_hand.size();i++) {
+        if(player_hand[i].getPlayerId() == _playerId){
+            deck.dealToHand(player_hand[i]);
+        }
+    }
+}
+
+bool Game::isGameInit(){
+    return gameInit;
 }

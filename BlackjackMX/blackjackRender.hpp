@@ -25,7 +25,8 @@ private:
     Sprite cardBackSprite; //Back sprite
 protected:
 public:
-    void setSprite(sf::Uint32 value, sf::Uint32 suit, Vector2f position); //Set the texture and the sprite for the card, setCard() call this function
+    void setSprite(sf::Uint32 value, sf::Uint32 suit); //Set the texture and the sprite for the card, setCard() call this function
+    void setPosition(Vector2f position);
     Sprite getSprite(); //Return the specific card sprite
 };
 
@@ -50,7 +51,9 @@ class GenericPlayerRender:public HandRender{
 protected:
     StikerTotalValue stikerTotalValue;
 public:
-    void setHandSpawn(Vector2f positionInit, sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]); //Set the position of the hand in the window and creates an x-offset fot the cards (called by setSpawn() function)
+    //void setHandSpawn(sf::Uint32 deckSize, sf::Uint32 deck[MAX_NUM_HAND]); //Set the position of the hand in the window and creates an x-offset fot the cards (called by setSpawn() function)
+    void addCard(sf::Uint32 value, sf::Uint32 suit);
+    void setHandPosition(Vector2f positionInit);
     Text getText();
 };
 

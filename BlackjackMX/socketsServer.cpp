@@ -69,6 +69,8 @@ void SocketServer::waitForConnections(){
                                 case 1:
                                     saveUserPacket();
                                     game.playerMovement(userData.playerId, userData.playerMovement);
+                                    setGamePacket(game.getGameData(), MOVEMENT); //CREATE_USER, MOVEMENT, ERROR, EXIT
+                                    sendPacketToAllClient();
                                     break;
                                 default:
                                     break;
@@ -77,7 +79,7 @@ void SocketServer::waitForConnections(){
                     }
                     itUserId++;
                 }
-                if(clients.size() >= 2){
+                if(clients.size() >= 2 && !game.isGameInit()){
                     cout << "###### GAME START ########" << endl;;
                     game.initGame();
                     setGamePacket(game.getGameData(), MOVEMENT);  //CREATE_USER, MOVEMENT, ERROR, EXIT
